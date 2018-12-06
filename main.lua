@@ -1,27 +1,25 @@
-DEBUG = true
+io.stdout:setvbuf 'line'  -- 'no'
 
-if DEBUG then
-    io.stdout:setvbuf 'line'  -- 'no'
-end
+log = require('src/log')
+log.usecolor = false
+log.level = 'debug'
 
 function love.load()
-    love.graphics.setCaption('lua_love 0.0.1')
+    log:debug(string.format("love2d %d.%d.%d", love._version_major, love._version_minor, love._version_revision))
     love.graphics.setFont(love.graphics.newFont(11))
-
-    image = love.graphics.newImage('img/love-ball.png')
+    local Player = require('src/player')
+    player = Player:init(400, 300)
 end
 
 function love.update(dt)
-
+    player:update(dt)
 end
 
 function love.draw()
-    love.graphics.setCaption('FPS: ' .. love.timer.getFPS())
+    --love.graphics.setCaption('FPS: ' .. love.timer.getFPS())
     love.graphics.print('dt: ' .. love.timer.getDelta(), 50, 100)
-
-    love.graphics.draw(image, 400, 300)
+    player:draw()
 end
 
-function love.keypressed(k)
-    print(k)
-end
+--function love.keypressed(k)
+--end
