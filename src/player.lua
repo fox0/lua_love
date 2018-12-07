@@ -17,30 +17,115 @@ Player.init = function(self, name, x, y)
 end
 
 Player._load_sprites = function(self)
-    self._sprite1_1 = Sprite:init(self:_get_frames(0, 0, 5))
-    self._sprite1_2 = Sprite:init(self:_get_frames(0, 5, 5))
-    self._sprite_sleep = Sprite:init(self:_get_frames(0, 10, 3))
-
-    self._sprite2_1 = Sprite:init(self:_get_frames(1, 0, 6))
-    self._sprite2_2 = Sprite:init(self:_get_frames(1, 6, 6))
-    self._sprite_walk = Sprite:init(self:_get_frames(1, 12, 6))
-    self._sprite2_4 = Sprite:init(self:_get_frames(1, 18, 6))
-    self._sprite2_5 = Sprite:init(self:_get_frames(1, 24, 6))
-
-    --todo mirror?
-
-    --todo
-    self.sprite = self._sprite2_5
-end
-
-Player._get_frames = function(self, y, x, count)
-    local result = {}
     local S = 96
     local B = 2
-    for i = x, x + count - 1 do
-        result[#result + 1] = love.graphics.newQuad(B + i * S, B + y * S, S - 2 * B, S - 2 * B, self.image:getDimensions())
+    local H, W = self.image:getDimensions()
+
+    local x = 0
+    local y = 0
+    local get_frames = function(count)
+        local result = {}
+        local e = x + count
+        while x < e do
+            result[#result + 1] = love.graphics.newQuad(B + x * S, B + y * S, S - 2 * B, S - 2 * B, H, W)
+            x = x + 1
+        end
+        return result
     end
-    return result
+
+    self._sprite1_1 = Sprite:init(get_frames(5))
+    self._sprite1_2 = Sprite:init(get_frames(5))
+    self._sprite1_3 = Sprite:init(get_frames(3)) --sleep
+
+    x = 0
+    y = 1
+    self._sprite2_1 = Sprite:init(get_frames(6))
+    self._sprite2_2 = Sprite:init(get_frames(6))
+    self._sprite2_3 = Sprite:init(get_frames(6)) --walk
+    self._sprite2_4 = Sprite:init(get_frames(6))
+    self._sprite2_5 = Sprite:init(get_frames(6))
+
+    x = 0
+    y = 2
+    self._sprite3_1 = Sprite:init(get_frames(6))
+    self._sprite3_2 = Sprite:init(get_frames(6))
+    self._sprite3_3 = Sprite:init(get_frames(6))  --подпрыгивает
+    self._sprite3_4 = Sprite:init(get_frames(6))
+    self._sprite3_5 = Sprite:init(get_frames(6))
+
+    x = 0
+    y = 3
+    self._sprite4_1 = Sprite:init(get_frames(6))
+    self._sprite4_2 = Sprite:init(get_frames(6))
+    self._sprite4_3 = Sprite:init(get_frames(6))  --run
+    self._sprite4_4 = Sprite:init(get_frames(6))
+    self._sprite4_5 = Sprite:init(get_frames(6))
+
+    x = 0
+    y = 4
+    self._sprite5_1 = Sprite:init(get_frames(6))
+    self._sprite5_2 = Sprite:init(get_frames(6))
+    self._sprite5_3 = Sprite:init(get_frames(6))  --fly wait up
+    self._sprite5_4 = Sprite:init(get_frames(6))
+    self._sprite5_5 = Sprite:init(get_frames(6))
+
+    x = 0
+    y = 5
+    self._sprite6_1 = Sprite:init(get_frames(6))
+    self._sprite6_2 = Sprite:init(get_frames(6))
+    self._sprite6_3 = Sprite:init(get_frames(6))  --fly wait
+    self._sprite6_4 = Sprite:init(get_frames(6))
+    self._sprite6_5 = Sprite:init(get_frames(6))
+
+    x = 0
+    y = 6
+    self._sprite7_1 = Sprite:init(get_frames(6))
+    self._sprite7_2 = Sprite:init(get_frames(6))
+    self._sprite7_3 = Sprite:init(get_frames(6))  --fly run
+    self._sprite7_4 = Sprite:init(get_frames(6))
+    self._sprite7_5 = Sprite:init(get_frames(6))
+
+    x = 0
+    y = 7
+    self._sprite8_1 = Sprite:init(get_frames(2))
+    self._sprite8_2 = Sprite:init(get_frames(2))
+    self._sprite8_3 = Sprite:init(get_frames(2))  --jump up
+    self._sprite8_4 = Sprite:init(get_frames(2))
+    self._sprite8_5 = Sprite:init(get_frames(2))
+
+    x = 0
+    y = 8
+    self._sprite9_1 = Sprite:init(get_frames(2))
+    self._sprite9_2 = Sprite:init(get_frames(2))
+    self._sprite9_3 = Sprite:init(get_frames(2))  --jump down
+    self._sprite9_4 = Sprite:init(get_frames(2))
+    self._sprite9_5 = Sprite:init(get_frames(2))
+
+    x = 0
+    y = 9
+    self._sprite10_1 = Sprite:init(get_frames(9))  --kink down
+    self._sprite10_2 = Sprite:init(get_frames(5))  --kick up
+
+    x = 0
+    y = 10
+    self._sprite11_1 = Sprite:init(get_frames(2))  --?
+    self._sprite11_2 = Sprite:init(get_frames(3))
+    self._sprite11_3 = Sprite:init(get_frames(1))
+    self._sprite11_4 = Sprite:init(get_frames(8)) --покачивается злая (idle?)
+
+    x = 0
+    y = 11
+    self._sprite12_1 = Sprite:init(get_frames(4)) --нокаиутирована
+
+    x = 0
+    y = 12
+    --todo у Пинки есть ещё ряд
+
+    --todo mirror?
+    --todo граф переходов анимации???
+
+    --todo default
+    self.sprite = self._sprite11_4
 end
 
 Player.update = function(self, dt)
