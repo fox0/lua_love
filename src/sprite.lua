@@ -7,7 +7,7 @@ delay - длительность кадра
 Sprite.init = function(self, frames, delay)
     local obj = {}
     obj._frames = frames
-    obj._delay = delay or .5--0.07
+    obj._delay = delay or .15  --0.07
     obj._timer = 0
     obj._index_frame = 1  -- нумерация с единицы
     obj.q = frames[obj._index_frame]

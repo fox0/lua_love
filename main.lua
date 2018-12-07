@@ -1,3 +1,11 @@
+io.stdout:setvbuf 'line'  -- 'no'
+
+log = require('src/log')
+log.usecolor = false
+log.level = 'debug'
+
+log.debug(_VERSION, string.format('Love2d %d.%d.%d', love._version_major, love._version_minor, love._version_revision))
+
 function load_module(module_name)
     log.debug('load module', module_name)
     game_exit()
@@ -10,14 +18,6 @@ function load_module(module_name)
 end
 
 local game_init = function()
-    io.stdout:setvbuf 'line'  -- 'no'
-
-    log = require('src/log')
-    log.usecolor = false
-    log.level = 'debug'
-
-    log.debug(_VERSION, string.format('Love2d %d.%d.%d', love._version_major, love._version_minor, love._version_revision))
-
     love.graphics.setFont(love.graphics.newFont(11))
 
     local stub = function()
@@ -35,6 +35,17 @@ love.run = function()
     game_init()
     -- We don't want the first frame's dt to include time taken by love.load.
     --love.timer.step()
+
+    local debug_print_fps = function()
+    end
+    if log.level == 'debug' then
+        debug_print_fps = function()
+            love.graphics.setColor(.0, 1., .0, 1.)
+            love.graphics.print('FPS: ' .. love.timer.getFPS(), 0, 0)
+            love.graphics.setColor(1., 1., 1., 1.)
+        end
+    end
+
     local dt = 0
     -- Main loop
     return function()
@@ -51,8 +62,8 @@ love.run = function()
         if love.graphics.isActive() then
             love.graphics.origin()
             love.graphics.clear(love.graphics.getBackgroundColor())
-            love.graphics.print('FPS: ' .. love.timer.getFPS(), 0, 0)
             game_draw()
+            debug_print_fps()
             love.graphics.present()
         end
         love.timer.sleep(0.001)

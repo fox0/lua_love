@@ -17,25 +17,28 @@ Player.init = function(self, name, x, y)
 end
 
 Player._load_sprites = function(self)
-    self._sprite1 = Sprite:init(self:_get_frames(0, 0, 4))
-    self._sprite2 = Sprite:init(self:_get_frames(0, 5, 9))
-    self._sprite_sleep = Sprite:init(self:_get_frames(0, 10, 12))
+    self._sprite1_1 = Sprite:init(self:_get_frames(0, 0, 5))
+    self._sprite1_2 = Sprite:init(self:_get_frames(0, 5, 5))
+    self._sprite_sleep = Sprite:init(self:_get_frames(0, 10, 3))
 
+    self._sprite2_1 = Sprite:init(self:_get_frames(1, 0, 6))
+    self._sprite2_2 = Sprite:init(self:_get_frames(1, 6, 6))
+    self._sprite_walk = Sprite:init(self:_get_frames(1, 12, 6))
+    self._sprite2_4 = Sprite:init(self:_get_frames(1, 18, 6))
+    self._sprite2_5 = Sprite:init(self:_get_frames(1, 24, 6))
 
     --todo mirror?
 
-    --self._sprite_fly_right = Sprite:init(FRAMES, 3)
-
     --todo
-    self.sprite = self._sprite_sleep
+    self.sprite = self._sprite2_5
 end
 
-Player._get_frames = function(self, y, x, x2)
+Player._get_frames = function(self, y, x, count)
     local result = {}
-    local S = 96  --+бордеры по пикселю
-    local B = 0  --todo
-    for i = x, x2 do
-        result[#result + 1] = love.graphics.newQuad((i * S) + B, B, S - B, S - B, self.image:getDimensions())
+    local S = 96
+    local B = 2
+    for i = x, x + count - 1 do
+        result[#result + 1] = love.graphics.newQuad(B + i * S, B + y * S, S - 2 * B, S - 2 * B, self.image:getDimensions())
     end
     return result
 end
@@ -58,6 +61,19 @@ end
 
 Player.draw = function(self)
     love.graphics.draw(self.image, self.sprite.q, self.x, self.y)
+    self:_debug_draw()
+end
+
+if log.level == 'debug' then
+    Player._debug_draw = function(self)
+        love.graphics.setLineStyle('rough')
+        love.graphics.setColor(.0, 1., .0, 1.)
+        love.graphics.rectangle('line', self.x, self.y, 92, 92) --todo
+        love.graphics.setColor(1., 1., 1., 1.)
+    end
+else
+    Player._debug_draw = function(self)
+    end
 end
 
 return Player
