@@ -1,0 +1,3 @@
+local const = {}
+
+return const
