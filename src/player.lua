@@ -5,7 +5,6 @@ local Player = {}
 Player.__index = Player
 
 Player.init = function(self, x, y)
-    -- self == Player
     local obj = {}
     setmetatable(obj, Player)
     obj.image = IMG
