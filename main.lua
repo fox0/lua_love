@@ -1,5 +1,5 @@
 function load_module(module_name)
-    log.debug('load module ' .. module_name)
+    log.debug('load module', module_name)
     game_exit()
     m = require('src/' .. module_name)
     game_update = m.update
@@ -16,8 +16,7 @@ local game_init = function()
     log.usecolor = false
     log.level = 'debug'
 
-    log.debug(string.format('%s Love2d %d.%d.%d', _VERSION,
-            love._version_major, love._version_minor, love._version_revision))
+    log.debug(_VERSION, string.format('Love2d %d.%d.%d', love._version_major, love._version_minor, love._version_revision))
 
     love.graphics.setFont(love.graphics.newFont(11))
 

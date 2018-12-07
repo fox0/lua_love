@@ -2,23 +2,42 @@ local Sprite = require('src/sprite')
 
 local Player = {}
 Player.__index = Player
+
 Player.SPEED = 400
 
--- нумерация с единицы
-local FRAMES = {}
-for i = 12, 17 do
-    FRAMES[#FRAMES + 1] = love.graphics.newImage('img/6_' .. i .. '.png')
-end
-Player._sprite_fly_right = Sprite:init(FRAMES)
-FRAMES = nil
-
-Player.init = function(self, x, y)
+Player.init = function(self, name, x, y)
+    log.debug('create', name)
     local obj = {}
+    setmetatable(obj, Player)
+    obj.image = love.graphics.newImage(string.format('sprites/%s.png', name))
+    obj:_load_sprites()
     obj.x = x
     obj.y = y
+    return obj
+end
+
+Player._load_sprites = function(self)
+    self._sprite1 = Sprite:init(self:_get_frames(0, 0, 4))
+    self._sprite2 = Sprite:init(self:_get_frames(0, 5, 9))
+    self._sprite_sleep = Sprite:init(self:_get_frames(0, 10, 12))
+
+
+    --todo mirror?
+
+    --self._sprite_fly_right = Sprite:init(FRAMES, 3)
+
     --todo
-    obj.sprite = self._sprite_fly_right
-    return setmetatable(obj, Player)
+    self.sprite = self._sprite_sleep
+end
+
+Player._get_frames = function(self, y, x, x2)
+    local result = {}
+    local S = 96  --+бордеры по пикселю
+    local B = 0  --todo
+    for i = x, x2 do
+        result[#result + 1] = love.graphics.newQuad((i * S) + B, B, S - B, S - B, self.image:getDimensions())
+    end
+    return result
 end
 
 Player.update = function(self, dt)
@@ -38,7 +57,7 @@ Player.update = function(self, dt)
 end
 
 Player.draw = function(self)
-    love.graphics.draw(self.sprite.image, self.x, self.y)
+    love.graphics.draw(self.image, self.sprite.q, self.x, self.y)
 end
 
 return Player

@@ -7,10 +7,10 @@ delay - длительность кадра
 Sprite.init = function(self, frames, delay)
     local obj = {}
     obj._frames = frames
-    obj._delay = delay or 0.07
+    obj._delay = delay or .5--0.07
     obj._timer = 0
-    obj._index_frame = 1
-    obj.image = frames[obj._index_frame]
+    obj._index_frame = 1  -- нумерация с единицы
+    obj.q = frames[obj._index_frame]
     return setmetatable(obj, Sprite)
 end
 
@@ -22,7 +22,7 @@ Sprite.update = function(self, dt)
         if self._index_frame > #self._frames then
             self._index_frame = 1
         end
-        self.image = self._frames[self._index_frame]
+        self.q = self._frames[self._index_frame]
     end
 end
 
