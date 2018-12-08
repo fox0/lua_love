@@ -1,6 +1,7 @@
 --[[
 Меню выбора персонажа сетка 5x2
 ]]--
+---@type Player
 local Player = require('src/player')
 
 local m = {}
@@ -10,6 +11,7 @@ vars.ponies = {}
 vars.sel_index = 1
 
 local function change()
+    --todo а если сделать как бы фокус?
     for i = 1, #vars.ponies do
         vars.ponies[i].sprite.is_animated = false
         vars.ponies[i].sprite:set_frame(3)

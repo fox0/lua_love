@@ -1,13 +1,18 @@
+---@type Sprite
 local Sprite = require('src/sprite')
+---@type Frame
+local Frame = require('src/frame')
 
 ---@class Player
 ---@field public x number
 ---@field public y number
+---@field sprite Sprite
 local Player = {}
 Player.__index = Player
 
 Player.SPEED = 400
 
+---@param self Player
 ---@param name string
 ---@param x number
 ---@param y number
@@ -16,32 +21,37 @@ function Player.init(self, name, x, y)
     log.debug('create', name)
     local obj = {}
     setmetatable(obj, Player)
-    obj.image = love.graphics.newImage(string.format('resourses/textures/%s.png', name))  -- 12.6 MB
-    obj:_load_sprites()
+    obj:_load_sprites(name)
     obj.x = x
     obj.y = y
     return obj
 end
 
-function Player._load_sprites(self)
+---@param self Player
+---@param name string
+function Player._load_sprites(self, name)
+    local image = love.graphics.newImage(string.format('resourses/textures/%s.png', name))  -- 12.6 MB
     local S = 96
     local B = 2
-    local H, W = self.image:getDimensions()
+    local H, W = image:getDimensions()
 
     local x = 0
     local y = 0
-    local get_frames = function(count)
+    ---@param count number
+    local function get_frames(count)
         local result = {}
         local e = x + count
         while x < e do
-            result[#result + 1] = love.graphics.newQuad(B + x * S, B + y * S, S - 2 * B, S - 2 * B, H, W)
+            local q = love.graphics.newQuad(B + x * S, B + y * S, S - 2 * B, S - 2 * B, H, W)
+            result[#result + 1] = Frame:init(image, q)
             x = x + 1
         end
         return result
     end
 
     self._sprite1_1 = Sprite:init(get_frames(5))
-    self._sprite1_2 = Sprite:init(get_frames(5))
+    local frames = get_frames(5) --todo mirror
+    self._sprite1_2 = Sprite:init(frames)
     self._sprite1_3 = Sprite:init(get_frames(3)) --sleep
 
     x = 0
@@ -128,13 +138,11 @@ function Player._load_sprites(self)
     y = 12
     --todo у Пинки есть ещё ряд
 
-    --todo mirror?
-    --todo граф переходов анимации???
-
     --по умолчанию персонаж сидит
     self.sprite = self._sprite1_2
 end
 
+---@param self Player
 ---@param dt number
 function Player.update(self, dt)
     --if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
@@ -152,16 +160,19 @@ function Player.update(self, dt)
     self.sprite:update(dt)
 end
 
+---@param self Player
 function Player.draw(self)
-    love.graphics.draw(self.image, self.sprite.q, self.x, self.y)
+    self.sprite.current_frame:draw(self.x, self.y)
     self:_debug_draw()
 end
 
+---@param self Player
 function Player._debug_draw(self)
 
 end
 
 if log.level == 'debug' then
+    ---@param self Player
     function Player._debug_draw(self)
         local r, g, b, a = love.graphics.getColor()
         love.graphics.setLineStyle('rough')

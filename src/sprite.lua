@@ -2,14 +2,15 @@
 ---@field public speed number множитель скорости анимации
 ---@field public is_animated boolean
 ---@field public timer number
----@field public q any
----@field _frames any
+---@field public current_frame Frame
+---@field _frames Frame[]
 ---@field _index number
 ---@field _delay number
 local Sprite = {}
 Sprite.__index = Sprite
 
----@param frames table список Quad
+---@param self Sprite
+---@param frames Frame[]
 ---@param delay number длительность кадра
 ---@param speed number множитель скорости анимации
 ---@return Sprite
@@ -21,10 +22,11 @@ function Sprite.init(self, frames, delay, speed)
     obj.speed = speed or 1.
     obj.is_animated = true
     obj.timer = 0
-    obj.q = obj._frames[obj._index]
+    obj.current_frame = obj._frames[obj._index]
     return setmetatable(obj, Sprite)
 end
 
+---@param self Sprite
 ---@param dt number
 function Sprite.update(self, dt)
     if not self.is_animated then
@@ -37,14 +39,15 @@ function Sprite.update(self, dt)
         if self._index > #self._frames then
             self._index = 1
         end
-        self.q = self._frames[self._index]
+        self.current_frame = self._frames[self._index]
     end
 end
 
+---@param self Sprite
 ---@param index number
 function Sprite.set_frame(self, index)
     self._index = index
-    self.q = self._frames[self._index]
+    self.current_frame = self._frames[self._index]
 end
 
 return Sprite

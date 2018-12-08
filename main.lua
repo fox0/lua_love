@@ -6,15 +6,19 @@ log.level = 'debug'
 
 log.debug(_VERSION, string.format('Love2d %d.%d.%d', love._version_major, love._version_minor, love._version_revision))
 
+---@param module_name string
 function load_module(module_name)
     log.debug('load module', module_name)
     game_exit()
+
     local m = require('src/' .. module_name)
+    ---@type fun(dt:number)
     game_update = m.update
     game_draw = m.draw
     game_exit = m.exit
     --todo if m.keyreleased then…
     love.keyreleased = m.keyreleased
+
     m.init()
     love.timer.step()
 end
