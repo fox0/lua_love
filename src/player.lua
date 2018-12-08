@@ -9,7 +9,7 @@ Player.init = function(self, name, x, y)
     log.debug('create', name)
     local obj = {}
     setmetatable(obj, Player)
-    obj.image = love.graphics.newImage(string.format('sprites/%s.png', name))
+    obj.image = love.graphics.newImage(string.format('resourses/textures/%s.png', name))  -- 12.6 MB
     obj:_load_sprites()
     obj.x = x
     obj.y = y
@@ -125,7 +125,7 @@ Player._load_sprites = function(self)
     --todo граф переходов анимации???
 
     --todo default
-    self.sprite = self._sprite11_4
+    self.sprite = self._sprite2_3
 end
 
 Player.update = function(self, dt)
@@ -151,10 +151,11 @@ end
 
 if log.level == 'debug' then
     Player._debug_draw = function(self)
+        local r, g, b, a = love.graphics.getColor()
         love.graphics.setLineStyle('rough')
         love.graphics.setColor(.0, 1., .0, 1.)
         love.graphics.rectangle('line', self.x, self.y, 92, 92) --todo
-        love.graphics.setColor(1., 1., 1., 1.)
+        love.graphics.setColor(r, g, b, a)
     end
 else
     Player._debug_draw = function(self)

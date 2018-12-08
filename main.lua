@@ -1,6 +1,6 @@
 io.stdout:setvbuf 'line'  -- 'no'
 
-log = require('src/log')
+log = require('lib/log')
 log.usecolor = false
 log.level = 'debug'
 
@@ -18,7 +18,8 @@ function load_module(module_name)
 end
 
 local game_init = function()
-    love.graphics.setFont(love.graphics.newFont(11))
+    local default_font = love.graphics.newFont('resourses/fonts/Robotomedium.ttf', 14)
+    love.graphics.setFont(default_font)
 
     local stub = function()
         log.warn('stub()')
@@ -40,9 +41,12 @@ love.run = function()
     end
     if log.level == 'debug' then
         debug_print_fps = function()
+            local stats = love.graphics.getStats()
+            local s = string.format('FPS: %d. Memory: %.2f MB', love.timer.getFPS(), stats.texturememory / 1024 / 1024)
+            local r, g, b, a = love.graphics.getColor()
             love.graphics.setColor(.0, 1., .0, 1.)
-            love.graphics.print('FPS: ' .. love.timer.getFPS(), 0, 0)
-            love.graphics.setColor(1., 1., 1., 1.)
+            love.graphics.print(s, 0, 0)
+            love.graphics.setColor(r, g, b, a)
         end
     end
 

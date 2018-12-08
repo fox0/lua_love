@@ -1,28 +1,30 @@
 local Sprite = {}
 Sprite.__index = Sprite
 
---[[
-delay - длительность кадра
-]]--
 Sprite.init = function(self, frames, delay)
+    --[[
+    frames - список Quad
+    delay - длительность кадра
+    ]]--
     local obj = {}
     obj._frames = frames
     obj._delay = delay or .15  --0.07
-    obj._timer = 0
-    obj._index_frame = 1  -- нумерация с единицы
-    obj.q = frames[obj._index_frame]
+    obj.timer = 0
+    obj.speed = 1.
+    obj.index_frame = 1  -- нумерация с единицы
+    obj.q = frames[obj.index_frame]
     return setmetatable(obj, Sprite)
 end
 
 Sprite.update = function(self, dt)
-    self._timer = self._timer + dt
-    if self._timer > self._delay then
-        self._timer = self._timer - self._delay
-        self._index_frame = self._index_frame + 1
-        if self._index_frame > #self._frames then
-            self._index_frame = 1
+    self.timer = self.timer + dt * self.speed
+    if self.timer > self._delay then
+        self.timer = self.timer - self._delay
+        self.index_frame = self.index_frame + 1
+        if self.index_frame > #self._frames then
+            self.index_frame = 1
         end
-        self.q = self._frames[self._index_frame]
+        self.q = self._frames[self.index_frame]
     end
 end
 
