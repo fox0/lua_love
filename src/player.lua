@@ -124,23 +124,23 @@ Player._load_sprites = function(self)
     --todo mirror?
     --todo граф переходов анимации???
 
-    --todo default
-    self.sprite = self._sprite2_3
+    --по умолчанию персонаж сидит
+    self.sprite = self._sprite1_2
 end
 
 Player.update = function(self, dt)
-    if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
-        self.x = self.x - dt * self.SPEED
-    end
-    if love.keyboard.isDown('d') or love.keyboard.isDown('right') then
-        self.x = self.x + dt * self.SPEED
-    end
-    if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
-        self.y = self.y - dt * self.SPEED
-    end
-    if love.keyboard.isDown('s') or love.keyboard.isDown('down') then
-        self.y = self.y + dt * self.SPEED
-    end
+    --if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
+    --    self.x = self.x - dt * self.SPEED
+    --end
+    --if love.keyboard.isDown('d') or love.keyboard.isDown('right') then
+    --    self.x = self.x + dt * self.SPEED
+    --end
+    --if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
+    --    self.y = self.y - dt * self.SPEED
+    --end
+    --if love.keyboard.isDown('s') or love.keyboard.isDown('down') then
+    --    self.y = self.y + dt * self.SPEED
+    --end
     self.sprite:update(dt)
 end
 
@@ -154,7 +154,7 @@ if log.level == 'debug' then
         local r, g, b, a = love.graphics.getColor()
         love.graphics.setLineStyle('rough')
         love.graphics.setColor(.0, 1., .0, 1.)
-        love.graphics.rectangle('line', self.x, self.y, 92, 92) --todo
+        love.graphics.rectangle('line', self.x, self.y, 92, 92) --todo hardcore
         love.graphics.setColor(r, g, b, a)
     end
 else
