@@ -7,11 +7,18 @@ function m.init(args)
 end
 
 --- Типа деструктор
+--- необязательно
 function m.exit()
 
 end
 
---- Обработчик отпущенных клавиш
+--- необязательно
+---@param k string
+function m.keypressed(k)
+
+end
+
+--- необязательно
 ---@param k string
 function m.keyreleased(k)
 

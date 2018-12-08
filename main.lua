@@ -10,15 +10,29 @@ log.debug(_VERSION, string.format('Love2d %d.%d.%d', love._version_major, love._
 ---@param args table
 function load_module(module_name, args)
     log.debug('load module', module_name)
-    game_exit()
+    if game_exit then
+        game_exit()
+    end
 
     local m = require('src/' .. module_name)
     ---@type fun(dt:number)
     game_update = m.update
     game_draw = m.draw
-    game_exit = m.exit
-    --todo if m.keyreleased then…
-    love.keyreleased = m.keyreleased
+
+    game_exit = nil
+    if m.exit then
+        game_exit = m.exit
+    end
+
+    love.keypressed = nil
+    if m.keypressed then
+        love.keypressed = m.keypressed
+    end
+
+    love.keyreleased = nil
+    if m.keyreleased then
+        love.keyreleased = m.keyreleased
+    end
 
     m.init(args)
     love.timer.step()
@@ -26,8 +40,6 @@ end
 
 function love.run()
     love.graphics.setFont(love.graphics.newFont('resourses/fonts/Robotomedium.ttf', 14))
-    game_exit = function()
-    end
     load_module('00init')
 
     local debug_print_fps = function()
@@ -49,7 +61,9 @@ function love.run()
         love.event.pump()
         for name, a, b, c, d, e, f in love.event.poll() do
             if name == 'quit' then
-                game_exit()
+                if game_exit then
+                    game_exit()
+                end
                 return 0
             end
             love.handlers[name](a, b, c, d, e, f)

@@ -65,11 +65,11 @@ function m.init(args)
     change()
 end
 
-function m.exit()
+--function m.exit()
     --todo фиг знает как вызвать сборщик мусора
-    --vars.ponies = nil
+    --vars.ponies[10].sprite.
     --vars:release()
-end
+--end
 
 ---@param k string
 function m.keyreleased(k)
