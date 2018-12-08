@@ -6,11 +6,6 @@ local Player = require('src/player')
 
 local m = {}
 
-local vars = {}
----@type Player[]
-vars.ponies = {}
-vars.sel_index = 1
-
 local map_frames = {
     { 0, 7, 7, 7, 7,
       1, 8, 7, 7, 7 },
@@ -35,18 +30,22 @@ local map_frames = {
 }
 
 local function change()
-    for i = 1, #vars.ponies do
-        vars.ponies[i].sprite.is_animated = false  -- todo "докрутить" анимацию
-        local v = map_frames[vars.sel_index][i]
+    for i, pony in ipairs(ponies) do
+        pony.sprite.is_animated = false  -- todo "докрутить" анимацию
+        local v = map_frames[sel_index][i]
         if v ~= 0 then
-            vars.ponies[i].sprite:set_frame(v)
+            pony.sprite:set_frame(v)
         end
     end
-    vars.ponies[vars.sel_index].sprite.is_animated = true
+    ponies[sel_index].sprite.is_animated = true
 end
 
 ---@param args table
 function m.init(args)
+    ---@type Player[]
+    ponies = {}
+    sel_index = 1
+
     local PONIES = { 'rainbow_dash', 'fluttershy', 'pinkie_pie', 'applejack', 'rarity',
                      'derpy', 'pinkamina', 'trixie', 'trixie2', 'twilight_sparkle' }
 
@@ -57,64 +56,67 @@ function m.init(args)
     log.debug(string.format('window size: %dx%d step: %d', width, height, xstep))
 
     for i = 1, #PONIES / 2 do
-        vars.ponies[i] = Player:init(PONIES[i], xborder + xstep * (i - 1), 100)  --todo hardcore 100
+        ponies[i] = Player:init(PONIES[i], xborder + xstep * (i - 1), 100)  --todo hardcore 100
     end
     for i = #PONIES / 2 + 1, #PONIES do
-        vars.ponies[i] = Player:init(PONIES[i], xborder + xstep * (i - 6), 92 + 200)  --todo hardcore
+        ponies[i] = Player:init(PONIES[i], xborder + xstep * (i - 6), 92 + 200)  --todo hardcore
     end
-    vars.ponies[1].sprite:set_frame(5)
+    assert_fox(#ponies == #PONIES)
+    assert_fox(#ponies == 10)
+    ponies[1].sprite:set_frame(5)
     change()
 end
 
 function m.exit()
-    -- удаяляем больше ненужные изображения
-    for i = 1, #vars.ponies do
-        if i ~= vars.sel_index then
-            vars.ponies[i].image:release()
+    log.debug('release')
+    -- удаляем больше ненужные изображения
+    for i, pony in ipairs(ponies) do
+        if i ~= sel_index then
+            pony:release()
         end
     end
+    ponies = nil
+    sel_index = nil
 end
 
 ---@param k string
 function m.keyreleased(k)
     if k == 'a' or k == 'left' then
-        if vars.sel_index == 1 then
-            vars.sel_index = 5
-        elseif vars.sel_index == 6 then
-            vars.sel_index = 10
+        if sel_index == 1 then
+            sel_index = 5
+        elseif sel_index == 6 then
+            sel_index = 10
         else
-            vars.sel_index = vars.sel_index - 1
+            sel_index = sel_index - 1
         end
         change()
         return
     end
 
     if k == 'd' or k == 'right' then
-        if vars.sel_index == 5 then
-            vars.sel_index = 1
-        elseif vars.sel_index == 10 then
-            vars.sel_index = 6
+        if sel_index == 5 then
+            sel_index = 1
+        elseif sel_index == 10 then
+            sel_index = 6
         else
-            vars.sel_index = vars.sel_index + 1
+            sel_index = sel_index + 1
         end
         change()
         return
     end
 
     if k == 'w' or k == 'up' or k == 's' or k == 'down' then
-        if vars.sel_index <= 5 then
-            vars.sel_index = vars.sel_index + 5
+        if sel_index <= 5 then
+            sel_index = sel_index + 5
         else
-            vars.sel_index = vars.sel_index - 5
+            sel_index = sel_index - 5
         end
         change()
         return
     end
 
     if k == 'space' or k == 'return' then
-        args = {}
-        args.player = vars.ponies[vars.sel_index]
-        load_module('02test', args)
+        load_module('02test', { player = ponies[sel_index] })
         return
     end
     log.debug('keyreleased', k)
@@ -122,15 +124,15 @@ end
 
 ---@param dt number
 function m.update(dt)
-    for i = 1, #vars.ponies do
-        vars.ponies[i]:update(dt)
+    for _, pony in ipairs(ponies) do
+        pony:update(dt)
     end
 end
 
 function m.draw()
     --todo надпись в шапке вверху другим шрифтом
-    for i = 1, #vars.ponies do
-        vars.ponies[i]:draw()
+    for _, pony in ipairs(ponies) do
+        pony:draw()
     end
     --love.graphics.print(text, 50, 50)
 end

@@ -11,14 +11,22 @@ Frame.__index = Frame
 ---@param is_xmirror boolean
 ---@return Frame
 function Frame.init(self, image, quad, is_xmirror)
-    assert(image)
-    assert(quad)
+    assert_fox(image)
+    assert_fox(quad)
     local obj = {}
     obj._image = image
     obj._quad = quad
     obj._is_xmirror = is_xmirror or false
     return setmetatable(obj, Frame)
 end
+
+--if log.level == 'debug' then
+--    ---@param self Player
+--    ---@return string
+--    function Player.__tostring(self)
+--        return string.format('<Player> x=%d y=%d name="%s"', self.x, self.y, self.name)
+--    end
+--end
 
 ---@param self Frame
 ---@param x number

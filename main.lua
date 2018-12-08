@@ -6,10 +6,19 @@ log.level = 'debug'
 
 log.debug(_VERSION, string.format('Love2d %d.%d.%d', love._version_major, love._version_minor, love._version_revision))
 
+---@param v any
+---@param message string
+function assert_fox(v, message)
+
+end
+if log.level == 'debug' then
+    assert_fox = assert
+end
+
 ---@param module_name string
 ---@param args table
 function load_module(module_name, args)
-    assert(module_name)
+    assert_fox(module_name)
     log.debug('load module', module_name)
     if game_exit then
         game_exit()
@@ -42,12 +51,13 @@ end
 function love.run()
     love.graphics.setFont(love.graphics.newFont('resourses/fonts/Robotomedium.ttf', 14))
     messages_bus = {}
-    load_module('00init')
+    load_module('01menu')
 
-    local debug_print_fps = function()
+    local function debug_print_fps()
+
     end
     if log.level == 'debug' then
-        debug_print_fps = function()
+        function debug_print_fps()
             local stats = love.graphics.getStats()
             local s = string.format('FPS: %d. Memory: %.2f MB', love.timer.getFPS(), stats.texturememory / 1024 / 1024)
             local r, g, b, a = love.graphics.getColor()

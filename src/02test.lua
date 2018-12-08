@@ -6,7 +6,9 @@ text = "No collision yet."
 function m.init(args)
     ---@type Player
     player = args.player
+    bg = love.graphics.newImage('resourses/backgrounds/02.png')
 
+    -- One meter is 32px in physics engine
     love.physics.setMeter(32)
 
     -- Create a world with standard gravity
@@ -73,6 +75,8 @@ function m.update(dt)
 end
 
 function m.draw()
+    love.graphics.draw(bg, 0, 0)
+
     -- Draws the ground.
     love.graphics.polygon("line", ground_shape:getPoints())
 
