@@ -54,6 +54,7 @@ function m.keyreleased(k)
             vars.sel_index = vars.sel_index - 1
         end
         change()
+        return
     end
 
     if k == 'd' or k == 'right' then
@@ -65,6 +66,7 @@ function m.keyreleased(k)
             vars.sel_index = vars.sel_index + 1
         end
         change()
+        return
     end
 
     if k == 'w' or k == 'up' or k == 's' or k == 'down' then
@@ -74,9 +76,14 @@ function m.keyreleased(k)
             vars.sel_index = vars.sel_index - 5
         end
         change()
+        return
     end
 
-    --todo enter or space
+    if k == 'space' or k == 'return' then
+        --todo another module
+        return
+    end
+    log.debug('keyreleased', k)
 end
 
 ---@param dt number

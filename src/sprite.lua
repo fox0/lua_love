@@ -18,7 +18,7 @@ function Sprite.init(self, frames, delay, speed)
     local obj = {}
     obj._frames = frames
     obj._index = 1  -- нумерация с единицы
-    obj._delay = delay or .15  --0.07
+    obj._delay = delay or .15
     obj.speed = speed or 1.
     obj.is_animated = true
     obj.timer = 0

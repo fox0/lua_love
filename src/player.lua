@@ -50,7 +50,10 @@ function Player._load_sprites(self, name)
     end
 
     self._sprite1_1 = Sprite:init(get_frames(5))
-    local frames = get_frames(5) --todo mirror
+    local frames = get_frames(5)
+    for i = 0, 2 do
+        frames[#frames + 1] = Frame:init(image, frames[4 - i]._quad, true)
+    end
     self._sprite1_2 = Sprite:init(frames)
     self._sprite1_3 = Sprite:init(get_frames(3)) --sleep
 
@@ -163,23 +166,6 @@ end
 ---@param self Player
 function Player.draw(self)
     self.sprite.current_frame:draw(self.x, self.y)
-    self:_debug_draw()
-end
-
----@param self Player
-function Player._debug_draw(self)
-
-end
-
-if log.level == 'debug' then
-    ---@param self Player
-    function Player._debug_draw(self)
-        local r, g, b, a = love.graphics.getColor()
-        love.graphics.setLineStyle('rough')
-        love.graphics.setColor(.0, 1., .0, 1.)
-        love.graphics.rectangle('line', self.x, self.y, 92, 92) --todo hardcore
-        love.graphics.setColor(r, g, b, a)
-    end
 end
 
 return Player
