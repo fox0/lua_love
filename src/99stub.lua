@@ -1,22 +1,27 @@
 local m = {}
 
-m.init = function()
+--- Типа конструктор
+function m.init()
 
 end
 
-m.exit = function()
+--- Типа деструктор
+function m.exit()
 
 end
 
-m.keyreleased = function(k)
+--- Обработчик отпущенных клавиш
+---@param k string
+function m.keyreleased(k)
 
 end
 
-m.update = function(dt)
+---@param dt number
+function m.update(dt)
 
 end
 
-m.draw = function()
+function m.draw()
 
 end
 

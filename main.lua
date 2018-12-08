@@ -19,7 +19,7 @@ function load_module(module_name)
     love.timer.step()
 end
 
-love.run = function()
+function love.run()
     love.graphics.setFont(love.graphics.newFont('resourses/fonts/Robotomedium.ttf', 14))
     game_exit = function()
     end

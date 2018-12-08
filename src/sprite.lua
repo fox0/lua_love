@@ -1,16 +1,19 @@
+---@class Sprite Спрайт
+---@field public speed number множитель скорости анимации
+---@field public is_animated boolean
+---@field public timer number
+---@field public q any
+---@field _frames any
+---@field _index number
+---@field _delay number
 local Sprite = {}
 Sprite.__index = Sprite
 
---- Спрайт
--- Публичные аттрибуты класса:
--- * speed (float)
--- * is_animated (bool)
--- * timer (float)
--- * q (Quad)
--- @param frames список Quad
--- @param delay длительность кадра
--- @param speed множитель скорости анимации
-Sprite.init = function(self, frames, delay, speed)
+---@param frames table список Quad
+---@param delay number длительность кадра
+---@param speed number множитель скорости анимации
+---@return Sprite
+function Sprite.init(self, frames, delay, speed)
     local obj = {}
     obj._frames = frames
     obj._index = 1  -- нумерация с единицы
@@ -22,7 +25,8 @@ Sprite.init = function(self, frames, delay, speed)
     return setmetatable(obj, Sprite)
 end
 
-Sprite.update = function(self, dt)
+---@param dt number
+function Sprite.update(self, dt)
     if not self.is_animated then
         return
     end
@@ -37,7 +41,8 @@ Sprite.update = function(self, dt)
     end
 end
 
-Sprite.set_frame = function(self, index)
+---@param index number
+function Sprite.set_frame(self, index)
     self._index = index
     self.q = self._frames[self._index]
 end

@@ -9,7 +9,7 @@ local vars = {}
 vars.ponies = {}
 vars.sel_index = 1
 
-local change = function()
+local function change()
     for i = 1, #vars.ponies do
         vars.ponies[i].sprite.is_animated = false
         vars.ponies[i].sprite:set_frame(3)
@@ -17,7 +17,7 @@ local change = function()
     vars.ponies[vars.sel_index].sprite.is_animated = true
 end
 
-m.init = function()
+function m.init()
     local PONIES = { 'rainbow_dash', 'fluttershy', 'pinkie_pie', 'applejack', 'rarity',
                      'derpy', 'pinkamina', 'trixie', 'trixie2', 'twilight_sparkle' }
 
@@ -36,12 +36,13 @@ m.init = function()
     change()
 end
 
-m.exit = function()
+function m.exit()
     --player = nil
     --** после выбора попробовать почистить память Object:release( )
 end
 
-m.keyreleased = function(k)
+---@param k string
+function m.keyreleased(k)
     if k == 'a' or k == 'left' then
         if vars.sel_index == 1 then
             vars.sel_index = 5
@@ -76,13 +77,14 @@ m.keyreleased = function(k)
     --todo enter or space
 end
 
-m.update = function(dt)
+---@param dt number
+function m.update(dt)
     for i = 1, #vars.ponies do
         vars.ponies[i]:update(dt)
     end
 end
 
-m.draw = function()
+function m.draw()
     --todo надпись в шапке вверху другим шрифтом
     for i = 1, #vars.ponies do
         vars.ponies[i]:draw()

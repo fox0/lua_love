@@ -1,11 +1,18 @@
 local Sprite = require('src/sprite')
 
+---@class Player
+---@field public x number
+---@field public y number
 local Player = {}
 Player.__index = Player
 
 Player.SPEED = 400
 
-Player.init = function(self, name, x, y)
+---@param name string
+---@param x number
+---@param y number
+---@return Player
+function Player.init(self, name, x, y)
     log.debug('create', name)
     local obj = {}
     setmetatable(obj, Player)
@@ -16,7 +23,7 @@ Player.init = function(self, name, x, y)
     return obj
 end
 
-Player._load_sprites = function(self)
+function Player._load_sprites(self)
     local S = 96
     local B = 2
     local H, W = self.image:getDimensions()
@@ -128,7 +135,8 @@ Player._load_sprites = function(self)
     self.sprite = self._sprite1_2
 end
 
-Player.update = function(self, dt)
+---@param dt number
+function Player.update(self, dt)
     --if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
     --    self.x = self.x - dt * self.SPEED
     --end
@@ -144,21 +152,22 @@ Player.update = function(self, dt)
     self.sprite:update(dt)
 end
 
-Player.draw = function(self)
+function Player.draw(self)
     love.graphics.draw(self.image, self.sprite.q, self.x, self.y)
     self:_debug_draw()
 end
 
+function Player._debug_draw(self)
+
+end
+
 if log.level == 'debug' then
-    Player._debug_draw = function(self)
+    function Player._debug_draw(self)
         local r, g, b, a = love.graphics.getColor()
         love.graphics.setLineStyle('rough')
         love.graphics.setColor(.0, 1., .0, 1.)
         love.graphics.rectangle('line', self.x, self.y, 92, 92) --todo hardcore
         love.graphics.setColor(r, g, b, a)
-    end
-else
-    Player._debug_draw = function(self)
     end
 end
 
