@@ -15,6 +15,7 @@ Sprite.__index = Sprite
 ---@param speed number множитель скорости анимации
 ---@return Sprite
 function Sprite.init(self, frames, delay, speed)
+    assert(frames)
     local obj = {}
     obj._frames = frames
     obj._index = 1  -- нумерация с единицы

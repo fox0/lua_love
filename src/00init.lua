@@ -7,6 +7,7 @@ local Player = require('src/player')
 local m = {}
 
 local vars = {}
+---@type Player[]
 vars.ponies = {}
 vars.sel_index = 1
 
@@ -65,11 +66,14 @@ function m.init(args)
     change()
 end
 
---function m.exit()
-    --todo фиг знает как вызвать сборщик мусора
-    --vars.ponies[10].sprite.
-    --vars:release()
---end
+function m.exit()
+    -- удаяляем больше ненужные изображения
+    for i = 1, #vars.ponies do
+        if i ~= vars.sel_index then
+            vars.ponies[i].image:release()
+        end
+    end
+end
 
 ---@param k string
 function m.keyreleased(k)
@@ -127,9 +131,7 @@ function m.draw()
     --todo надпись в шапке вверху другим шрифтом
     for i = 1, #vars.ponies do
         vars.ponies[i]:draw()
-        --love.graphics.rectangle('line', self.x, self.y, 92, 92) --todo
     end
-    --player:draw()
     --love.graphics.print(text, 50, 50)
 end
 

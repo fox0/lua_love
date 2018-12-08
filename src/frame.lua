@@ -11,6 +11,8 @@ Frame.__index = Frame
 ---@param is_xmirror boolean
 ---@return Frame
 function Frame.init(self, image, quad, is_xmirror)
+    assert(image)
+    assert(quad)
     local obj = {}
     obj._image = image
     obj._quad = quad

@@ -80,10 +80,10 @@ function m.draw()
     love.graphics.draw(ball, body:getX(), body:getY(), body:getAngle(), 1, 1, 32, 32)
 
     -- Instructions
-    love.graphics.print("space: Apply a random impulse", 5, 5)
+    love.graphics.print("space: Apply a random impulse", 5, 15)
 
     -- Draw text.
-    love.graphics.print(text, 5, 25)
+    love.graphics.print(text, 5, 35)
 
     player:draw()
 end

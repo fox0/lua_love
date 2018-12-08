@@ -9,6 +9,7 @@ log.debug(_VERSION, string.format('Love2d %d.%d.%d', love._version_major, love._
 ---@param module_name string
 ---@param args table
 function load_module(module_name, args)
+    assert(module_name)
     log.debug('load module', module_name)
     if game_exit then
         game_exit()
@@ -40,6 +41,7 @@ end
 
 function love.run()
     love.graphics.setFont(love.graphics.newFont('resourses/fonts/Robotomedium.ttf', 14))
+    messages_bus = {}
     load_module('00init')
 
     local debug_print_fps = function()

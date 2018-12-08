@@ -6,6 +6,7 @@ local Frame = require('src/frame')
 ---@class Player
 ---@field public x number
 ---@field public y number
+---@field image Image
 ---@field sprite Sprite
 local Player = {}
 Player.__index = Player
@@ -18,22 +19,24 @@ Player.SPEED = 400
 ---@param y number
 ---@return Player
 function Player.init(self, name, x, y)
+    assert(name)
+    assert(x)
+    assert(y)
     log.debug('create', name)
     local obj = {}
     setmetatable(obj, Player)
-    obj:_load_sprites(name)
+    obj.image = love.graphics.newImage(string.format('resourses/textures/%s.png', name))  -- 12.6 MB
+    obj:_load_sprites()
     obj.x = x
     obj.y = y
     return obj
 end
 
 ---@param self Player
----@param name string
-function Player._load_sprites(self, name)
-    local image = love.graphics.newImage(string.format('resourses/textures/%s.png', name))  -- 12.6 MB
+function Player._load_sprites(self)
     local S = 96
     local B = 2
-    local H, W = image:getDimensions()
+    local H, W = self.image:getDimensions()
 
     local x = 0
     local y = 0
@@ -43,7 +46,7 @@ function Player._load_sprites(self, name)
         local e = x + count
         while x < e do
             local q = love.graphics.newQuad(B + x * S, B + y * S, S - 2 * B, S - 2 * B, H, W)
-            result[#result + 1] = Frame:init(image, q)
+            result[#result + 1] = Frame:init(self.image, q)
             x = x + 1
         end
         return result
@@ -52,7 +55,7 @@ function Player._load_sprites(self, name)
     self._sprite1_1 = Sprite:init(get_frames(5))
     local frames = get_frames(5)
     for i = 0, 2 do
-        frames[#frames + 1] = Frame:init(image, frames[4 - i]._quad, true)
+        frames[#frames + 1] = Frame:init(self.image, frames[4 - i]._quad, true)
     end
     self._sprite1_2 = Sprite:init(frames)
     self._sprite1_3 = Sprite:init(get_frames(3)) --sleep
