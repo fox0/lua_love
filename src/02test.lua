@@ -1,11 +1,13 @@
+---@type Player
+local Player = require('src/player')
+
 local m = {}
 
 text = "No collision yet."
 
----@param args table
+---@param args table В args.img лежит текстура выбранного персонажа
 function m.init(args)
-    img = args.img
-    --todo
+    player = Player:init(args.img)
 
     bg = love.graphics.newImage('resourses/backgrounds/02.png')
 
@@ -72,7 +74,7 @@ function m.update(dt)
     --if love.keyboard.isDown('s') or love.keyboard.isDown('down') then
     --    player.y = player.y + dt * SPEED
     --end
-    --player:update(dt)
+    player:update(dt)
 end
 
 function m.draw()
@@ -90,7 +92,7 @@ function m.draw()
     -- Draw text.
     love.graphics.print(text, 5, 35)
 
-    --player:draw()
+    player:draw()
 end
 
 -- This is called every time a collision begin.

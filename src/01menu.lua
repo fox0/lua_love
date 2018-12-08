@@ -50,6 +50,7 @@ end
 function m.init()
     for _, pony in ipairs({ 'rainbow_dash', 'fluttershy', 'pinkie_pie', 'applejack', 'rarity',
                             'derpy', 'pinkamina', 'trixie', 'trixie2', 'twilight_sparkle' }) do
+        log.debug(string.format('loading %s...', pony))
         local img = love.graphics.newImage(string.format('resourses/textures/%s.png', pony))  -- 12.6 MB
         vars.ponies_img[#vars.ponies_img + 1] = img
     end

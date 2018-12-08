@@ -2,9 +2,6 @@
 local Sprite = require('src/sprite')
 
 ---@class Player
----@field public x number
----@field public y number
----@field image Image
 ---@field sprites table Словарь со спрайтами
 ---@field sprite Sprite
 local Player = {}
@@ -13,31 +10,15 @@ Player.__index = Player
 Player.SPEED = 400
 
 ---@param self Player
----@param name string
----@param x number
----@param y number
+---@param image Image
 ---@return Player
-function Player.init(self, name, x, y)
-    assert_fox(name)
-    assert_fox(x)
-    assert_fox(y)
-    log.debug('create', name)
+function Player.init(self, image)
     local obj = {}
-    setmetatable(obj, Player)
-
-    obj.name = name  --todo delme
-    obj.x = x
-    obj.y = y
-
-    --obj.sprites = Sprite.parse_texture(obj.image)
-    --obj.sprite = obj.sprites._sprite1_2  --по умолчанию персонаж сидит
-    assert_fox(obj.sprite)
-    return obj
-end
-
----@param self Player
-function Player.release(self)
-    self.image:release()
+    obj.sprites = Sprite.parse_texture(image)
+    obj.sprite = obj.sprites._sprite2_3
+    obj.x = 0
+    obj.y = 0
+    return setmetatable(obj, Player)
 end
 
 ---@param self Player
@@ -48,7 +29,9 @@ end
 
 ---@param self Player
 function Player.draw(self)
-    self.sprite.current_frame:draw(self.x, self.y)
+    self.sprite.x = self.x
+    self.sprite.y = self.y
+    self.sprite:draw()
 end
 
 return Player
