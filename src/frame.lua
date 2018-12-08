@@ -20,20 +20,12 @@ function Frame.init(self, image, quad, is_xmirror)
     return setmetatable(obj, Frame)
 end
 
---if log.level == 'debug' then
---    ---@param self Player
---    ---@return string
---    function Player.__tostring(self)
---        return string.format('<Player> x=%d y=%d name="%s"', self.x, self.y, self.name)
---    end
---end
-
 ---@param self Frame
 ---@param x number
 ---@param y number
-function Frame.draw(self, x, y)
-    self:_debug_draw(x, y)
-    local r = 0 --rotate
+---@param r number
+function Frame.draw(self, x, y, r)
+    self:_debug_draw(x, y, r)
     local sx = 1
     local sy = 1
     if self._is_xmirror then
@@ -41,6 +33,7 @@ function Frame.draw(self, x, y)
         sx = -1
         x = x + w
     end
+    --todo bug с поворотом
     love.graphics.draw(self._image, self._quad, x, y, r, sx, sy)
 end
 
@@ -52,13 +45,15 @@ if log.level == 'debug' then
     ---@param self Frame
     ---@param x number
     ---@param y number
-    function Frame._debug_draw(self, x, y)
+    ---@param r number
+    function Frame._debug_draw(self, x, y, r)
+        --todo добавить линию поворота
         local _, _, w, h = self._quad:getViewport()
-        local r, g, b, a = love.graphics.getColor()
-        love.graphics.setLineStyle('rough')
+        local r_, g, b, a = love.graphics.getColor()
+        love.graphics.setLineStyle('rough')  --todo getlinetype
         love.graphics.setColor(.0, 1., .0, 1.)
         love.graphics.rectangle('line', x, y, w, h)
-        love.graphics.setColor(r, g, b, a)
+        love.graphics.setColor(r_, g, b, a)
     end
 end
 

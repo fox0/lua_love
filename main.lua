@@ -2,6 +2,7 @@ io.stdout:setvbuf 'line'  -- 'no'
 
 log = require('lib/log')
 log.usecolor = false
+log.level = 'info'
 log.level = 'debug'
 
 log.debug(_VERSION, string.format('Love2d %d.%d.%d', love._version_major, love._version_minor, love._version_revision))

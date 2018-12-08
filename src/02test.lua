@@ -7,15 +7,12 @@ text = "No collision yet."
 
 ---@param args table В args.img лежит текстура выбранного персонажа
 function m.init(args)
-    player = Player:init(args.img)
-
     bg = love.graphics.newImage('resourses/backgrounds/02.png')
 
-    -- One meter is 32px in physics engine
-    love.physics.setMeter(32)
-
-    -- Create a world with standard gravity
-    world = love.physics.newWorld(0, 9.81 * 32, true)
+    local CONST = 32  -- One meter is 32px in physics engine
+    love.physics.setMeter(CONST)
+    world = love.physics.newWorld(0, 9.81 * CONST, true)
+    player = Player:init(args.img, world, 400, 200)
 
     -- Create the ground body at (0, 0) static
     ground = love.physics.newBody(world, 0, 0, "static")
@@ -27,53 +24,32 @@ function m.init(args)
     ground_fixture = love.physics.newFixture(ground, ground_shape)
     ground_fixture:setUserData("Ground") -- Set a string userdata
 
-    -- Load the image of the ball.
-    ball = love.graphics.newImage("resourses/love-ball.png")
-
-    -- Create a Body for the circle.
-    body = love.physics.newBody(world, 400, 200, "dynamic")
-
-    -- Attatch a shape to the body.
-    circle_shape = love.physics.newCircleShape(0, 0, 32)
-
-    -- Create fixture between body and shape
-    fixture = love.physics.newFixture(body, circle_shape)
-
-    fixture:setUserData("Ball") -- Set a string userdata
-
-    -- Calculate the mass of the body based on attatched shapes.
-    -- This gives realistic simulations.
-    body:setMassData(circle_shape:computeMass(1))
-
     -- Set the collision callback.
     world:setCallbacks(beginContact, endContact)
 end
 
----@param k string
-function m.keypressed(k)
-    if k == "space" then
-        -- Apply a random impulse
-        body:applyLinearImpulse(150 - math.random(0, 300), -math.random(0, 1500))
-    end
-end
-
 ---@param dt number
 function m.update(dt)
+    local SPEED = 400
+    local ix = 0
+    local iy = 0
+    if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
+        ix = -SPEED
+    end
+    if love.keyboard.isDown('d') or love.keyboard.isDown('right') then
+        ix = SPEED
+    end
+    if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
+        iy = -SPEED
+    end
+    if love.keyboard.isDown('s') or love.keyboard.isDown('down') then
+        iy = SPEED
+    end
+    if not (ix == 0 and iy == 0) then
+        log:debug(ix, iy)
+        player.body:applyLinearImpulse(ix * dt, iy * dt)
+    end
     world:update(dt)
-
-    --local SPEED = 400
-    --if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
-    --    player.x = player.x - dt * SPEED
-    --end
-    --if love.keyboard.isDown('d') or love.keyboard.isDown('right') then
-    --    player.x = player.x + dt * SPEED
-    --end
-    --if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
-    --    player.y = player.y - dt * SPEED
-    --end
-    --if love.keyboard.isDown('s') or love.keyboard.isDown('down') then
-    --    player.y = player.y + dt * SPEED
-    --end
     player:update(dt)
 end
 
@@ -81,16 +57,15 @@ function m.draw()
     love.graphics.draw(bg, 0, 0)
 
     -- Draws the ground.
-    love.graphics.polygon("line", ground_shape:getPoints())
+    local r, g, b, a = love.graphics.getColor()
 
-    -- Draw the circle.
-    love.graphics.draw(ball, body:getX(), body:getY(), body:getAngle(), 1, 1, 32, 32)
+    love.graphics.setColor(.0, .0, .0, .7)
+    love.graphics.polygon('fill', ground_shape:getPoints())
 
-    -- Instructions
-    love.graphics.print("space: Apply a random impulse", 5, 15)
-
-    -- Draw text.
+    love.graphics.setColor(.0, 1., .0, 1.)
     love.graphics.print(text, 5, 35)
+
+    love.graphics.setColor(r, g, b, a)
 
     player:draw()
 end

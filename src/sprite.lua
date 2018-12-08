@@ -28,9 +28,11 @@ function Sprite.init(self, frames, delay, speed)
     obj.speed = speed or 1.
     obj.is_animated = true
     obj.timer = 0
+    ---@type Frame
     obj.current_frame = obj._frames[obj._index]
     obj.x = 0
     obj.y = 0
+    obj.r = 0
     return setmetatable(obj, Sprite)
 end
 
@@ -61,7 +63,7 @@ end
 
 ---@param self Sprite
 function Sprite.draw(self)
-    self.current_frame:draw(self.x, self.y)
+    self.current_frame:draw(self.x, self.y, self.r)
 end
 
 --- Статическая функция
