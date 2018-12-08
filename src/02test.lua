@@ -4,8 +4,9 @@ text = "No collision yet."
 
 ---@param args table
 function m.init(args)
-    ---@type Player
-    player = args.player
+    img = args.img
+    --todo
+
     bg = love.graphics.newImage('resourses/backgrounds/02.png')
 
     -- One meter is 32px in physics engine
@@ -58,20 +59,20 @@ end
 function m.update(dt)
     world:update(dt)
 
-    local SPEED = 400
-    if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
-        player.x = player.x - dt * SPEED
-    end
-    if love.keyboard.isDown('d') or love.keyboard.isDown('right') then
-        player.x = player.x + dt * SPEED
-    end
-    if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
-        player.y = player.y - dt * SPEED
-    end
-    if love.keyboard.isDown('s') or love.keyboard.isDown('down') then
-        player.y = player.y + dt * SPEED
-    end
-    player:update(dt)
+    --local SPEED = 400
+    --if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
+    --    player.x = player.x - dt * SPEED
+    --end
+    --if love.keyboard.isDown('d') or love.keyboard.isDown('right') then
+    --    player.x = player.x + dt * SPEED
+    --end
+    --if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
+    --    player.y = player.y - dt * SPEED
+    --end
+    --if love.keyboard.isDown('s') or love.keyboard.isDown('down') then
+    --    player.y = player.y + dt * SPEED
+    --end
+    --player:update(dt)
 end
 
 function m.draw()
@@ -89,7 +90,7 @@ function m.draw()
     -- Draw text.
     love.graphics.print(text, 5, 35)
 
-    player:draw()
+    --player:draw()
 end
 
 -- This is called every time a collision begin.

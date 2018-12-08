@@ -6,6 +6,8 @@ local Frame = require('src/frame')
 ---@field public is_animated boolean
 ---@field public timer number
 ---@field public current_frame Frame
+---@field public x number
+---@field public y number
 ---@field _frames Frame[]
 ---@field _index number
 ---@field _delay number
@@ -27,16 +29,18 @@ function Sprite.init(self, frames, delay, speed)
     obj.is_animated = true
     obj.timer = 0
     obj.current_frame = obj._frames[obj._index]
+    obj.x = 0
+    obj.y = 0
     return setmetatable(obj, Sprite)
 end
 
---if log.level == 'debug' then
---    ---@param result Player
---    ---@return string
---    function Player.__tostring(result)
---        return string.format('<Player> x=%d y=%d name="%s"', result.x, result.y, result.name)
---    end
---end
+---@param self Sprite
+---@param index number
+function Sprite.set_frame(self, index)
+    assert_fox(index)
+    self._index = index
+    self.current_frame = self._frames[self._index]
+end
 
 ---@param self Sprite
 ---@param dt number
@@ -56,11 +60,8 @@ function Sprite.update(self, dt)
 end
 
 ---@param self Sprite
----@param index number
-function Sprite.set_frame(self, index)
-    assert_fox(index)
-    self._index = index
-    self.current_frame = self._frames[self._index]
+function Sprite.draw(self)
+    self.current_frame:draw(self.x, self.y)
 end
 
 --- Статическая функция

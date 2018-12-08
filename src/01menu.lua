@@ -1,10 +1,16 @@
 --[[
 Меню выбора персонажа сетка 5x2
 ]]--
----@type Player
-local Player = require('src/player')
+---@type Sprite
+local Sprite = require('src/sprite')
 
 local m = {}
+
+vars = {}
+vars.ponies_img = {}
+---@type Sprite[]
+vars.ponies = {}
+vars.sel_index = 1
 
 local map_frames = {
     { 0, 7, 7, 7, 7,
@@ -30,93 +36,94 @@ local map_frames = {
 }
 
 local function change()
-    for i, pony in ipairs(ponies) do
-        pony.sprite.is_animated = false  -- todo "докрутить" анимацию
-        local v = map_frames[sel_index][i]
+    for i, pony in ipairs(vars.ponies) do
+        pony.is_animated = false  -- todo "докрутить" анимацию
+        local v = map_frames[vars.sel_index][i]
         if v ~= 0 then
-            pony.sprite:set_frame(v)
+            pony:set_frame(v)
         end
     end
-    ponies[sel_index].sprite.is_animated = true
+    vars.ponies[vars.sel_index].is_animated = true
 end
 
----@param args table
-function m.init(args)
-    ---@type Player[]
-    ponies = {}
-    sel_index = 1
-
-    local PONIES = { 'rainbow_dash', 'fluttershy', 'pinkie_pie', 'applejack', 'rarity',
-                     'derpy', 'pinkamina', 'trixie', 'trixie2', 'twilight_sparkle' }
+-- Выполняется много времени > 2 секунд
+function m.init()
+    for _, pony in ipairs({ 'rainbow_dash', 'fluttershy', 'pinkie_pie', 'applejack', 'rarity',
+                            'derpy', 'pinkamina', 'trixie', 'trixie2', 'twilight_sparkle' }) do
+        local img = love.graphics.newImage(string.format('resourses/textures/%s.png', pony))  -- 12.6 MB
+        vars.ponies_img[#vars.ponies_img + 1] = img
+    end
+    assert_fox(#vars.ponies_img == 10)
+    for _, img in ipairs(vars.ponies_img) do
+        vars.ponies[#vars.ponies + 1] = Sprite.parse_texture(img)._sprite1_2
+    end
 
     local width, height = love.graphics.getDimensions()
-    local xstep = width / (#PONIES / 2)
+    local xstep = width / 5
     local xborder = (xstep - 92) / 2  --todo hardcore
     --local yborder
     log.debug(string.format('window size: %dx%d step: %d', width, height, xstep))
-
-    for i = 1, #PONIES / 2 do
-        ponies[i] = Player:init(PONIES[i], xborder + xstep * (i - 1), 100)  --todo hardcore 100
+    for i = 1, 5 do
+        vars.ponies[i].x = xborder + xstep * (i - 1)
+        vars.ponies[i].y = 100 --todo
     end
-    for i = #PONIES / 2 + 1, #PONIES do
-        ponies[i] = Player:init(PONIES[i], xborder + xstep * (i - 6), 92 + 200)  --todo hardcore
+    for i = 6, 10 do
+        vars.ponies[i].x = xborder + xstep * (i - 6)
+        vars.ponies[i].y = 92 + 200
     end
-    assert_fox(#ponies == #PONIES)
-    assert_fox(#ponies == 10)
-    ponies[1].sprite:set_frame(5)
+    vars.ponies[1]:set_frame(5)
     change()
 end
 
 function m.exit()
     log.debug('release')
     -- удаляем больше ненужные изображения
-    for i, pony in ipairs(ponies) do
-        if i ~= sel_index then
-            pony:release()
+    for i, img in ipairs(vars.ponies_img) do
+        if i ~= vars.sel_index then
+            img:release()
         end
     end
-    ponies = nil
-    sel_index = nil
+    vars = nul
 end
 
 ---@param k string
 function m.keyreleased(k)
     if k == 'a' or k == 'left' then
-        if sel_index == 1 then
-            sel_index = 5
-        elseif sel_index == 6 then
-            sel_index = 10
+        if vars.sel_index == 1 then
+            vars.sel_index = 5
+        elseif vars.sel_index == 6 then
+            vars.sel_index = 10
         else
-            sel_index = sel_index - 1
+            vars.sel_index = vars.sel_index - 1
         end
         change()
         return
     end
 
     if k == 'd' or k == 'right' then
-        if sel_index == 5 then
-            sel_index = 1
-        elseif sel_index == 10 then
-            sel_index = 6
+        if vars.sel_index == 5 then
+            vars.sel_index = 1
+        elseif vars.sel_index == 10 then
+            vars.sel_index = 6
         else
-            sel_index = sel_index + 1
+            vars.sel_index = vars.sel_index + 1
         end
         change()
         return
     end
 
     if k == 'w' or k == 'up' or k == 's' or k == 'down' then
-        if sel_index <= 5 then
-            sel_index = sel_index + 5
+        if vars.sel_index <= 5 then
+            vars.sel_index = vars.sel_index + 5
         else
-            sel_index = sel_index - 5
+            vars.sel_index = vars.sel_index - 5
         end
         change()
         return
     end
 
     if k == 'space' or k == 'return' then
-        load_module('02test', { player = ponies[sel_index] })
+        load_module('02test', { img = vars.ponies_img[vars.sel_index] })
         return
     end
     log.debug('keyreleased', k)
@@ -124,14 +131,14 @@ end
 
 ---@param dt number
 function m.update(dt)
-    for _, pony in ipairs(ponies) do
+    for _, pony in ipairs(vars.ponies) do
         pony:update(dt)
     end
 end
 
 function m.draw()
     --todo надпись в шапке вверху другим шрифтом
-    for _, pony in ipairs(ponies) do
+    for _, pony in ipairs(vars.ponies) do
         pony:draw()
     end
     --love.graphics.print(text, 50, 50)

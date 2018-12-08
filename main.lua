@@ -50,7 +50,7 @@ end
 
 function love.run()
     love.graphics.setFont(love.graphics.newFont('resourses/fonts/Robotomedium.ttf', 14))
-    messages_bus = {}
+    --messages_bus = {}
     load_module('01menu')
 
     local function debug_print_fps()

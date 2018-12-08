@@ -24,14 +24,13 @@ function Player.init(self, name, x, y)
     log.debug('create', name)
     local obj = {}
     setmetatable(obj, Player)
-    obj.image = love.graphics.newImage(string.format('resourses/textures/%s.png', name))  -- 12.6 MB
 
     obj.name = name  --todo delme
     obj.x = x
     obj.y = y
 
-    obj.sprites = Sprite.parse_texture(obj.image)
-    obj.sprite = obj.sprites._sprite1_2  --по умолчанию персонаж сидит
+    --obj.sprites = Sprite.parse_texture(obj.image)
+    --obj.sprite = obj.sprites._sprite1_2  --по умолчанию персонаж сидит
     assert_fox(obj.sprite)
     return obj
 end
@@ -40,14 +39,6 @@ end
 function Player.release(self)
     self.image:release()
 end
-
---if log.level == 'debug' then
---    ---@param self Player
---    ---@return string
---    function Player.__tostring(self)
---        return string.format('<Player> x=%d y=%d name="%s"', self.x, self.y, self.name)
---    end
---end
 
 ---@param self Player
 ---@param dt number
