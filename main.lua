@@ -7,7 +7,8 @@ log.level = 'debug'
 log.debug(_VERSION, string.format('Love2d %d.%d.%d', love._version_major, love._version_minor, love._version_revision))
 
 ---@param module_name string
-function load_module(module_name)
+---@param args table
+function load_module(module_name, args)
     log.debug('load module', module_name)
     game_exit()
 
@@ -19,7 +20,7 @@ function load_module(module_name)
     --todo if m.keyreleased then…
     love.keyreleased = m.keyreleased
 
-    m.init()
+    m.init(args)
     love.timer.step()
 end
 

@@ -1,8 +1,9 @@
 local m = {}
 
---- Типа конструктор
 ---@param args table
 function m.init(args)
+    ---@type Player
+    player = args.player
 
 end
 
@@ -19,11 +20,11 @@ end
 
 ---@param dt number
 function m.update(dt)
-
+    player:update(dt)
 end
 
 function m.draw()
-
+    player:draw()
 end
 
 return m

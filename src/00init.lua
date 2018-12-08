@@ -10,16 +10,42 @@ local vars = {}
 vars.ponies = {}
 vars.sel_index = 1
 
+local map_frames = {
+    { 0, 7, 7, 7, 7,
+      1, 8, 7, 7, 7 },
+    { 3, 0, 7, 7, 7,
+      2, 1, 8, 7, 7 },
+    { 3, 3, 0, 7, 7,
+      3, 2, 1, 8, 7 },
+    { 3, 3, 3, 0, 7,
+      3, 3, 2, 1, 8 },
+    { 3, 3, 3, 3, 0,
+      3, 3, 3, 2, 1 },
+    { 5, 6, 7, 7, 7,
+      0, 7, 7, 7, 7 },
+    { 4, 5, 6, 7, 7,
+      3, 0, 7, 7, 7 },
+    { 3, 4, 5, 6, 7,
+      3, 3, 0, 7, 7 },
+    { 3, 3, 4, 5, 6,
+      3, 3, 3, 0, 7 },
+    { 3, 3, 3, 4, 5,
+      3, 3, 3, 3, 0 },
+}
+
 local function change()
-    --todo а если сделать как бы фокус?
     for i = 1, #vars.ponies do
-        vars.ponies[i].sprite.is_animated = false
-        vars.ponies[i].sprite:set_frame(3)
+        vars.ponies[i].sprite.is_animated = false  -- todo "докрутить" анимацию
+        local v = map_frames[vars.sel_index][i]
+        if v ~= 0 then
+            vars.ponies[i].sprite:set_frame(v)
+        end
     end
     vars.ponies[vars.sel_index].sprite.is_animated = true
 end
 
-function m.init()
+---@param args table
+function m.init(args)
     local PONIES = { 'rainbow_dash', 'fluttershy', 'pinkie_pie', 'applejack', 'rarity',
                      'derpy', 'pinkamina', 'trixie', 'trixie2', 'twilight_sparkle' }
 
@@ -35,12 +61,14 @@ function m.init()
     for i = #PONIES / 2 + 1, #PONIES do
         vars.ponies[i] = Player:init(PONIES[i], xborder + xstep * (i - 6), 92 + 200)  --todo hardcore
     end
+    vars.ponies[1].sprite:set_frame(5)
     change()
 end
 
 function m.exit()
-    --player = nil
-    --** после выбора попробовать почистить память Object:release( )
+    --todo фиг знает как вызвать сборщик мусора
+    --vars.ponies = nil
+    --vars:release()
 end
 
 ---@param k string
@@ -80,7 +108,9 @@ function m.keyreleased(k)
     end
 
     if k == 'space' or k == 'return' then
-        --todo another module
+        args = {}
+        args.player = vars.ponies[vars.sel_index]
+        load_module('02test', args)
         return
     end
     log.debug('keyreleased', k)
