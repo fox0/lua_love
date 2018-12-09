@@ -8,6 +8,7 @@ local Frame = require('src/frame')
 ---@field public current_frame Frame
 ---@field public x number
 ---@field public y number
+---@field public r number
 ---@field _frames Frame[]
 ---@field _index number
 ---@field _delay number

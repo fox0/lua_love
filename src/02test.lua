@@ -16,11 +16,7 @@ function m.init(args)
 
     -- Create the ground body at (0, 0) static
     ground = love.physics.newBody(world, 0, 0, "static")
-
-    -- Create the ground shape at (400,500) with size (600,10).
     ground_shape = love.physics.newRectangleShape(400, 500, 600, 10)
-
-    -- Create fixture between body and shape
     ground_fixture = love.physics.newFixture(ground, ground_shape)
     ground_fixture:setUserData("Ground") -- Set a string userdata
 
