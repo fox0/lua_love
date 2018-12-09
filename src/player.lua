@@ -8,6 +8,7 @@ local Sprite = require('src/sprite')
 ---@field sprites table Словарь со спрайтами
 ---@field body any
 ---@field shape any
+---@field HALF_W number Половина ширины спрайта
 ---@field ix number Приложенный импульс
 ---@field iy number
 local Player = {}
@@ -30,10 +31,11 @@ function Player.init(self, image, world, x, y)
     obj.sprite = obj.sprites._sprite2_3
 
     obj.body = love.physics.newBody(world, x, y, 'dynamic')
-    --local _, _, w, h = obj.sprite.current_frame._quad:getViewport()
-    --log.debug(w,h)
-    local w, h = 92, 92
-    obj.shape = love.physics.newCircleShape(w / 2, h / 2, 35)
+    --todo как-то не очень…
+    local _, _, w, h = obj.sprite.current_frame._quad:getViewport() --92x92
+    obj.HALF_W = w / 2
+    --todo другая форма love.physics.newPolygonShape
+    obj.shape = love.physics.newRectangleShape(obj.HALF_W, obj.HALF_W, 70, 70)
     local fixture = love.physics.newFixture(obj.body, obj.shape)
     fixture:setUserData('player')
     obj.body:setMassData(obj.shape:computeMass(1))
@@ -73,8 +75,8 @@ function Player.update(self, dt)
         self.ix = self.ix * dt
         self.iy = self.iy * dt
         --log.debug(self.ix, self.iy)
-        self.body:applyLinearImpulse(self.ix, self.iy)
-        --self.body:applyLinearImpulse(self.ix, self.iy, 0, 50)
+        --self.body:applyLinearImpulse(self.ix, self.iy)
+        self.body:applyLinearImpulse(self.ix, self.iy, 0, 50)
     end
 
     self.sprite.x = self.body:getX()
@@ -97,19 +99,34 @@ if log.level == 'debug' then
     ---@param self Player
     function Player.debug_draw(self)
         local r, g, b, a = love.graphics.getColor()
-
         love.graphics.setColor(.0, .0, 1., 1.)
 
-        local x, y = self.shape:getPoint()
-        local x1 = self.sprite.x + x
-        local y1 = self.sprite.y + y
-        --todo self.sprite.r
-        love.graphics.circle('line', x1, y1, self.shape:getRadius())
+        -- центр верхнего левого угла
+        local x0 = self.sprite.x
+        local y0 = self.sprite.y
+        --todo self.sprite.r поправка на поворот
 
+        -- форма
+        --todo как проще?
+        --assert_fox(select('#', self.shape:getPoints()) == 8)
+        local x1, y1, x2, y2, x3, y3, x4, y4 = self.shape:getPoints()
+        x1 = x1 + x0
+        x2 = x2 + x0
+        x3 = x3 + x0
+        x4 = x4 + x0
+        y1 = y1 + y0
+        y2 = y2 + y0
+        y3 = y3 + y0
+        y4 = y4 + y0
+        love.graphics.polygon('line', x1, y1, x2, y2, x3, y3, x4, y4)
+
+        -- вектор силы
+        x0 = x0 + self.HALF_W
+        y0 = y0 + self.HALF_W
         local K = 5.5
-        local x2 = x1 + self.ix * K
-        local y2 = y1 + self.iy * K
-        love.graphics.line(x1, y1, x2, y2)
+        local x22 = x0 + self.ix * K
+        local y22 = y0 + self.iy * K
+        love.graphics.line(x0, y0, x22, y22)
 
         love.graphics.setColor(r, g, b, a)
     end
