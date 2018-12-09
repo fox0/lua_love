@@ -21,7 +21,7 @@ Sprite.__index = Sprite
 ---@param speed number множитель скорости анимации
 ---@return Sprite
 function Sprite.init(self, frames, delay, speed)
-    assert_fox(frames)
+    assert(frames)
     local obj = {}
     obj._frames = frames
     obj._index = 1  -- нумерация с единицы
@@ -40,7 +40,7 @@ end
 ---@param self Sprite
 ---@param index number
 function Sprite.set_frame(self, index)
-    assert_fox(index)
+    assert(index)
     self._index = index
     self.current_frame = self._frames[self._index]
 end

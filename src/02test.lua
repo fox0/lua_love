@@ -35,32 +35,6 @@ function m.update(dt)
     vars.player:update(dt)
 end
 
-local function debug_draw()
-
-end
-
-if log.level == 'debug' then
-    function debug_draw()
-        local r, g, b, a = love.graphics.getColor()
-        love.graphics.setColor(.0, .0, 1., 1.)
-        --for _, body in pairs(world:getBodyList()) do
-        for _, body in pairs(vars.world:getBodies()) do
-            for _, fixture in pairs(body:getFixtures()) do
-                local shape = fixture:getShape()
-                if shape:typeOf('PolygonShape') then
-                    love.graphics.polygon('line', body:getWorldPoints(shape:getPoints()))
-                    --elseif shape:typeOf('CircleShape') then
-                    --    local cx, cy = body:getWorldPoints(shape:getPoint())
-                    --    love.graphics.circle('line', cx, cy, shape:getRadius())
-                else
-                    love.graphics.line(body:getWorldPoints(shape:getPoints()))
-                end
-            end
-        end
-        love.graphics.setColor(r, g, b, a)
-    end
-end
-
 function m.draw()
     love.graphics.draw(vars.bg, 0, 0)
 
@@ -76,7 +50,7 @@ function m.draw()
     love.graphics.setColor(r, g, b, a)
 
     vars.player:draw()
-    debug_draw()
+    debug_physics(vars.world)
 end
 
 -- This is called every time a collision begin.

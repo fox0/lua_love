@@ -54,7 +54,7 @@ function m.init()
         local img = love.graphics.newImage(string.format('resourses/textures/%s.png', pony))  -- 12.6 MB
         vars.ponies_img[#vars.ponies_img + 1] = img
     end
-    assert_fox(#vars.ponies_img == 10)
+    assert(#vars.ponies_img == 10)
     ---@type Sprite[]
     vars.ponies = {}
     for _, img in ipairs(vars.ponies_img) do

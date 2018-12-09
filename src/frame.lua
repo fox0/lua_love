@@ -15,8 +15,8 @@ Frame.__index = Frame
 ---@param is_xmirror boolean
 ---@return Frame
 function Frame.init(self, image, quad, is_xmirror)
-    assert_fox(image)
-    assert_fox(quad)
+    assert(image)
+    assert(quad)
     local obj = {}
     obj._image = image
     obj._quad = quad
@@ -34,7 +34,6 @@ end
 ---@param y number
 ---@param r number
 function Frame.draw(self, x, y, r)
-    --self:_debug_draw(x, y)
     local sx = 1
     local sy = 1
     if self._is_xmirror then
@@ -43,21 +42,5 @@ function Frame.draw(self, x, y, r)
     end
     love.graphics.draw(self._image, self._quad, x, y, r, sx, sy)
 end
---
---function Frame._debug_draw()
---
---end
---
---if log.level == 'debug' then
---    ---@param self Frame
---    ---@param x number
---    ---@param y number
---    function Frame._debug_draw(self, x, y)
---        local r_, g, b, a = love.graphics.getColor()
---        love.graphics.setColor(.0, 1., .0, 1.)
---        love.graphics.rectangle('line', x, y, self.W, self.H)
---        love.graphics.setColor(r_, g, b, a)
---    end
---end
 
 return Frame
