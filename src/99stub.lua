@@ -1,5 +1,7 @@
 local m = {}
 
+vars = {}
+
 --- Типа конструктор
 ---@param args table
 function m.init(args)
@@ -10,6 +12,7 @@ end
 --- необязательно
 function m.exit()
 
+    vars = nil
 end
 
 --- необязательно

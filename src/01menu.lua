@@ -6,11 +6,10 @@ local Sprite = require('src/sprite')
 
 local m = {}
 
-vars = {}
-vars.ponies_img = {}
----@type Sprite[]
-vars.ponies = {}
-vars.sel_index = 1
+---@field ponies_img Image[]
+---@field ponies Sprite[]
+---@field sel_index number
+local vars = {}
 
 local map_frames = {
     { 0, 7, 7, 7, 7,
@@ -48,6 +47,7 @@ end
 
 -- Выполняется много времени > 2 секунд
 function m.init()
+    vars.ponies_img = {}
     for _, pony in ipairs({ 'rainbow_dash', 'fluttershy', 'pinkie_pie', 'applejack', 'rarity',
                             'derpy', 'pinkamina', 'trixie', 'trixie2', 'twilight_sparkle' }) do
         log.debug(string.format('loading %s...', pony))
@@ -55,13 +55,17 @@ function m.init()
         vars.ponies_img[#vars.ponies_img + 1] = img
     end
     assert_fox(#vars.ponies_img == 10)
+    ---@type Sprite[]
+    vars.ponies = {}
     for _, img in ipairs(vars.ponies_img) do
         vars.ponies[#vars.ponies + 1] = Sprite.parse_texture(img)._sprite1_2
     end
 
     local width, height = love.graphics.getDimensions()
+    local width_sprite = vars.ponies[1].current_frame.W
+    local height_sprite = vars.ponies[1].current_frame.H
     local xstep = width / 5
-    local xborder = (xstep - 92) / 2  --todo hardcore
+    local xborder = (xstep - width_sprite) / 2
     --local yborder
     log.debug(string.format('window size: %dx%d step: %d', width, height, xstep))
     for i = 1, 5 do
@@ -70,9 +74,10 @@ function m.init()
     end
     for i = 6, 10 do
         vars.ponies[i].x = xborder + xstep * (i - 6)
-        vars.ponies[i].y = 92 + 200
+        vars.ponies[i].y = height_sprite + 200
     end
     vars.ponies[1]:set_frame(5)
+    vars.sel_index = 1
     change()
 end
 
@@ -84,7 +89,7 @@ function m.exit()
             img:release()
         end
     end
-    vars = nul
+    vars = nil
 end
 
 ---@param k string
@@ -139,6 +144,7 @@ end
 
 function m.draw()
     --todo надпись в шапке вверху другим шрифтом
+    --todo +фон цветом
     for _, pony in ipairs(vars.ponies) do
         pony:draw()
     end
