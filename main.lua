@@ -51,6 +51,9 @@ end
 
 function love.run()
     love.graphics.setFont(love.graphics.newFont('resourses/fonts/Robotomedium.ttf', 14))
+    love.graphics.setLineStyle('rough')
+    love.graphics.setColor(1., 1., 1., 1.)
+
     --messages_bus = {}
     load_module('01menu')
 
@@ -62,6 +65,8 @@ function love.run()
             local stats = love.graphics.getStats()
             local s = string.format('FPS: %d. Memory: %.2f MB', love.timer.getFPS(), stats.texturememory / 1024 / 1024)
             local r, g, b, a = love.graphics.getColor()
+            love.graphics.setColor(.0, .0, .0, .7)
+            love.graphics.rectangle('fill', 0, 0, 180, 14)
             love.graphics.setColor(.0, 1., .0, 1.)
             love.graphics.print(s, 0, 0)
             love.graphics.setColor(r, g, b, a)

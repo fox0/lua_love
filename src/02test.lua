@@ -30,25 +30,6 @@ end
 
 ---@param dt number
 function m.update(dt)
-    local SPEED = 400
-    local ix = 0
-    local iy = 0
-    if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
-        ix = -SPEED
-    end
-    if love.keyboard.isDown('d') or love.keyboard.isDown('right') then
-        ix = SPEED
-    end
-    if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
-        iy = -SPEED
-    end
-    if love.keyboard.isDown('s') or love.keyboard.isDown('down') then
-        iy = SPEED
-    end
-    if not (ix == 0 and iy == 0) then
-        log:debug(ix, iy)
-        player.body:applyLinearImpulse(ix * dt, iy * dt)
-    end
     world:update(dt)
     player:update(dt)
 end

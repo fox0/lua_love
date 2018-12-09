@@ -50,7 +50,6 @@ if log.level == 'debug' then
         --todo добавить линию поворота
         local _, _, w, h = self._quad:getViewport()
         local r_, g, b, a = love.graphics.getColor()
-        love.graphics.setLineStyle('rough')  --todo getlinetype
         love.graphics.setColor(.0, 1., .0, 1.)
         love.graphics.rectangle('line', x, y, w, h)
         love.graphics.setColor(r_, g, b, a)
