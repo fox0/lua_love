@@ -1,17 +1,6 @@
 ---@type Frame
 local Frame = require('src/frame')
 
----@class Sprite Спрайт
----@field public speed number множитель скорости анимации
----@field public is_animated boolean
----@field public timer number
----@field public current_frame Frame
----@field public x number
----@field public y number
----@field public r number
----@field _frames Frame[]
----@field _index number
----@field _delay number
 local Sprite = {}
 Sprite.__index = Sprite
 
@@ -22,6 +11,7 @@ Sprite.__index = Sprite
 ---@return Sprite
 function Sprite.init(self, frames, delay, speed)
     assert(frames)
+    ---@class Sprite Спрайт
     local obj = {}
     obj._frames = frames
     obj._index = 1  -- нумерация с единицы
@@ -89,6 +79,7 @@ function Sprite.parse_texture(image)
         return r
     end
 
+    ---@class SpriteList
     local result = {}
     result._sprite1_1 = Sprite:init(get_frames(5))
     local frames = get_frames(5)
@@ -96,13 +87,13 @@ function Sprite.parse_texture(image)
         frames[#frames + 1] = Frame:init(image, frames[4 - i]._quad, true)
     end
     result._sprite1_2 = Sprite:init(frames)
-    result._sprite1_3 = Sprite:init(get_frames(3)) --sleep
+    result.sleep = Sprite:init(get_frames(3))
 
     x = 0
     y = 1
-    result._sprite2_1 = Sprite:init(get_frames(6))
-    result._sprite2_2 = Sprite:init(get_frames(6))
-    result._sprite2_3 = Sprite:init(get_frames(6)) --walk
+    result.walk1 = Sprite:init(get_frames(6))
+    result.walk2 = Sprite:init(get_frames(6))
+    result.walk_right = Sprite:init(get_frames(6))
     result._sprite2_4 = Sprite:init(get_frames(6))
     result._sprite2_5 = Sprite:init(get_frames(6))
 

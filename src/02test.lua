@@ -17,6 +17,7 @@ function m.init(args)
     local CONST = 32  -- One meter is 32px in physics engine
     love.physics.setMeter(CONST)
     vars.world = love.physics.newWorld(0, 9.81 * CONST, true)
+    ---@type Player
     vars.player = Player:init(args.img, vars.world, 400, 200)
 
     -- Create the ground body at (0, 0) static

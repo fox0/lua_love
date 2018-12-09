@@ -1,15 +1,6 @@
 ---@type Sprite
 local Sprite = require('src/sprite')
 
----@class Player
----@field public is_ground boolean
----@field public sprite Sprite
----@field sprites table Словарь со спрайтами
----@field body any
----@field shape any
----@field HALF_W number Половина ширины спрайта
----@field HALF_H number
----@field _prev_r number
 local Player = {}
 Player.__index = Player
 
@@ -24,20 +15,29 @@ Player.SPEED_JUMP = 1000
 ---@param y number
 ---@return Player
 function Player.init(self, image, world, x, y)
+    ---@class Player
+    ---@field SPEED number
+    ---@field SPEED_JUMP number
     local obj = {}
+    obj._prev_x = x
+    obj._prev_y = y
+    obj._prev_r = 0
+
     --todo как-то различать по расам (как минимум is_fly)
+    ---@type SpriteList
     obj.sprites = Sprite.parse_texture(image)
     ---@type Sprite
-    --obj.sprite = obj.sprites._sprite2_3
     obj.sprite = obj.sprites._sprite6_3
     -- чтобы далеко не лазить
     obj.HALF_W = obj.sprite.current_frame.HALF_W
     obj.HALF_H = obj.sprite.current_frame.HALF_H
 
+    ---@type Body
     obj.body = love.physics.newBody(world, x, y, 'dynamic')
     --obj.body:setMassData(.2)  -- kg
 
     --todo другая форма love.physics.newPolygonShape
+    ---@type Shape
     obj.shape = love.physics.newRectangleShape(obj.HALF_W, obj.HALF_H, 70, 70)
     local fixture = love.physics.newFixture(obj.body, obj.shape)
     fixture:setUserData('player')
@@ -47,8 +47,6 @@ function Player.init(self, image, world, x, y)
 
     -- статус игрока
     obj.is_ground = false
-
-    obj._prev_r = 0
     return setmetatable(obj, Player)
 end
 
@@ -63,6 +61,27 @@ end
 ---@param self Player
 ---@param dt number
 function Player.update(self, dt)
+    self:_update_position(dt)  --1
+    ---@type number
+    local x = self.body:getX()
+    ---@type number
+    local y = self.body:getY()
+    ---@type number
+    local r = self.body:getAngle()
+    self:_update_rotate(r)
+    self:_update_sprite()
+    self._prev_x = x
+    self._prev_y = y
+    self._prev_r = r
+    self.sprite.x = x
+    self.sprite.y = y
+    self.sprite.r = r
+    self.sprite:update(dt)
+end
+
+---@param self Player
+---@param dt number
+function Player._update_position(self, dt)
     local ix = 0
     local iy = 0
     if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
@@ -80,25 +99,31 @@ function Player.update(self, dt)
     if not (ix == 0 and iy == 0) then
         self.body:applyForce(ix * dt, iy * dt)
     end
-
     if self.is_ground and love.keyboard.isDown('space') then
         self.body:applyLinearImpulse(0, -self.SPEED_JUMP)
     end
+end
 
-    --todo если перевернуться на 180 или больше 360, то делает столько же число оборотов. Фича?
-    --PID
-    local r = self.body:getAngle()
+---@param self Player
+---@param r number
+function Player._update_rotate(self, r)
+    --todo если перевернуться на 180 или больше 360, то делает столько же число оборотов назад. Фича?
     local P = 2000
     local I = 100000
     local error = 0 - r
     local error2 = self._prev_r - r
-    self.body:applyTorque(error * P + error2 * I)
-    self._prev_r = r
+    self.body:applyTorque(error * P + error2 * I)  -- PID
+end
 
-    self.sprite.x = self.body:getX()
-    self.sprite.y = self.body:getY()
-    self.sprite.r = r
-    self.sprite:update(dt)
+---@param self Player
+function Player._update_sprite(self)
+    if self.is_ground then
+        --todo
+        self.sprite = self.sprites.walk_right
+    else
+
+    end
+    assert(self.sprite)
 end
 
 ---@param self Player

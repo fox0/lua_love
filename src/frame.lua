@@ -1,11 +1,3 @@
----@class Frame Кадр
----@field public W number
----@field public H number
----@field public HALF_W number
----@field public HALF_H number
----@field _image Image
----@field _quad Quad
----@field _is_xmirror boolean
 local Frame = {}
 Frame.__index = Frame
 
@@ -17,10 +9,12 @@ Frame.__index = Frame
 function Frame.init(self, image, quad, is_xmirror)
     assert(image)
     assert(quad)
+    ---@class Frame Кадр
     local obj = {}
     obj._image = image
     obj._quad = quad
     obj._is_xmirror = is_xmirror or false
+    ---@type number
     local _, _, w, h = quad:getViewport()  -- 92x92
     obj.W = w
     obj.H = h
