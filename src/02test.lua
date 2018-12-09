@@ -58,6 +58,7 @@ function beginContact(a, b, c)
     local aa = a:getUserData()
     local bb = b:getUserData()
     text = "Collided: " .. aa .. " and " .. bb
+    vars.player.is_ground = true
 end
 
 -- This is called every time a collision end.
@@ -65,6 +66,7 @@ function endContact(a, b, c)
     local aa = a:getUserData()
     local bb = b:getUserData()
     text = "Collision ended: " .. aa .. " and " .. bb
+    vars.player.is_ground = false
 end
 
 return m

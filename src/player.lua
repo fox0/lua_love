@@ -2,19 +2,20 @@
 local Sprite = require('src/sprite')
 
 ---@class Player
+---@field public is_ground boolean
 ---@field public sprite Sprite
 ---@field sprites table Словарь со спрайтами
 ---@field body any
 ---@field shape any
 ---@field HALF_W number Половина ширины спрайта
 ---@field HALF_H number
----@field ix number Приложенный импульс
----@field iy number
+---@field _prev_r number
 local Player = {}
 Player.__index = Player
 
 --todo x and y
-Player.SPEED = 400
+Player.SPEED = 200 * 1000
+Player.SPEED_JUMP = 1000
 
 ---@param self Player
 ---@param image Image
@@ -27,7 +28,8 @@ function Player.init(self, image, world, x, y)
     --todo как-то различать по расам (как минимум is_fly)
     obj.sprites = Sprite.parse_texture(image)
     ---@type Sprite
-    obj.sprite = obj.sprites._sprite2_3
+    --obj.sprite = obj.sprites._sprite2_3
+    obj.sprite = obj.sprites._sprite6_3
     -- чтобы далеко не лазить
     obj.HALF_W = obj.sprite.current_frame.HALF_W
     obj.HALF_H = obj.sprite.current_frame.HALF_H
@@ -36,16 +38,17 @@ function Player.init(self, image, world, x, y)
     --obj.body:setMassData(.2)  -- kg
 
     --todo другая форма love.physics.newPolygonShape
-    obj.shape = love.physics.newRectangleShape(obj.HALF_W, obj.HALF_W, 70, 70)
+    obj.shape = love.physics.newRectangleShape(obj.HALF_W, obj.HALF_H, 70, 70)
     local fixture = love.physics.newFixture(obj.body, obj.shape)
     fixture:setUserData('player')
 
-    ----
     obj.body:setMassData(obj.shape:computeMass(1))
+    --obj.body:setWorldCenter(20, 25)
 
-    --todo в принципе не нужно, но только для нужд отладки
-    obj.ix = 0
-    obj.iy = 0
+    -- статус игрока
+    obj.is_ground = false
+
+    obj._prev_r = 0
     return setmetatable(obj, Player)
 end
 
@@ -60,33 +63,41 @@ end
 ---@param self Player
 ---@param dt number
 function Player.update(self, dt)
-    self.ix = 0
-    self.iy = 0
+    local ix = 0
+    local iy = 0
     if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
-        self.ix = -self.SPEED
+        ix = -self.SPEED
     end
     if love.keyboard.isDown('d') or love.keyboard.isDown('right') then
-        self.ix = self.SPEED
+        ix = self.SPEED
     end
     if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
-        self.iy = -self.SPEED
+        iy = -self.SPEED
     end
     if love.keyboard.isDown('s') or love.keyboard.isDown('down') then
-        self.iy = self.SPEED
+        iy = self.SPEED
     end
-    if not (self.ix == 0 and self.iy == 0) then
-        self.ix = self.ix * dt
-        self.iy = self.iy * dt
-        --log.debug(self.ix, self.iy)
-        --self.body:applyLinearImpulse(self.ix, self.iy)
-        self.body:applyLinearImpulse(self.ix, self.iy, 0, 50)
+    if not (ix == 0 and iy == 0) then
+        self.body:applyForce(ix * dt, iy * dt)
     end
 
-    --todo +ии для выровнять угол
+    if self.is_ground and love.keyboard.isDown('space') then
+        self.body:applyLinearImpulse(0, -self.SPEED_JUMP)
+    end
+
+    --todo если перевернуться на 180 или больше 360, то делает столько же число оборотов. Фича?
+    --PID
+    local r = self.body:getAngle()
+    local P = 2000
+    local I = 100000
+    local error = 0 - r
+    local error2 = self._prev_r - r
+    self.body:applyTorque(error * P + error2 * I)
+    self._prev_r = r
 
     self.sprite.x = self.body:getX()
     self.sprite.y = self.body:getY()
-    self.sprite.r = self.body:getAngle()
+    self.sprite.r = r
     self.sprite:update(dt)
 end
 
@@ -105,17 +116,8 @@ if log.level == 'debug' then
     function Player.debug_draw(self)
         local r, g, b, a = love.graphics.getColor()
         love.graphics.setColor(.0, .0, 1., 1.)
-
-        -- центр масс
-        local x0, y0 = self.body:getWorldCenter()
+        local x0, y0 = self.body:getWorldCenter()  -- центр масс
         love.graphics.circle('line', x0, y0, 3)
-
-        -- вектор силы
-        local K = 10.
-        local x22 = x0 + self.ix * K
-        local y22 = y0 + self.iy * K
-        love.graphics.line(x0, y0, x22, y22)
-
         love.graphics.setColor(r, g, b, a)
     end
 end
