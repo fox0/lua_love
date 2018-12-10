@@ -2,7 +2,9 @@
 
 NAME='dist/NamelessHero.love'
 
-rm ${NAME}
+DIR=`dirname ${NAME}`
+rm -rf ${DIR}
+mkdir ${DIR}
 zip ${NAME} *.lua
 zip -u ${NAME} src/*.lua
 zip -u ${NAME} lib/*.lua
