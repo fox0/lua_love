@@ -7,6 +7,13 @@
 -- under the terms of the MIT license. See LICENSE for details.
 --
 
+---@class Log
+---@field trace fun(...)
+---@field debug fun(...)
+---@field info fun(...)
+---@field warn fun(...)
+---@field error fun(...)
+---@field fatal fun(...)
 local log = { _version = "0.1.0" }
 
 log.usecolor = true

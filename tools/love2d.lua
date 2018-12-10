@@ -1,17 +1,6 @@
---- git clone https://github.com/love2d-community/love-api
---- lua love2d.lua > ../src/stubs.lua
-
-local love = require('love-api/love_api')
-
-print([[
--- DO NOT EDIT! Generate by tools/love2d.lua
-]])
-print('-- love2d version ' .. love.version)
-print([[
-
----@class love
-love = {}
-]])
+-- cd tools
+-- git clone https://github.com/love2d-community/love-api
+-- lua love2d.lua > ../lib/love2d.lua
 
 local function str_replace(s)
     return select(1, string.gsub(s, '\n', '\n--- '))
@@ -19,46 +8,36 @@ end
 
 local function print_func(func, ns)
     ns = ns or 'love'
-
-    --todo ограничить длину строк и пероносить на новую (резать по пробелам)
     print(string.format('---\n--- %s\n---', str_replace(func.description)))
-
-    --for _, variant in ipairs(func.variants) do
-    assert(#func.variants == 1)
-    local variant = func.variants[1]
-
-    local args = {}
-    if variant.arguments then
-        for _, r in ipairs(variant.arguments) do
-            print(string.format('---@param %s %s %s', r.name, r.type, str_replace(r.description)))
-            args[#args + 1] = r.name
+    for _, variant in ipairs(func.variants) do
+        --todo default table
+        local args = {}
+        if variant.arguments then
+            for _, r in ipairs(variant.arguments) do
+                if not r.name:find('"') then
+                    print(string.format('---@param %s %s %s', r.name, r.type, str_replace(r.description)))
+                    args[#args + 1] = r.name
+                else
+                    -- и фиг с ней
+                    print(string.format('-- %s %s %s', r.name, r.type, str_replace(r.description)))
+                end
+            end
         end
-    end
-
-    if variant.returns then
-        local rets = {}
-        print('--- returns:')
-        for _, r in ipairs(variant.returns) do
-            print(string.format('---     %s %s - %s', r.type, r.name, r.description))
-            rets[#rets + 1] = r.type
+        if variant.returns then
+            local rets = {}
+            print('--- returns:')
+            for _, r in ipairs(variant.returns) do
+                print(string.format('---     %s %s - %s', r.type, r.name, str_replace(r.description)))
+                rets[#rets + 1] = r.type
+            end
+            print(string.format('---@return %s', table.concat(rets, ', ')))
         end
-        print(string.format('---@return %s', table.concat(rets, ', ')))
+        print(string.format('function %s.%s(%s) end\n', ns, func.name, table.concat(args, ', ')))
     end
-    --end
-
-    print(string.format('function %s.%s(%s) end\n', ns, func.name, table.concat(args, ', ')))
 end
 
-for _, func in ipairs(love.functions) do
-    print_func(func)
-end
-
-for _, module in ipairs(love.modules) do
-
-end
-
-for _, t in ipairs(love.types) do
-    print(string.format('---\n--- %s', t.description))
+local function print_type(t)
+    print(string.format('---\n--- %s', str_replace(t.description)))
     --todo parenttype supertypes subtypes
     print(string.format('---@class %s', t.name))
     print(string.format('%s = {}\n', t.name))
@@ -67,8 +46,52 @@ for _, t in ipairs(love.types) do
             print_func(func, t.name)
         end
     end
+    --todo
+    --BaseClass = {}
+    --BaseClass.index = {}
+    --BaseClass.metatable = {__index = BaseClass.index}
+    --
+    --DerivedClass = {}
+    --DerivedClass.index = setmetatable({}, {__index = BaseClass.index})
+    --DerivedClass.metatable = {__index = DerivedClass.index}
+
+    --for _, t2 in ipairs(t.subtypes) do
+    --    print_class(t2)
+    --end
 end
 
-for _, callback in ipairs(love.callbacks) do
-    print_func(callback)  --todo variant.arguments r.default t.table
+local function main()
+    local love = require('love-api/love_api')
+    print('-- DO NOT EDIT! Generate by tools/love2d.lua\n')
+    print(string.format('-- love2d version %s', love.version))
+    print('love = {}\n')
+
+    for _, func in ipairs(love.functions) do
+        print_func(func)
+    end
+
+    for _, module in ipairs(love.modules) do
+        print(string.format('---\n--- %s\n---', str_replace(module.description)))
+        print(string.format('local %s = {}', module.name))
+        print(string.format('love.%s = %s\n', module.name, module.name))
+        for _, func in ipairs(module.functions) do
+            print_func(func, module.name)
+        end
+        if module.types then
+            for _, t in ipairs(module.types) do
+                print_type(t)
+            end
+        end
+        --todo enums
+    end
+
+    for _, t in ipairs(love.types) do
+        print_type(t)
+    end
+
+    for _, func in ipairs(love.callbacks) do
+        print_func(func)
+    end
 end
+
+main()

@@ -10,7 +10,7 @@ Player.SPEED_JUMP = 1000
 
 ---@param self Player
 ---@param image Image
----@param world any
+---@param world World
 ---@param x number
 ---@param y number
 ---@return Player
