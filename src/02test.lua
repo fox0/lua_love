@@ -6,7 +6,7 @@ local m = {}
 ---@field bg Image
 ---@field world World
 ---@field player Player
-vars = {}
+local vars = {}
 
 text = "No collision yet."
 

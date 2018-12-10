@@ -1,6 +1,6 @@
 local m = {}
 
-vars = {}
+local vars = {}
 
 --- Типа конструктор
 ---@param args table
