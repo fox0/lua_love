@@ -54,14 +54,6 @@ function Player.init(self, image, world, x, y)
     return setmetatable(obj, Player)
 end
 
---if log.level == 'debug' then
---    ---@param self Player
---    ---@return string
---    function Player.__tostring(self)
---        return string.format('<Player> x=%d y=%d name="%s"', self.x, self.y, self.name)
---    end
---end
-
 ---@param self Player
 ---@param is_ground boolean
 function Player.set_is_ground(self, is_ground)
@@ -80,13 +72,9 @@ end
 ---@param dt number
 function Player.update(self, dt)
     self:_update_position(dt)  --1
-    self:_update_external_forces(dt)
     ---@type number
-    local x = self.body:getX()
-    ---@type number
-    local y = self.body:getY()
-    ---@type number
-    local r = self.body:getAngle()
+    local x, y, r = self.body:getX(), self.body:getY(), self.body:getAngle()
+    self:_update_external_forces(dt, x, y, r)
     self:_update_sprite()
     self._prev_x = x
     self._prev_y = y
@@ -116,6 +104,7 @@ function Player._update_position(self, dt)
     end
     if not (ix == 0 and iy == 0) then
         self.body:applyForce(ix * dt, iy * dt)
+        self.body:applyTorque(math.atan(ix, iy) * 1000)
     end
     if self.is_ground and love.keyboard.isDown('space') then
         self.body:applyLinearImpulse(0, -self.IMPULSE_JUMP)
@@ -124,8 +113,10 @@ end
 
 ---@param self Player
 ---@param dt number
-function Player._update_external_forces(self, dt)
-    local x, y, r = self.body:getX(), self.body:getY(), self.body:getAngle()
+---@param x number
+---@param y number
+---@param r number
+function Player._update_external_forces(self, dt, x, y, r)
     local speedx = self._prev_x - x
     local speedy = self._prev_y - y
     local speedr = self._prev_r - r
