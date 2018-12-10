@@ -22,7 +22,7 @@ function m.init(args)
 
     -- Create the ground body at (0, 0) static
     ground = love.physics.newBody(vars.world, 0, 0, "static")
-    ground_shape = love.physics.newRectangleShape(400, 500, 600, 10)
+    ground_shape = love.physics.newRectangleShape(400, 300, 600, 10)
     ground_fixture = love.physics.newFixture(ground, ground_shape)
     ground_fixture:setUserData("Ground") -- Set a string userdata
 
@@ -59,7 +59,7 @@ function beginContact(a, b, c)
     local aa = a:getUserData()
     local bb = b:getUserData()
     text = "Collided: " .. aa .. " and " .. bb
-    vars.player.is_ground = true
+    vars.player:set_is_ground(true)
 end
 
 -- This is called every time a collision end.
@@ -67,7 +67,7 @@ function endContact(a, b, c)
     local aa = a:getUserData()
     local bb = b:getUserData()
     text = "Collision ended: " .. aa .. " and " .. bb
-    vars.player.is_ground = false
+    vars.player:set_is_ground(false)
 end
 
 return m

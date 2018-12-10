@@ -14,13 +14,13 @@ function Sprite.init(self, frames, delay, speed)
     ---@class Sprite Спрайт
     local obj = {}
     obj._frames = frames
-    obj._index = 1  -- нумерация с единицы
+    obj.index = 1  -- нумерация с единицы
     obj._delay = delay or .15
     obj.speed = speed or 1.
     obj.is_animated = true
     obj.timer = 0
     ---@type Frame
-    obj.current_frame = obj._frames[obj._index]
+    obj.current_frame = obj._frames[obj.index]
     obj.x = 0
     obj.y = 0
     obj.r = 0
@@ -31,8 +31,8 @@ end
 ---@param index number
 function Sprite.set_frame(self, index)
     assert(index)
-    self._index = index
-    self.current_frame = self._frames[self._index]
+    self.index = index
+    self.current_frame = self._frames[self.index]
 end
 
 ---@param self Sprite
@@ -44,11 +44,11 @@ function Sprite.update(self, dt)
     self.timer = self.timer + dt * self.speed
     if self.timer > self._delay then
         self.timer = self.timer - self._delay
-        self._index = self._index + 1
-        if self._index > #self._frames then
-            self._index = 1
+        self.index = self.index + 1
+        if self.index > #self._frames then
+            self.index = 1
         end
-        self.current_frame = self._frames[self._index]
+        self.current_frame = self._frames[self.index]
     end
 end
 

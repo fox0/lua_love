@@ -4,10 +4,6 @@ local Sprite = require('src/sprite')
 local Player = {}
 Player.__index = Player
 
---todo x and y
-Player.SPEED = 200 * 1000
-Player.SPEED_JUMP = 1000
-
 ---@param self Player
 ---@param image Image
 ---@param world World
@@ -16,9 +12,13 @@ Player.SPEED_JUMP = 1000
 ---@return Player
 function Player.init(self, image, world, x, y)
     ---@class Player
-    ---@field SPEED number
-    ---@field SPEED_JUMP number
     local obj = {}
+
+    --todo x and y
+    obj.SPEED = 200 * 1000
+    obj.IMPULSE_JUMP = 500
+    obj.IMPULSE_FLY = 80
+
     obj._prev_x = x
     obj._prev_y = y
     obj._prev_r = 0
@@ -59,6 +59,20 @@ end
 --end
 
 ---@param self Player
+---@param is_ground boolean
+function Player.set_is_ground(self, is_ground)
+    self.is_ground = is_ground
+    if is_ground then
+        --todo
+        self.sprite = self.sprites.walk_right
+    else
+        self.sprite = self.sprites._sprite6_3
+        self.sprite.index = 1
+    end
+    assert(self.sprite)
+end
+
+---@param self Player
 ---@param dt number
 function Player.update(self, dt)
     self:_update_position(dt)  --1
@@ -92,6 +106,7 @@ function Player._update_position(self, dt)
     end
     if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
         iy = -self.SPEED
+        --self.sprite.index = 1
     end
     if love.keyboard.isDown('s') or love.keyboard.isDown('down') then
         iy = self.SPEED
@@ -100,7 +115,7 @@ function Player._update_position(self, dt)
         self.body:applyForce(ix * dt, iy * dt)
     end
     if self.is_ground and love.keyboard.isDown('space') then
-        self.body:applyLinearImpulse(0, -self.SPEED_JUMP)
+        self.body:applyLinearImpulse(0, -self.IMPULSE_JUMP)
     end
 end
 
@@ -117,13 +132,11 @@ end
 
 ---@param self Player
 function Player._update_sprite(self)
-    if self.is_ground then
-        --todo
-        self.sprite = self.sprites.walk_right
-    else
-
+    if not self.is_ground then
+        if self.sprite.index == 4 then
+            self.body:applyLinearImpulse(0, -self.IMPULSE_FLY)
+        end
     end
-    assert(self.sprite)
 end
 
 ---@param self Player
