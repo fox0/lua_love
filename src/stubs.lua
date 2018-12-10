@@ -2,7 +2,7 @@
 
 -- love2d version 11.1
 
----@class Love
+---@class love
 love = {}
 
 ---
@@ -33,6 +33,62 @@ function love.setDeprecationOutput(enable) end
 ---     boolean enabled - Whether deprecation output is enabled.
 ---@return boolean
 function love.hasDeprecationOutput() end
+
+---
+--- The superclass of all data.
+---@class Data
+Data = {}
+
+---
+--- Gets a pointer to the Data.
+---
+--- returns:
+---     light userdata pointer - A raw pointer to the Data.
+---@return light userdata
+function Data.getPointer() end
+
+---
+--- Gets the size of the Data.
+---
+--- returns:
+---     number size - The size of the Data in bytes.
+---@return number
+function Data.getSize() end
+
+---
+--- Gets the full Data as a string.
+---
+--- returns:
+---     string data - The raw data.
+---@return string
+function Data.getString() end
+
+---
+--- Superclass for all things that can be drawn on screen. This is an abstract type that can't be created directly.
+---@class Drawable
+Drawable = {}
+
+---
+--- The superclass of all LÖVE types.
+---@class Object
+Object = {}
+
+---
+--- Gets the type of the object as a string.
+---
+--- returns:
+---     string type - The type as a string.
+---@return string
+function Object.type() end
+
+---
+--- Checks whether an object is of a certain type. If the object has the type with the specified name in its hierarchy, this function will return true.
+---
+---@param name string The name of the type to check for.
+--- returns:
+---     boolean b - True if the object is of the specified type, false otherwise.
+---@return boolean
+function Object.typeOf(name) end
 
 ---
 --- If a file called conf.lua is present in your game folder (or .love file), it is run before the LÖVE modules are loaded. You can use this file to overwrite the love.conf function, which is later called by the LÖVE 'boot' script. Using the love.conf function, you can set some configuration options, and change things like the default size of the window, which modules are loaded, and other stuff.

@@ -9,7 +9,7 @@ print([[
 print('-- love2d version ' .. love.version)
 print([[
 
----@class Love
+---@class love
 love = {}
 ]])
 
@@ -58,7 +58,15 @@ for _, module in ipairs(love.modules) do
 end
 
 for _, t in ipairs(love.types) do
-
+    print(string.format('---\n--- %s', t.description))
+    --todo parenttype supertypes subtypes
+    print(string.format('---@class %s', t.name))
+    print(string.format('%s = {}\n', t.name))
+    if t.functions then
+        for _, func in ipairs(t.functions) do
+            print_func(func, t.name)
+        end
+    end
 end
 
 for _, callback in ipairs(love.callbacks) do
