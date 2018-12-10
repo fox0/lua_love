@@ -16,8 +16,10 @@ function Player.init(self, image, world, x, y)
 
     --todo x and y
     obj.SPEED = 200 * 1000
-    obj.IMPULSE_JUMP = 500
-    obj.IMPULSE_FLY = 80
+    obj.IMPULSE_JUMP = 300
+    obj.IMPULSE_FLY = 50
+    obj.FORCE_GROUNG = 40 * 1000
+    obj.FORCE_SKY = 1000
 
     obj._prev_x = x
     obj._prev_y = y
@@ -37,8 +39,10 @@ function Player.init(self, image, world, x, y)
     --obj.body:setMassData(.2)  -- kg
 
     --todo другая форма love.physics.newPolygonShape
+    local dx = 20
+    local dy = 15
     ---@type Shape
-    obj.shape = love.physics.newRectangleShape(obj.HALF_W, obj.HALF_H, 70, 70)
+    obj.shape = love.physics.newRectangleShape(obj.HALF_W, obj.HALF_H + (dy / 2), 70 - dx, 70 - dy)
     local fixture = love.physics.newFixture(obj.body, obj.shape)
     fixture:setUserData('player')
 
@@ -76,13 +80,13 @@ end
 ---@param dt number
 function Player.update(self, dt)
     self:_update_position(dt)  --1
+    self:_update_external_forces(dt)
     ---@type number
     local x = self.body:getX()
     ---@type number
     local y = self.body:getY()
     ---@type number
     local r = self.body:getAngle()
-    self:_update_rotate(r)
     self:_update_sprite()
     self._prev_x = x
     self._prev_y = y
@@ -106,7 +110,6 @@ function Player._update_position(self, dt)
     end
     if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
         iy = -self.SPEED
-        --self.sprite.index = 1
     end
     if love.keyboard.isDown('s') or love.keyboard.isDown('down') then
         iy = self.SPEED
@@ -120,20 +123,34 @@ function Player._update_position(self, dt)
 end
 
 ---@param self Player
----@param r number
-function Player._update_rotate(self, r)
+---@param dt number
+function Player._update_external_forces(self, dt)
+    local x, y, r = self.body:getX(), self.body:getY(), self.body:getAngle()
+    local speedx = self._prev_x - x
+    local speedy = self._prev_y - y
+    local speedr = self._prev_r - r
+
+    local k
+    if self.is_ground then
+        k = self.FORCE_GROUNG
+    else
+        k = self.FORCE_SKY
+    end
+    --сила трения
+    self.body:applyForce(speedx * k * dt, speedy * k * dt)
+
     --todo если перевернуться на 180 или больше 360, то делает столько же число оборотов назад. Фича?
-    local P = 2000
+    local P = 1500
     local I = 100000
     local error = 0 - r
-    local error2 = self._prev_r - r
-    self.body:applyTorque(error * P + error2 * I)  -- PID
+    self.body:applyTorque(error * P + speedr * I)  -- PID
 end
 
 ---@param self Player
 function Player._update_sprite(self)
     if not self.is_ground then
         if self.sprite.index == 4 then
+            --забавный полёт
             self.body:applyLinearImpulse(0, -self.IMPULSE_FLY)
         end
     end
