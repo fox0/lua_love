@@ -16,7 +16,7 @@ function Sprite.init(self, frames, delay, speed)
     obj._frames = frames
     obj.index = 1  -- нумерация с единицы
     obj._delay = delay or .15
-    obj.speed = speed or 1.
+    --obj.speed = speed or 1.
     obj.is_animated = true
     obj.timer = 0
     ---@type Frame
@@ -33,6 +33,7 @@ function Sprite.set_frame(self, index)
     assert(index)
     self.index = index
     self.current_frame = self._frames[self.index]
+    assert(self.current_frame)
 end
 
 ---@param self Sprite
@@ -41,7 +42,7 @@ function Sprite.update(self, dt)
     if not self.is_animated then
         return
     end
-    self.timer = self.timer + dt * self.speed
+    self.timer = self.timer + dt --* self.speed
     if self.timer > self._delay then
         self.timer = self.timer - self._delay
         self.index = self.index + 1
@@ -68,6 +69,7 @@ function Sprite.parse_texture(image)
     local x = 0
     local y = 0
     ---@param count number
+    ---@return Frame[]
     local function get_frames(count)
         local r = {}
         local e = x + count
@@ -81,21 +83,32 @@ function Sprite.parse_texture(image)
 
     ---@class SpriteList
     local result = {}
-    result._sprite1_1 = Sprite:init(get_frames(5))
+    result.sprite1 = Sprite:init(get_frames(5))
+
     local frames = get_frames(5)
     for i = 0, 2 do
         frames[#frames + 1] = Frame:init(image, frames[4 - i]._quad, true)
     end
-    result._sprite1_2 = Sprite:init(frames)
+    assert(#frames == 8)
+    result.sprite2 = Sprite:init(frames)
+
     result.sleep = Sprite:init(get_frames(3))
 
     x = 0
     y = 1
     result.walk1 = Sprite:init(get_frames(6))
     result.walk2 = Sprite:init(get_frames(6))
-    result.walk_right = Sprite:init(get_frames(6))
-    result._sprite2_4 = Sprite:init(get_frames(6))
-    result._sprite2_5 = Sprite:init(get_frames(6))
+
+    frames = get_frames(6)
+    result.walk_right = Sprite:init(frames)
+    local frames2 = {}
+    for i, v in ipairs(frames) do
+        frames2[#frames2 + 1] = Frame:init(image, v._quad, true) --todo переписать зеркалирование
+    end
+    result.walk_left = Sprite:init(frames2)
+
+    result.walk4 = Sprite:init(get_frames(6))
+    result.walk5 = Sprite:init(get_frames(6))
 
     x = 0
     y = 2
@@ -123,11 +136,19 @@ function Sprite.parse_texture(image)
 
     x = 0
     y = 5
-    result._sprite6_1 = Sprite:init(get_frames(6))
-    result._sprite6_2 = Sprite:init(get_frames(6))
-    result._sprite6_3 = Sprite:init(get_frames(6))  --fly wait
-    result._sprite6_4 = Sprite:init(get_frames(6))
-    result._sprite6_5 = Sprite:init(get_frames(6))
+    result.fly1 = Sprite:init(get_frames(6))
+    result.fly2 = Sprite:init(get_frames(6))
+
+    frames = get_frames(6)
+    result.fly_right = Sprite:init(frames)
+    frames2 = {}
+    for i, v in ipairs(frames) do
+        frames2[#frames2 + 1] = Frame:init(image, v._quad, true) --todo переписать зеркалирование
+    end
+    result.fly_left = Sprite:init(frames2)
+
+    result.fly4 = Sprite:init(get_frames(6))
+    result.fly5 = Sprite:init(get_frames(6))
 
     x = 0
     y = 6

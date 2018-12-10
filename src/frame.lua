@@ -30,7 +30,7 @@ end
 function Frame.draw(self, x, y, r)
     local sx = 1
     local sy = 1
-    if self._is_xmirror then
+    if self._is_xmirror then  --todo bug зеркалировать не при выводе, а сам спрайт
         sx = -1
         x = x + self.H
     end

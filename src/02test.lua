@@ -8,8 +8,6 @@ local m = {}
 ---@field player Player
 local vars = {}
 
-text = "No collision yet."
-
 ---@param args table В args.img лежит текстура выбранного персонажа
 function m.init(args)
     vars.bg = love.graphics.newImage('resourses/backgrounds/02.png')
@@ -45,9 +43,6 @@ function m.draw()
     love.graphics.setColor(.0, .0, .0, .7)
     love.graphics.polygon('fill', ground_shape:getPoints())
 
-    love.graphics.setColor(.0, 1., .0, 1.)
-    love.graphics.print(text, 5, 35)
-
     love.graphics.setColor(r, g, b, a)
 
     vars.player:draw()
@@ -58,7 +53,7 @@ end
 function beginContact(a, b, c)
     local aa = a:getUserData()
     local bb = b:getUserData()
-    text = "Collided: " .. aa .. " and " .. bb
+    --text = "Collided: " .. aa .. " and " .. bb
     vars.player:set_is_ground(true)
 end
 
@@ -66,7 +61,7 @@ end
 function endContact(a, b, c)
     local aa = a:getUserData()
     local bb = b:getUserData()
-    text = "Collision ended: " .. aa .. " and " .. bb
+    --text = "Collision ended: " .. aa .. " and " .. bb
     vars.player:set_is_ground(false)
 end
 

@@ -29,7 +29,7 @@ function Player.init(self, image, world, x, y)
     ---@type SpriteList
     obj.sprites = Sprite.parse_texture(image)
     ---@type Sprite
-    obj.sprite = obj.sprites._sprite6_3
+    obj.sprite = obj.sprites.fly_right
     -- чтобы далеко не лазить
     obj.HALF_W = obj.sprite.current_frame.HALF_W
     obj.HALF_H = obj.sprite.current_frame.HALF_H
@@ -60,9 +60,9 @@ function Player.set_is_ground(self, is_ground)
     self.is_ground = is_ground
     if is_ground then
         --todo
-        self.sprite = self.sprites.walk_right
+        --self.sprite = self.sprites.walk_right
     else
-        self.sprite = self.sprites._sprite6_3
+        --self.sprite = self.sprites._sprite6_3
         self.sprite.index = 1
     end
     assert(self.sprite)
@@ -74,11 +74,14 @@ function Player.update(self, dt)
     self:_update_position(dt)  --1
     ---@type number
     local x, y, r = self.body:getX(), self.body:getY(), self.body:getAngle()
-    self:_update_external_forces(dt, x, y, r)
-    self:_update_sprite()
+    local speedx = x - self._prev_x
+    local speedy = y - self._prev_y
+    local speedr = r - self._prev_r
     self._prev_x = x
     self._prev_y = y
     self._prev_r = r
+    self:_update_external_forces(dt, speedx, speedy, speedr, r)
+    self:_update_sprite(speedx)
     self.sprite.x = x
     self.sprite.y = y
     self.sprite.r = r
@@ -113,14 +116,11 @@ end
 
 ---@param self Player
 ---@param dt number
----@param x number
----@param y number
+---@param speedx number
+---@param speedy number
+---@param speedr number
 ---@param r number
-function Player._update_external_forces(self, dt, x, y, r)
-    local speedx = self._prev_x - x
-    local speedy = self._prev_y - y
-    local speedr = self._prev_r - r
-
+function Player._update_external_forces(self, dt, speedx, speedy, speedr, r)
     local k
     if self.is_ground then
         k = self.FORCE_GROUNG
@@ -128,20 +128,37 @@ function Player._update_external_forces(self, dt, x, y, r)
         k = self.FORCE_SKY
     end
     --сила трения
-    self.body:applyForce(speedx * k * dt, speedy * k * dt)
+    self.body:applyForce(-speedx * k * dt, -speedy * k * dt)
 
     --todo если перевернуться на 180 или больше 360, то делает столько же число оборотов назад. Фича?
     local P = 1500
     local I = 100000
     local error = 0 - r
-    self.body:applyTorque(error * P + speedr * I)  -- PID
+    self.body:applyTorque(error * P - speedr * I)  -- PID
 end
 
 ---@param self Player
-function Player._update_sprite(self)
-    if not self.is_ground then
+---@param speedx number
+function Player._update_sprite(self, speedx)
+    if self.is_ground then
+        if speedx > 0 then
+            self.sprite = self.sprites.walk_right
+        elseif speedx < 0 then
+            self.sprite = self.sprites.walk_left
+        else
+            log.debug('stop') --todo
+        end
+    else
+        if speedx > 0 then
+            self.sprite = self.sprites.fly_right
+        elseif speedx < 0 then
+            self.sprite = self.sprites.fly_left
+        else
+            log.debug('stop') --todo?
+        end
+
+        --забавный полёт
         if self.sprite.index == 4 then
-            --забавный полёт
             self.body:applyLinearImpulse(0, -self.IMPULSE_FLY)
         end
     end

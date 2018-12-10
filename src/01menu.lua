@@ -55,26 +55,31 @@ function m.init()
         vars.ponies_img[#vars.ponies_img + 1] = img
     end
     assert(#vars.ponies_img == 10)
+
     ---@type Sprite[]
     vars.ponies = {}
     for _, img in ipairs(vars.ponies_img) do
-        vars.ponies[#vars.ponies + 1] = Sprite.parse_texture(img)._sprite1_2
+        ---@type SpriteList
+        local sprites = Sprite.parse_texture(img)
+        vars.ponies[#vars.ponies + 1] = sprites.sprite2
     end
 
     local width, height = love.graphics.getDimensions()
-    local width_sprite = vars.ponies[1].current_frame.W
-    local height_sprite = vars.ponies[1].current_frame.H
-    local xstep = width / 5
-    local xborder = (xstep - width_sprite) / 2
-    --local yborder
-    log.debug(string.format('window size: %dx%d step: %d', width, height, xstep))
+    vars.xstep = width / 5
+    vars.ystep = height / 2
+    log.debug(string.format('window size: %dx%d step: %d', width, height, vars.xstep))
+
+    local W, H = vars.ponies[1].current_frame.W, vars.ponies[1].current_frame.H
+    local xborder = (vars.xstep - W) / 2
+    local yborder = (vars.ystep - H) / 2
+    log.debug(string.format('xborder=%d yborder=%d', xborder, yborder))
     for i = 1, 5 do
-        vars.ponies[i].x = xborder + xstep * (i - 1)
-        vars.ponies[i].y = 100 --todo
+        vars.ponies[i].x = xborder + vars.xstep * (i - 1)
+        vars.ponies[i].y = yborder --+ vars.ystep * 0
     end
     for i = 6, 10 do
-        vars.ponies[i].x = xborder + xstep * (i - 6)
-        vars.ponies[i].y = height_sprite + 200
+        vars.ponies[i].x = xborder + vars.xstep * (i - 6)
+        vars.ponies[i].y = yborder + vars.ystep * 1
     end
     vars.ponies[1]:set_frame(5)
     vars.sel_index = 1
@@ -140,15 +145,43 @@ function m.update(dt)
     for _, pony in ipairs(vars.ponies) do
         pony:update(dt)
     end
+    --todo может заанимировать прозрачность фона? (зациклить)
 end
 
 function m.draw()
-    --todo надпись в шапке вверху другим шрифтом
-    --todo +фон цветом
+    local r, g, b, a = love.graphics.getColor()
+    local X, Y = vars.xstep, vars.ystep
+
+    love.graphics.setColor(.35, .65, .79, .7)
+    love.graphics.rectangle('fill', X * 0, 0, X, Y)
+    love.graphics.setColor(.84, .64, .71, .7)
+    love.graphics.rectangle('fill', X * 1, 0, X, Y)
+    love.graphics.setColor(.67, .15, .33, .7)
+    love.graphics.rectangle('fill', X * 2, 0, X, Y)
+    love.graphics.setColor(.78, .75, .36, .7)
+    love.graphics.rectangle('fill', X * 3, 0, X, Y)
+    love.graphics.setColor(.38, .32, .63, .7) --todo чуть другой
+    love.graphics.rectangle('fill', X * 4, 0, X, Y)
+
+    love.graphics.setColor(.0, .5, .2, .7)
+    love.graphics.rectangle('fill', X * 0, Y, X, Y)
+    love.graphics.setColor(.0, .6, .2, .7)
+    love.graphics.rectangle('fill', X * 1, Y, X, Y)
+    love.graphics.setColor(.0, .7, .2, .7)
+    love.graphics.rectangle('fill', X * 2, Y, X, Y)
+    love.graphics.setColor(.0, .8, .2, .7)
+    love.graphics.rectangle('fill', X * 3, Y, X, Y)
+    love.graphics.setColor(.04, .10, .33, .7)
+    love.graphics.rectangle('fill', X * 4, Y, X, Y)
+
+    --todo
+    love.graphics.setColor(.9, .9, .9, 1.)
+    love.graphics.print('Select charapter', 480, 270)
+
+    love.graphics.setColor(r, g, b, a)
     for _, pony in ipairs(vars.ponies) do
         pony:draw()
     end
-    --love.graphics.print(text, 50, 50)
 end
 
 return m
