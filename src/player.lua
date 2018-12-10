@@ -80,7 +80,8 @@ function Player.update(self, dt)
     self._prev_x = x
     self._prev_y = y
     self._prev_r = r
-    self:_update_external_forces(dt, speedx, speedy, speedr, r)
+    self:_update_external_forces(dt, speedx, speedy)
+    self:_update_external_forces2(r, speedr)
     self:_update_sprite(speedx)
     self.sprite.x = x
     self.sprite.y = y
@@ -114,27 +115,40 @@ function Player._update_position(self, dt)
     end
 end
 
+--- Сила трения
 ---@param self Player
 ---@param dt number
 ---@param speedx number
 ---@param speedy number
----@param speedr number
----@param r number
-function Player._update_external_forces(self, dt, speedx, speedy, speedr, r)
+function Player._update_external_forces(self, dt, speedx, speedy)
     local k
     if self.is_ground then
         k = self.FORCE_GROUNG
     else
         k = self.FORCE_SKY
     end
-    --сила трения
     self.body:applyForce(-speedx * k * dt, -speedy * k * dt)
+end
 
-    --todo если перевернуться на 180 или больше 360, то делает столько же число оборотов назад. Фича?
-    local P = 1500
-    local I = 100000
-    local error = 0 - r
-    self.body:applyTorque(error * P - speedr * I)  -- PID
+--- Стабилизация вращения
+---@param self Player
+---@param r number
+---@param speedr number
+function Player._update_external_forces2(self, r, speedr)
+    local r2 = r % math.pi
+    if r2 < .01 or (math.pi - r2) < .01 then
+        return
+    end
+    --восстанавливаем знак
+    if r < 0 then
+        r2 = -r2
+    end
+    log.debug('r =', r2)
+    --todo делать поворот по меньшей дуге
+
+    -- local error = r2 - 0
+    local res = r2 * 1500 + speedr * 100000 --PID
+    self.body:applyTorque(-res)
 end
 
 ---@param self Player
@@ -146,7 +160,7 @@ function Player._update_sprite(self, speedx)
         elseif speedx < 0 then
             self.sprite = self.sprites.walk_left
         else
-            log.debug('stop') --todo
+            --log.debug('stop') --todo
         end
     else
         if speedx > 0 then
@@ -154,7 +168,7 @@ function Player._update_sprite(self, speedx)
         elseif speedx < 0 then
             self.sprite = self.sprites.fly_left
         else
-            log.debug('stop') --todo?
+            --log.debug('stop') --todo?
         end
 
         --забавный полёт
