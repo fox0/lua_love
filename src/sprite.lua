@@ -94,19 +94,21 @@ function Sprite.parse_texture(image)
 
     result.sleep = Sprite:init(get_frames(3))
 
+    local function mirror(f)
+        local r = {}
+        for _, v in ipairs(f) do
+            r[#r + 1] = Frame:init(image, v._quad, true)
+        end
+        return r
+    end
+
     x = 0
     y = 1
     result.walk1 = Sprite:init(get_frames(6))
     result.walk2 = Sprite:init(get_frames(6))
-
     frames = get_frames(6)
-    result.walk_right = Sprite:init(frames)
-    local frames2 = {}
-    for i, v in ipairs(frames) do
-        frames2[#frames2 + 1] = Frame:init(image, v._quad, true) --todo переписать зеркалирование
-    end
-    result.walk_left = Sprite:init(frames2)
-
+    result.left_walk = Sprite:init(mirror(frames))
+    result.right_walk = Sprite:init(frames)
     result.walk4 = Sprite:init(get_frames(6))
     result.walk5 = Sprite:init(get_frames(6))
 
@@ -120,33 +122,31 @@ function Sprite.parse_texture(image)
 
     x = 0
     y = 3
-    result._sprite4_1 = Sprite:init(get_frames(6))
-    result._sprite4_2 = Sprite:init(get_frames(6))
-    result._sprite4_3 = Sprite:init(get_frames(6))  --run
-    result._sprite4_4 = Sprite:init(get_frames(6))
-    result._sprite4_5 = Sprite:init(get_frames(6))
+    result.run1 = Sprite:init(get_frames(6))
+    result.run2 = Sprite:init(get_frames(6))
+    frames = get_frames(6)
+    result.left_run = Sprite:init(mirror(frames))
+    result.right_run = Sprite:init(frames)
+    result.run4 = Sprite:init(get_frames(6))
+    result.run5 = Sprite:init(get_frames(6))
 
     x = 0
     y = 4
-    result._sprite5_1 = Sprite:init(get_frames(6))
-    result._sprite5_2 = Sprite:init(get_frames(6))
-    result._sprite5_3 = Sprite:init(get_frames(6))  --fly wait up
-    result._sprite5_4 = Sprite:init(get_frames(6))
-    result._sprite5_5 = Sprite:init(get_frames(6))
+    result.fly_wait1 = Sprite:init(get_frames(6))
+    result.fly_wait2 = Sprite:init(get_frames(6))
+    frames = get_frames(6)
+    result.left_fly_wait = Sprite:init(mirror(frames))
+    result.right_fly_wait = Sprite:init(frames)
+    result.fly_wait4 = Sprite:init(get_frames(6))
+    result.fly_wait5 = Sprite:init(get_frames(6))
 
     x = 0
     y = 5
     result.fly1 = Sprite:init(get_frames(6))
     result.fly2 = Sprite:init(get_frames(6))
-
     frames = get_frames(6)
-    result.fly_right = Sprite:init(frames)
-    frames2 = {}
-    for i, v in ipairs(frames) do
-        frames2[#frames2 + 1] = Frame:init(image, v._quad, true) --todo переписать зеркалирование
-    end
-    result.fly_left = Sprite:init(frames2)
-
+    result.left_fly = Sprite:init(mirror(frames))
+    result.right_fly = Sprite:init(frames)
     result.fly4 = Sprite:init(get_frames(6))
     result.fly5 = Sprite:init(get_frames(6))
 

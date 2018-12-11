@@ -52,6 +52,14 @@ if log.level == 'debug' then
         love.graphics.circle('line', x, y, 3)
         local x1 = x + math.cos(r) * self.W
         local y1 = y + math.sin(r) * self.H
+
+        --vec2 rotate(vec2 point, float angle){
+        --vec2 rotated_point;
+        --rotated_point.x = point.x * cos(angle) - point.y * sin(angle);
+        --rotated_point.y = point.x * sin(angle) + point.y * cos(angle);
+        --return rotated_point;
+        --}
+
         love.graphics.line(x, y, x1, y1)
         love.graphics.setColor(r_, g, b, a)
     end

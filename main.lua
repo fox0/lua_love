@@ -34,6 +34,7 @@ function load_module(module_name, args)
 end
 
 function love.run()
+    const = require('src/const')
     love.graphics.setFont(love.graphics.newFont('resourses/fonts/Robotomedium.ttf', 14))
     love.graphics.setLineStyle('rough')
     love.graphics.setColor(1., 1., 1., 1.)
