@@ -35,9 +35,11 @@ end
 
 function love.run()
     const = require('src/const')
+    window_width, window_height = love.graphics.getDimensions()
+    log.debug(string.format('window size: %dx%d', window_width, window_height))
     love.graphics.setFont(love.graphics.newFont('resourses/fonts/Robotomedium.ttf', 14))
     love.graphics.setLineStyle('rough')
-    love.graphics.setColor(1., 1., 1., 1.)
+    love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
 
     --messages_bus = {}
     load_module('01menu')

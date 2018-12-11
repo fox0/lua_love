@@ -64,15 +64,11 @@ function m.init()
         vars.ponies[#vars.ponies + 1] = sprites.sprite2
     end
 
-    local width, height = love.graphics.getDimensions()
-    vars.xstep = width / 5
-    vars.ystep = height / 2
-    log.debug(string.format('window size: %dx%d step: %d', width, height, vars.xstep))
-
+    vars.xstep = window_width / 5
+    vars.ystep = window_height / 2
     local W, H = vars.ponies[1].current_frame.W, vars.ponies[1].current_frame.H
     local xborder = (vars.xstep - W) / 2
     local yborder = (vars.ystep - H) / 2
-    log.debug(string.format('xborder=%d yborder=%d', xborder, yborder))
     for i = 1, 5 do
         vars.ponies[i].x = xborder + vars.xstep * (i - 1)
         vars.ponies[i].y = yborder --+ vars.ystep * 0
@@ -152,30 +148,30 @@ function m.draw()
     local r, g, b, a = love.graphics.getColor()
     local X, Y = vars.xstep, vars.ystep
 
-    love.graphics.setColor(.35, .65, .79, .7)
+    love.graphics.setColor(0.35, 0.65, 0.79, 0.7)
     love.graphics.rectangle('fill', X * 0, 0, X, Y)
-    love.graphics.setColor(.84, .64, .71, .7)
+    love.graphics.setColor(0.84, 0.64, 0.71, 0.7)
     love.graphics.rectangle('fill', X * 1, 0, X, Y)
-    love.graphics.setColor(.67, .15, .33, .7)
+    love.graphics.setColor(0.67, 0.15, 0.33, 0.7)
     love.graphics.rectangle('fill', X * 2, 0, X, Y)
-    love.graphics.setColor(.78, .75, .36, .7)
+    love.graphics.setColor(0.78, 0.75, 0.36, 0.7)
     love.graphics.rectangle('fill', X * 3, 0, X, Y)
-    love.graphics.setColor(.38, .32, .63, .7) --todo чуть другой
+    love.graphics.setColor(0.38, 0.32, 0.63, 0.7) --todo чуть другой
     love.graphics.rectangle('fill', X * 4, 0, X, Y)
 
-    love.graphics.setColor(.0, .5, .2, .7)
+    love.graphics.setColor(0.0, 0.5, 0.2, 0.7)
     love.graphics.rectangle('fill', X * 0, Y, X, Y)
-    love.graphics.setColor(.0, .6, .2, .7)
+    love.graphics.setColor(0.0, 0.6, 0.2, 0.7)
     love.graphics.rectangle('fill', X * 1, Y, X, Y)
-    love.graphics.setColor(.0, .7, .2, .7)
+    love.graphics.setColor(0.0, 0.7, 0.2, 0.7)
     love.graphics.rectangle('fill', X * 2, Y, X, Y)
-    love.graphics.setColor(.0, .8, .2, .7)
+    love.graphics.setColor(0.0, 0.8, 0.2, 0.7)
     love.graphics.rectangle('fill', X * 3, Y, X, Y)
-    love.graphics.setColor(.04, .10, .33, .7)
+    love.graphics.setColor(0.04, 0.10, 0.33, 0.7)
     love.graphics.rectangle('fill', X * 4, Y, X, Y)
 
     --todo
-    love.graphics.setColor(.9, .9, .9, 1.)
+    love.graphics.setColor(0.9, 0.9, 0.9, 1.0)
     love.graphics.print('Select charapter', 480, 270)
 
     love.graphics.setColor(r, g, b, a)

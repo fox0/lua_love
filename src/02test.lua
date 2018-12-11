@@ -17,6 +17,9 @@ function m.init(args)
     vars.world = love.physics.newWorld(0, 9.81 * CONST, true)
     ---@type Player
     vars.player = Player:init(args.img, vars.world, 400, 200)
+    vars.diffx = (window_width - vars.player.sprite.current_frame.W) / 2
+    vars.diffy = (window_height - vars.player.sprite.current_frame.H) / 2
+    vars.x0, vars.y0 = 0, 0
 
     -- Create the ground body at (0, 0) static
     ground = love.physics.newBody(vars.world, 0, 0, "static")
@@ -26,27 +29,6 @@ function m.init(args)
 
     -- Set the collision callback.
     vars.world:setCallbacks(beginContact, endContact)
-end
-
----@param dt number
-function m.update(dt)
-    vars.world:update(dt)
-    vars.player:update(dt)
-end
-
-function m.draw()
-    love.graphics.draw(vars.bg, 0, 0)
-
-    -- Draws the ground.
-    local r, g, b, a = love.graphics.getColor()
-
-    love.graphics.setColor(.0, .0, .0, .7)
-    love.graphics.polygon('fill', ground_shape:getPoints())
-
-    love.graphics.setColor(r, g, b, a)
-
-    vars.player:draw()
-    debug_physics(vars.world)
 end
 
 -- This is called every time a collision begin.
@@ -63,6 +45,31 @@ function endContact(a, b, c)
     local bb = b:getUserData()
     --text = "Collision ended: " .. aa .. " and " .. bb
     vars.player:set_is_ground(false)
+end
+
+---@param dt number
+function m.update(dt)
+    vars.world:update(dt)
+    vars.player:update(dt)
+    vars.x0 = -vars.player.prev_x + vars.diffx
+    vars.y0 = -vars.player.prev_y + vars.diffy
+end
+
+function m.draw()
+    love.graphics.draw(vars.bg, vars.x0 / 10, vars.y0 / 50)
+    --love.graphics.push()
+    --love.graphics.scale(0.5, 0.5)
+    love.graphics.translate(vars.x0, vars.y0)
+    -- Draws the ground.
+    local r, g, b, a = love.graphics.getColor()
+    love.graphics.setColor(0.0, 0.0, 0.0, 0.7)
+    love.graphics.polygon('fill', ground_shape:getPoints())
+    love.graphics.setColor(r, g, b, a)
+
+    vars.player:draw()
+    --love.graphics.pop()
+    debug_physics(vars.world)
+    love.graphics.origin()
 end
 
 return m

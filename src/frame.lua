@@ -48,19 +48,23 @@ if log.level == 'debug' then
     ---@param r number
     function Frame._debug_draw(self, x, y, r)
         local r_, g, b, a = love.graphics.getColor()
-        love.graphics.setColor(.0, 1., .0, 1.)
+        love.graphics.setColor(0.0, 1.0, 0.0, 1.0)
         love.graphics.circle('line', x, y, 3)
         local x1 = x + math.cos(r) * self.W
         local y1 = y + math.sin(r) * self.H
-
         --vec2 rotate(vec2 point, float angle){
         --vec2 rotated_point;
         --rotated_point.x = point.x * cos(angle) - point.y * sin(angle);
         --rotated_point.y = point.x * sin(angle) + point.y * cos(angle);
         --return rotated_point;
         --}
-
         love.graphics.line(x, y, x1, y1)
+
+        love.graphics.setColor(0.0, 0.0, 0.0, 0.5)
+        love.graphics.rectangle('fill', x, y, self.W, 16)
+        love.graphics.setColor(0.0, 1.0, 0.0, 1.0)
+        love.graphics.print(string.format('(%d; %d) %d', x, y, r * (180 / math.pi)), x, y)
+
         love.graphics.setColor(r_, g, b, a)
     end
 end

@@ -47,9 +47,9 @@ function Player.init(self, image, world, x, y)
     obj.FORCE = const.FORCE_PONY * 1.0
 
     obj.is_ground = false
-    obj._prev_x = x
-    obj._prev_y = y
-    obj._prev_r = 0
+    obj.prev_x = x
+    obj.prev_y = y
+    obj.prev_r = 0
     obj.speedx = 0
     obj.speedy = 0
     obj.speedr = 0
@@ -77,12 +77,12 @@ function Player.update(self, dt)
     self:_update_position(dt100)  --1
     ---@type number
     local x, y, r = self.body:getX(), self.body:getY(), self.body:getAngle()
-    self.speedx = (x - self._prev_x) * dt100
-    self.speedy = (y - self._prev_y) * dt100
-    self.speedr = (r - self._prev_r) * dt100
-    self._prev_x = x
-    self._prev_y = y
-    self._prev_r = r
+    self.speedx = (x - self.prev_x) * dt100
+    self.speedy = (y - self.prev_y) * dt100
+    self.speedr = (r - self.prev_r) * dt100
+    self.prev_x = x
+    self.prev_y = y
+    self.prev_r = r
     self:_update_external_forces()
     self:_update_external_forces2(dt100, r)
     self:_update_sprite()
@@ -149,9 +149,8 @@ function Player._update_external_forces2(self, dt100, r)
     --todo делать поворот по меньшей дуге
     local error = r2 - 0
     local res = error * const.K_PONY_P + self.speedr * const.K_PONY_I --PID
-    res = -res
-    log.debug('r =', r2, 'res =', res)
-    self.body:applyTorque(res * dt100 * const.K_PONY_ROTATE2)
+    --log.debug('r =', r2, 'res =', res)
+    self.body:applyTorque(-res * dt100 * const.K_PONY_ROTATE2)
 end
 
 --function Player._normalize_angle(angle)
@@ -200,6 +199,7 @@ function Player._update_sprite(self)
     end
     --[5;+inf]
     if s > FAST_SPEED then
+        --todo ускорять анимацию?
         self.sprite = sprites[5]
         return
     end
@@ -229,19 +229,9 @@ if log.level == 'debug' then
     ---@param self Player
     function Player.debug_draw(self)
         local r, g, b, a = love.graphics.getColor()
-
-        love.graphics.setColor(.0, .0, 1., 1.)
+        love.graphics.setColor(0.0, 0.0, 1.0, 1.0)
         local x0, y0 = self.body:getWorldCenter()  -- центр масс
         love.graphics.circle('line', x0, y0, 3)
-
-        love.graphics.setColor(.0, .0, .0, .7)
-        love.graphics.rectangle('fill', 0, 14, 300, 14)
-        love.graphics.setColor(.0, 1., .0, 1.)
-        local s = string.format('(%d;%d) %d speed: %.2f %.2f %.2f',
-                self.body:getX(), self.body:getY(), self.body:getAngle() * (180 / math.pi),
-                self.speedx, self.speedy, self.speedr)
-        love.graphics.print(s, 0, 14)
-
         love.graphics.setColor(r, g, b, a)
     end
 end
