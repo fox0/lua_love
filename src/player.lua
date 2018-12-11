@@ -13,19 +13,17 @@ Player.__index = Player
 function Player.init(self, image, world, x, y)
     ---@class Player
     local obj = {}
-    --todo как-то различать по расам (как минимум is_fly)
-    obj.FORCE = const.FORCE_PONY * 1.0
-
-    obj.is_ground = false
-    obj._prev_x = x
-    obj._prev_y = y
-    obj._prev_r = 0
-    obj.speedx = 0
-    obj.speedy = 0
-    obj.speedr = 0
-
     ---@type SpriteList
     obj.sprites = Sprite.parse_texture(image)
+    obj.SPRITES_GROUND = { obj.sprites.left_run, obj.sprites.left_walk,
+                           obj.sprites.left_walk, --todo
+                           obj.sprites.right_walk, obj.sprites.right_run }
+    assert(#obj.SPRITES_GROUND == 5)
+    obj.SPRITES_FLY = { obj.sprites.left_fly_run, obj.sprites.left_fly,
+                        obj.sprites.right_fly_wait, --todo отдельный флаг для выбора стороны?
+                        obj.sprites.right_fly, obj.sprites.right_fly_run }
+    assert(#obj.SPRITES_FLY == 5)
+
     ---@type Sprite
     obj.sprite = obj.sprites.right_fly
     assert(obj.sprite)
@@ -44,6 +42,17 @@ function Player.init(self, image, world, x, y)
 
     obj.body:setMassData(obj.shape:computeMass(1))
     --obj.body:setWorldCenter(20, 25)
+
+    --todo как-то различать по расам (как минимум is_fly)
+    obj.FORCE = const.FORCE_PONY * 1.0
+
+    obj.is_ground = false
+    obj._prev_x = x
+    obj._prev_y = y
+    obj._prev_r = 0
+    obj.speedx = 0
+    obj.speedy = 0
+    obj.speedr = 0
     return setmetatable(obj, Player)
 end
 
@@ -115,9 +124,9 @@ end
 function Player._update_external_forces(self)
     local k
     if self.is_ground then
-        k = const.FORCE_GROUNG
+        k = const.K_FORCE_GROUNG
     else
-        k = const.FORCE_SKY
+        k = const.K_FORCE_SKY
     end
     self.body:applyForce(-self.speedx * k, -self.speedy * k)
 end
@@ -165,45 +174,37 @@ end
 
 ---@param self Player
 function Player._update_sprite(self)
-    local FAST_SPEED_GROUND = 6
-
-    local s = self.speedx
+    local FAST_SPEED, sprites
     if self.is_ground then
-        --[-inf;-5]
-        if s < -FAST_SPEED_GROUND then
-            --todo чуточку подлагивает. сделать дельту
-            self.sprite = self.sprites.left_run
-            return
-        end
-        --[-5;0]
-        if s < 0 then
-            self.sprite = self.sprites.left_walk
-            return
-        end
-        if s == 0 then
-            --todo
-            return
-        end
-        --[5;+inf]
-        if s > FAST_SPEED_GROUND then
-            self.sprite = self.sprites.right_run
-            return
-        end
-        --[0;5]
-        self.sprite = self.sprites.right_walk
+        FAST_SPEED = 6
+        sprites = self.SPRITES_GROUND
+    else
+        FAST_SPEED = 12
+        sprites = self.SPRITES_FLY
+    end
+    local s = self.speedx
+    --[-inf;-5]
+    if s < -FAST_SPEED then
+        --todo чуточку подлагивает. сделать дельту
+        self.sprite = sprites[1]
         return
     end
-
-    --fly
+    --[-5;0]
     if s < 0 then
-        self.sprite = self.sprites.left_fly
-    elseif s == 0 then
-        --(-5;5)
-        --todo left (отдельный флаг?)
-        self.sprite = self.sprites.right_fly_wait
-    elseif s > 0 then
-        self.sprite = self.sprites.right_fly
+        self.sprite = sprites[2]
+        return
     end
+    if s == 0 then
+        self.sprite = sprites[3]
+        return
+    end
+    --[5;+inf]
+    if s > FAST_SPEED then
+        self.sprite = sprites[5]
+        return
+    end
+    --[0;5]
+    self.sprite = sprites[4]
 end
 
 --- Забавный полёт

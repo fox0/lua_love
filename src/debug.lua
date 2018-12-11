@@ -1,6 +1,6 @@
 log = require('lib/log')
 log.usecolor = false
-log.level = 'info'
+--log.level = 'info'
 log.level = 'debug'
 
 io.stdout:setvbuf 'line'  -- 'no'

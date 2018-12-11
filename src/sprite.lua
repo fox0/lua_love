@@ -152,11 +152,13 @@ function Sprite.parse_texture(image)
 
     x = 0
     y = 6
-    result._sprite7_1 = Sprite:init(get_frames(6))
-    result._sprite7_2 = Sprite:init(get_frames(6))
-    result._sprite7_3 = Sprite:init(get_frames(6))  --fly run
-    result._sprite7_4 = Sprite:init(get_frames(6))
-    result._sprite7_5 = Sprite:init(get_frames(6))
+    result.fly_run1 = Sprite:init(get_frames(6))
+    result.fly_run2 = Sprite:init(get_frames(6))
+    frames = get_frames(6)
+    result.left_fly_run = Sprite:init(mirror(frames))
+    result.right_fly_run = Sprite:init(frames)
+    result.fly_run4 = Sprite:init(get_frames(6))
+    result.fly_run5 = Sprite:init(get_frames(6))
 
     x = 0
     y = 7
