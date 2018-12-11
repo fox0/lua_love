@@ -13,8 +13,8 @@ Player.__index = Player
 function Player.init(self, image, world, x, y)
     ---@class Player
     local obj = {}
-    --силушка поняши в лошадиных силах
-    obj.FORCE = 1000
+    --todo как-то различать по расам (как минимум is_fly)
+    obj.FORCE = const.FORCE_PONY * 1.0
 
     obj.is_ground = false
     obj._prev_x = x
@@ -24,25 +24,21 @@ function Player.init(self, image, world, x, y)
     obj.speedy = 0
     obj.speedr = 0
 
-    --todo как-то различать по расам (как минимум is_fly)
     ---@type SpriteList
     obj.sprites = Sprite.parse_texture(image)
     ---@type Sprite
     obj.sprite = obj.sprites.right_fly
     assert(obj.sprite)
-    -- чтобы далеко не лазить
-    obj.HALF_W = obj.sprite.current_frame.HALF_W
-    obj.HALF_H = obj.sprite.current_frame.HALF_H
 
     ---@type Body
     obj.body = love.physics.newBody(world, x, y, 'dynamic')
     --obj.body:setMassData(.2)  -- kg
 
     --todo другая форма love.physics.newPolygonShape
-    local dx = 20
-    local dy = 15
+    local HALF_W, HALF_H = obj.sprite.current_frame.HALF_W, obj.sprite.current_frame.HALF_H
+    local dx, dy = 20, 15
     ---@type Shape
-    obj.shape = love.physics.newRectangleShape(obj.HALF_W, obj.HALF_H + (dy / 2), 70 - dx, 70 - dy)
+    obj.shape = love.physics.newRectangleShape(HALF_W, HALF_H + (dy / 2), 70 - dx, 70 - dy)
     local fixture = love.physics.newFixture(obj.body, obj.shape)
     fixture:setUserData('player')
 
@@ -79,7 +75,7 @@ function Player.update(self, dt)
     self._prev_y = y
     self._prev_r = r
     self:_update_external_forces()
-    self:_update_external_forces2(r)
+    self:_update_external_forces2(dt100, r)
     self:_update_sprite()
     assert(self.sprite)
     self:_update_external_forces3()
@@ -90,9 +86,8 @@ function Player.update(self, dt)
 end
 
 ---@param self Player
----@param dt number
+---@param dt100 number
 function Player._update_position(self, dt100)
-    local IMPULSE_JUMP = 300
     local ix, iy = 0, 0
     if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
         ix = -self.FORCE
@@ -108,10 +103,10 @@ function Player._update_position(self, dt100)
     end
     if not (ix == 0 and iy == 0) then
         self.body:applyForce(ix * dt100, iy * dt100)
-        self.body:applyTorque(math.atan(ix, iy) * dt100 * 100)
+        self.body:applyTorque(math.atan(ix, iy) * dt100 * const.K_PONY_ROTATE)
     end
     if self.is_ground and love.keyboard.isDown('space') then
-        self.body:applyLinearImpulse(0, -IMPULSE_JUMP)
+        self.body:applyLinearImpulse(0, -self.FORCE * const.K_PONY_JUMP)
     end
 end
 
@@ -129,8 +124,9 @@ end
 
 --- Стабилизация вращения
 ---@param self Player
+---@param dt100 number
 ---@param r number
-function Player._update_external_forces2(self, r)
+function Player._update_external_forces2(self, dt100, r)
     local r2 = r % math.pi--todo
     if r2 < .01 or (math.pi - r2) < .01 then
         return
@@ -141,14 +137,12 @@ function Player._update_external_forces2(self, r)
     end
     --self._prev_r = r2 --todo
 
-    local P = 1.5
-    local I = 100
     --todo делать поворот по меньшей дуге
     local error = r2 - 0
-    local res = error * P + self.speedr * I --PID
+    local res = error * const.K_PONY_P + self.speedr * const.K_PONY_I --PID
     res = -res
     log.debug('r =', r2, 'res =', res)
-    self.body:applyTorque(res * 1000)
+    self.body:applyTorque(res * dt100 * const.K_PONY_ROTATE2)
 end
 
 --function Player._normalize_angle(angle)
@@ -215,9 +209,8 @@ end
 --- Забавный полёт
 ---@param self Player
 function Player._update_external_forces3(self)
-    local IMPULSE_FLY = 50
     if not self.is_ground and self.sprite.index == 4 then
-        self.body:applyLinearImpulse(0, -IMPULSE_FLY)
+        self.body:applyLinearImpulse(0, -self.FORCE * const.K_PONY_FLY)
     end
 end
 
