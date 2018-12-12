@@ -21,6 +21,7 @@ function Sprite.init(self, frames, delay, speed)
     obj.timer = 0
     ---@type Frame
     obj.current_frame = obj._frames[obj.index]
+    obj.W = obj.current_frame.W
     obj.x = 0
     obj.y = 0
     obj.r = 0

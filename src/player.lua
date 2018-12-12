@@ -45,7 +45,9 @@ function Player.init(self, image, world, x, y)
 
     --todo как-то различать по расам (как минимум is_fly)
     obj.FORCE = const.FORCE_PONY * 1.0
+    obj.MAX_HP = 100
 
+    obj.hp = 100
     obj.is_ground = false
     obj.prev_x = x
     obj.prev_y = y
@@ -158,24 +160,6 @@ function Player._update_stable_rotate(self, dt100, r)
     self.body:applyTorque(-res * dt100 * const.K_PONY_ROTATE2)
 end
 
---function Player._normalize_angle(angle)
---    local result = angle % (2 * math.pi)
---    return result
---end
---
---if log.level == 'debug' then
---    assert(Player._normalize_angle(-4 * math.pi) == 0)
---    --is_equal(Player._normalize_angle(-3 * math.pi)== 0)
---    assert(Player._normalize_angle(-2 * math.pi) == 0)
---    assert(Player._normalize_angle(-math.pi) == math.pi)
---    assert(Player._normalize_angle(0) == 0)
---    assert(Player._normalize_angle(math.pi / 2) == math.pi / 2)
---    assert(Player._normalize_angle(math.pi) == math.pi)
---    assert(Player._normalize_angle(2 * math.pi) == 0)
---    assert(Player._normalize_angle(3 * math.pi) == math.pi)
---    assert(Player._normalize_angle(4 * math.pi) == 0)
---end
-
 --DELTA = 4
 --FAST_SPEED = 20
 --LS_GROUND = {
@@ -239,7 +223,42 @@ end
 ---@param self Player
 function Player.draw(self)
     self.sprite:draw()
+    self:_draw_hp()
     self:debug_draw()
+end
+
+--- Нарисовать полоску hp
+---@param self Player
+function Player._draw_hp(self)
+    local r_, g, b, a = love.graphics.getColor()
+
+    local W, H = self.sprite.W, 4
+    local x, y = self.sprite.x, self.sprite.y
+
+    local hp = self.MAX_HP / self.hp
+    if hp >= 0.8 then
+        --              80%         100%
+        -- |-----------------------2
+        -- |           4----------3
+        -- 6----------5
+        --todo длина полоски
+        love.graphics.setColor(0.0, 0.47, 0.0, 1.0)
+        local x2, y2 = rotate_point(W, 0, self.sprite.r)
+        local x3, y3 = rotate_point(W - H, H, self.sprite.r)
+        local x4, y4 = rotate_point(W / 2, H, self.sprite.r)
+        local x5, y5 = rotate_point(W / 2 - H, 2 * H, self.sprite.r)
+        local x6, y6 = rotate_point(0, 2 * H, self.sprite.r)
+        love.graphics.polygon('fill', x, y, x2 + x, y2 + y, x3 + x, y3 + y, x4 + x, y4 + y, x5 + x, y5 + y, x6 + x, y6 + y)
+    elseif hp >= 0.25 then
+        --todo
+        -- |------------2
+        -- |           /
+        -- 4----------3
+    else
+        --todo
+    end
+
+    love.graphics.setColor(r_, g, b, a)
 end
 
 function Player.debug_draw()

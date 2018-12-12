@@ -11,6 +11,11 @@ local function beginContact(a, b, c)
     local aa = a:getUserData()
     local bb = b:getUserData()
     log.debug('Collided: ' .. aa .. ' and ' .. bb)
+
+    --todo damage = 90 - точно смертельно
+    local speed = math.sqrt(math.pow(vars.player.speedx, 2) + math.pow(vars.player.speedy, 2))
+    log.debug('speed =', speed)
+
     vars.player:set_is_ground(true)
 end
 
@@ -44,6 +49,7 @@ function m.init(args)
     local CONST = 32  -- One meter is 32px in physics engine
     love.physics.setMeter(CONST)
     vars.world = love.physics.newWorld(0, 9.81 * CONST, true)
+    ---@type Player
     vars.player = Player:init(args.img, vars.world, 400, 700)
 
     -- Create the ground body at (0, 0) static
@@ -94,10 +100,11 @@ function m._debug_draw()
 end
 
 if log.level == 'debug' then
+    --todo delme
     function m._debug_draw()
         local r, g, b, a = love.graphics.getColor()
         love.graphics.setColor(0.3, 0.6, 0.3, 1.0)
-        local Z = 10000
+        local Z = 5000
         local z = -Z
         while z < Z do
             love.graphics.line(z, -Z, z, Z)
