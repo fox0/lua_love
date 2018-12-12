@@ -6,9 +6,6 @@ local Sprite = require('src/sprite')
 
 local m = {}
 
----@field ponies_img Image[]
----@field ponies Sprite[]
----@field sel_index number
 local vars = {}
 
 local map_frames = {
@@ -51,7 +48,7 @@ function m.init()
     for _, pony in ipairs({ 'rainbow_dash', 'fluttershy', 'pinkie_pie', 'applejack', 'rarity',
                             'derpy', 'pinkamina', 'trixie', 'trixie2', 'twilight_sparkle' }) do
         log.debug(string.format('loading %s...', pony))
-        local img = love.graphics.newImage(string.format('resourses/textures/%s.png', pony))  -- 12.6 MB
+        local img = love.graphics.newImage(string.format('resources/textures/%s.png', pony))  -- 12.6 MB
         vars.ponies_img[#vars.ponies_img + 1] = img
     end
     assert(#vars.ponies_img == 10)
@@ -64,6 +61,7 @@ function m.init()
         vars.ponies[#vars.ponies + 1] = sprites.sprite2
     end
 
+    local window_width, window_height = love.graphics.getDimensions()
     vars.xstep = window_width / 5
     vars.ystep = window_height / 2
     local W, H = vars.ponies[1].current_frame.W, vars.ponies[1].current_frame.H

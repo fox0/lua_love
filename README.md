@@ -6,13 +6,20 @@
 
 И [сама игра](/dist).
 
+### Screenshots
+todo
+
 ### Использованные источники
-* Спрайты: [urimas](https://www.deviantart.com/urimas)
-* Фоны: [mlpblueray](https://www.deviantart.com/mlpblueray)
+#### Библиотеки
+* [log.lua](https://github.com/rxi/log.lua) — логирование
+* [STALKER-X](https://github.com/adnzzzzZ/STALKER-X) — камера
+
+#### Графика
+* [urimas](https://www.deviantart.com/urimas) — спрайты
+* [mlpblueray](https://www.deviantart.com/mlpblueray) — фоны
+
+#### Музыка
+* [1](https://www.youtube.com/watch?v=AALfBRm5G6Y)
 
 ### LICENSE
 [WTFPL](/LICENSE)
-
-### Changelog
-
-* 0.0.7 — Исправлены почти все баги по отображению анимации. Добавлена камера, следящая за игроком
