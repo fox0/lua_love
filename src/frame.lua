@@ -28,12 +28,12 @@ end
 ---@param y number
 ---@param r number
 function Frame.draw(self, x, y, r)
-    local sx, sy, ox, oy = 1, 1, 0, 0
+    local sx, ox = 1, 0
     if self._is_xmirror then
         sx = -1
         ox = self.W
     end
-    love.graphics.draw(self._image, self._quad, x, y, r, sx, sy, ox, oy)
+    love.graphics.draw(self._image, self._quad, x, y, r, sx, 1, ox, 0)
     self:_debug_draw(x, y, r)
 end
 
@@ -48,22 +48,19 @@ if log.level == 'debug' then
     ---@param r number
     function Frame._debug_draw(self, x, y, r)
         local r_, g, b, a = love.graphics.getColor()
+
         love.graphics.setColor(0.0, 1.0, 0.0, 1.0)
         love.graphics.circle('line', x, y, 3)
-        local x1 = x + math.cos(r) * self.W
-        local y1 = y + math.sin(r) * self.H
-        --vec2 rotate(vec2 point, float angle){
-        --vec2 rotated_point;
-        --rotated_point.x = point.x * cos(angle) - point.y * sin(angle);
-        --rotated_point.y = point.x * sin(angle) + point.y * cos(angle);
-        --return rotated_point;
-        --}
-        love.graphics.line(x, y, x1, y1)
+
+        local x2, y2 = rotate_point(self.W, 0, r)
+        local x3, y3 = rotate_point(self.W, self.H, r)
+        local x4, y4 = rotate_point(0, self.H, r)
+        love.graphics.polygon('line', 0 + x, 0 + y, x2 + x, y2 + y, x3 + x, y3 + y, x4 + x, y4 + y)
 
         love.graphics.setColor(0.0, 0.0, 0.0, 0.5)
-        love.graphics.rectangle('fill', x, y, self.W, 16)
+        love.graphics.rectangle('fill', x, y - 16, self.W, 16)
         love.graphics.setColor(0.0, 1.0, 0.0, 1.0)
-        love.graphics.print(string.format('(%d; %d) %d', x, y, r * (180 / math.pi)), x, y)
+        love.graphics.print(string.format('(%d; %d) %d', x, y, r * (180 / math.pi)), x, y - 16)
 
         love.graphics.setColor(r_, g, b, a)
     end
