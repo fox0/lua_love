@@ -112,11 +112,23 @@ function Player:update(dt)
     self.prev_x = x
     self.prev_y = y
     self.prev_r = r
-    self:_update_external_forces()
-    self:_update_stable_rotate(dt100, r,want_r)
+
+    --- Сила трения
+    local k = (self.is_ground and const.K_FORCE_GROUNG) or const.K_FORCE_SKY
+    self.body:applyForce(-self.speedx * k, -self.speedy * k)
+
+    --- Забавный полёт
+    if not self.is_ground and self.sprite.index == 4 then
+        self.body:applyLinearImpulse(0, -self.FORCE * const.K_PONY_FLY)
+    end
+
+    local error = r - want_r
+    log.debug(r, want_r)
+    local res = error * const.K_PONY_P + self.speedr * const.K_PONY_I --PID
+    self.body:applyTorque(-res * dt100 * const.K_PONY_ROTATE)
+
     self:_update_sprite()
     assert(self.sprite)
-    self:_update_external_forces3()
     self.sprite.x = x
     self.sprite.y = y
     self.sprite.r = r
@@ -140,7 +152,8 @@ function Player:_update_position(dt100)
     end
     if not (ix == 0 and iy == 0) then
         self.body:applyForce(ix * dt100, iy * dt100)
-        want_r = math.atan2(iy, ix)  --todo чтобы можно было крутить мёртные петли
+        want_r = math.atan2(iy, ix)
+        want_r = normalize_angle(want_r)
     end
     if self.is_ground and love.keyboard.isDown('space') then
         self.body:applyLinearImpulse(0, -self.FORCE * const.K_PONY_JUMP)
@@ -148,33 +161,6 @@ function Player:_update_position(dt100)
     return want_r
 end
 
---- Сила трения
-function Player:_update_external_forces()
-    local k = (self.is_ground and const.K_FORCE_GROUNG) or const.K_FORCE_SKY
-    self.body:applyForce(-self.speedx * k, -self.speedy * k)
-end
-
---- Стабилизация вращения
----@param dt100 number
----@param r number
-function Player:_update_stable_rotate(dt100, r,want_r)
-    --local r2 = r % math.pi--todo
-    --if r2 < .01 or (math.pi - r2) < .01 then
-    --    return
-    --end
-    ----восстанавливаем знак
-    --if r < 0 then
-    --    r2 = -r2
-    --end
-    --self._prev_r = r2 --todo
-
-    --todo делать поворот по меньшей дуге
-    local error = r - want_r
-    log.debug(r, want_r)
-    local res = error * const.K_PONY_P + self.speedr * const.K_PONY_I --PID
-    --log.debug('r =', r2, 'res =', res)
-    self.body:applyTorque(-res * dt100 * const.K_PONY_ROTATE2)
-end
 
 --DELTA = 4
 --FAST_SPEED = 20
@@ -203,7 +189,7 @@ function Player:_update_sprite()
         FAST_SPEED = 20
         sprites = self.SPRITES_FLY
     end
-    local s = self.speedx
+    local s = math.sum_geometry(self.speedx, self.speedy) * math.sign(self.speedx)
     if s <= -FAST_SPEED - DELTA then
         self.sprite = sprites[1]
         return
@@ -224,13 +210,6 @@ function Player:_update_sprite()
         --todo ускорять анимацию?
         self.sprite = sprites[5]
         return
-    end
-end
-
---- Забавный полёт
-function Player:_update_external_forces3()
-    if not self.is_ground and self.sprite.index == 4 then
-        self.body:applyLinearImpulse(0, -self.FORCE * const.K_PONY_FLY)
     end
 end
 

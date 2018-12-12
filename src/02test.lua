@@ -77,7 +77,7 @@ function m.draw()
     vars.camera:attach()
 
     local k = normalize(vars.player.prev_y, const.WORLD_LIMITY, 400)
-    love.graphics.setBackgroundColor(0.62 * k, 0.85 * k, 0.9 * k, 1.0)
+    love.graphics.setBackgroundColor(const.BG_COLOR[1] * k, const.BG_COLOR[2] * k, const.BG_COLOR[3] * k, const.BG_COLOR[4])
 
     love.graphics.draw(vars.bg, 0, 600)
     debug_physics(vars.world)
@@ -103,6 +103,7 @@ if log.level == 'debug' then
     --todo delme
     function m._debug_draw()
         local r, g, b, a = love.graphics.getColor()
+        --love.graphics.setColor(const.BG_COLOR)
         love.graphics.setColor(0.3, 0.6, 0.3, 1.0)
         local Z = -const.WORLD_LIMITY
         local z = -Z
