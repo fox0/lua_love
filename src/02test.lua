@@ -19,14 +19,14 @@ function m.init(args)
     love.physics.setMeter(CONST)
     vars.world = love.physics.newWorld(0, 9.81 * CONST, true)
     ---@type Player
-    vars.player = Player:init(args.img, vars.world, 400, 200)
+    vars.player = Player:init(args.img, vars.world, 400, 700)
     vars.diffx = (window_width - vars.player.sprite.current_frame.W) / 2
     vars.diffy = (window_height - vars.player.sprite.current_frame.H) / 2
     vars.x0, vars.y0 = 0, 0
 
     -- Create the ground body at (0, 0) static
     ground = love.physics.newBody(vars.world, 0, 0, "static")
-    ground_shape = love.physics.newRectangleShape(400, 300, 600, 10)
+    ground_shape = love.physics.newRectangleShape(400, 1000, 600, 10)
     ground_fixture = love.physics.newFixture(ground, ground_shape)
     ground_fixture:setUserData("Ground") -- Set a string userdata
 
@@ -68,6 +68,8 @@ function m.draw()
     --love.graphics.push()
     --love.graphics.scale(0.5, 0.5)
     love.graphics.translate(vars.x0, vars.y0)
+    m._debug_draw()
+
     -- Draws the ground.
     local r, g, b, a = love.graphics.getColor()
     love.graphics.setColor(0.0, 0.0, 0.0, 0.7)
@@ -78,6 +80,37 @@ function m.draw()
     --love.graphics.pop()
     debug_physics(vars.world)
     love.graphics.origin()
+end
+
+function m._debug_draw()
+
+end
+
+if log.level == 'debug' then
+    function m._debug_draw()
+        local r, g, b, a = love.graphics.getColor()
+        love.graphics.setColor(0.0, 0.3, 0.0, 0.5)
+        --в отрицательных координатах постараемся не летать
+        local STEP = 100
+        local x0, y0, x1, y1
+        --vertical
+        x0 = math.round(-vars.x0, STEP)
+        y0 = window_height - vars.y0
+        y1 = window_height + vars.y0
+        while x0 < window_width - vars.x0 do
+            love.graphics.line(x0, y0, x0, y1)
+            x0 = x0 + 100
+        end
+        --hor
+        --y0 = math.round(-vars.y0, STEP)
+        --x0 = window_width - vars.x0
+        --x1 = window_width + vars.x0
+        --while y0 < window_width - vars.y0 do
+        --    love.graphics.line(x0, y0, x1, y0)
+        --    y0 = y0 + 100
+        --end
+        love.graphics.setColor(r, g, b, a)
+    end
 end
 
 return m

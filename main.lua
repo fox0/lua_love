@@ -1,5 +1,3 @@
-require('src/debug')
-
 ---@param module_name string
 ---@param args table
 function load_module(module_name, args)
@@ -34,6 +32,8 @@ function load_module(module_name, args)
 end
 
 function love.run()
+    require('src/debug')
+    require('src/common')
     const = require('src/const')
     window_width, window_height = love.graphics.getDimensions()
     log.debug(string.format('window size: %dx%d', window_width, window_height))
