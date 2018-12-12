@@ -84,7 +84,7 @@ function Player.update(self, dt)
     self.prev_y = y
     self.prev_r = r
     self:_update_external_forces()
-    self:_update_external_forces2(dt100, r)
+    self:_update_stable_rotate(dt100, r)
     self:_update_sprite()
     assert(self.sprite)
     self:_update_external_forces3()
@@ -112,7 +112,12 @@ function Player._update_position(self, dt100)
     end
     if not (ix == 0 and iy == 0) then
         self.body:applyForce(ix * dt100, iy * dt100)
-        self.body:applyTorque(math.atan(ix, iy) * dt100 * const.K_PONY_ROTATE)
+        local r = math.atan(iy, ix) * dt100 * const.K_PONY_ROTATE
+        if ix < 0 then
+            --todo
+            r = -r
+        end
+        self.body:applyTorque(r)
     end
     if self.is_ground and love.keyboard.isDown('space') then
         self.body:applyLinearImpulse(0, -self.FORCE * const.K_PONY_JUMP)
@@ -135,7 +140,7 @@ end
 ---@param self Player
 ---@param dt100 number
 ---@param r number
-function Player._update_external_forces2(self, dt100, r)
+function Player._update_stable_rotate(self, dt100, r)
     local r2 = r % math.pi--todo
     if r2 < .01 or (math.pi - r2) < .01 then
         return
@@ -171,40 +176,56 @@ end
 --    assert(Player._normalize_angle(4 * math.pi) == 0)
 --end
 
+--DELTA = 4
+--FAST_SPEED = 20
+--LS_GROUND = {
+--    -FAST_SPEED - DELTA,
+--    -FAST_SPEED + DELTA,
+--    -3 * DELTA,
+--    -DELTA,
+--    DELTA,
+--    3 * DELTA,
+--    FAST_SPEED - DELTA,
+--    FAST_SPEED + DELTA,
+--}
+--for _, v in ipairs(LS_GROUND) do
+--   print(v)
+--end
+
 ---@param self Player
 function Player._update_sprite(self)
-    local FAST_SPEED, sprites
+    local DELTA, FAST_SPEED, sprites
     if self.is_ground then
+        DELTA = 1.5
         FAST_SPEED = 6
         sprites = self.SPRITES_GROUND
     else
-        FAST_SPEED = 12
+        DELTA = 4
+        FAST_SPEED = 20
         sprites = self.SPRITES_FLY
     end
     local s = self.speedx
-    --[-inf;-5]
-    if s < -FAST_SPEED then
-        --todo чуточку подлагивает. сделать дельту
+    if s <= -FAST_SPEED - DELTA then
         self.sprite = sprites[1]
         return
     end
-    --[-5;0]
-    if s < 0 then
+    if -FAST_SPEED + DELTA <= s and s <= -3 * DELTA then
         self.sprite = sprites[2]
         return
     end
-    if s == 0 then
+    if -DELTA <= s and s <= DELTA then
         self.sprite = sprites[3]
         return
     end
-    --[5;+inf]
-    if s > FAST_SPEED then
+    if 3 * DELTA <= s and s <= FAST_SPEED - DELTA then
+        self.sprite = sprites[4]
+        return
+    end
+    if FAST_SPEED + DELTA < s then
         --todo ускорять анимацию?
         self.sprite = sprites[5]
         return
     end
-    --[0;5]
-    self.sprite = sprites[4]
 end
 
 --- Забавный полёт

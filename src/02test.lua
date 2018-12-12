@@ -10,6 +10,9 @@ local vars = {}
 
 ---@param args table В args.img лежит текстура выбранного персонажа
 function m.init(args)
+    vars.sound = love.audio.newSource('resourses/soundtracks/EuroBeat_Brony_Discord_Instrumental_edit1.ogg', 'stream')
+    vars.sound:play()
+    vars.sound:setVolume(0.7)
     vars.bg = love.graphics.newImage('resourses/backgrounds/02.png')
 
     local CONST = 32  -- One meter is 32px in physics engine
@@ -45,6 +48,11 @@ function endContact(a, b, c)
     local bb = b:getUserData()
     --text = "Collision ended: " .. aa .. " and " .. bb
     vars.player:set_is_ground(false)
+end
+
+function m.exit()
+    vars.sound:stop()
+    vars = nil
 end
 
 ---@param dt number

@@ -8,7 +8,7 @@ const.K_FORCE_GROUNG = 100
 const.FORCE_PONY = 1000
 
 --различные коэффициенты
-const.K_PONY_ROTATE = 100
+const.K_PONY_ROTATE = 800
 const.K_PONY_ROTATE2 = 1000
 const.K_PONY_JUMP = 0.3
 const.K_PONY_FLY = 0.05
