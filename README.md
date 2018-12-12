@@ -1,4 +1,6 @@
 ## Nameless Hero
+Just a game with ponies.
+
 Игра на движке love2d.
 
 ### Запуск

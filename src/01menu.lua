@@ -170,7 +170,7 @@ function m.draw()
 
     --todo
     love.graphics.setColor(0.9, 0.9, 0.9, 1.0)
-    love.graphics.print('Select charapter', 480, 270)
+    love.graphics.print('Select character', 480, 270)
 
     love.graphics.setColor(r, g, b, a)
     for _, pony in ipairs(vars.ponies) do

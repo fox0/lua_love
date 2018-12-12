@@ -7,6 +7,28 @@ local m = {}
 
 local vars = {}
 
+local function beginContact(a, b, c)
+    local aa = a:getUserData()
+    local bb = b:getUserData()
+    log.debug('Collided: ' .. aa .. ' and ' .. bb)
+    vars.player:set_is_ground(true)
+end
+
+local function endContact(a, b, c)
+    local aa = a:getUserData()
+    local bb = b:getUserData()
+    log.debug('Collision ended: ' .. aa .. ' and ' .. bb)
+    vars.player:set_is_ground(false)
+end
+
+local function preSolve(a, b, c)
+
+end
+
+local function postSolve(a, b, c)
+
+end
+
 ---@param args table В args.img лежит текстура выбранного персонажа
 function m.init(args)
     vars.camera = Camera()
@@ -16,6 +38,7 @@ function m.init(args)
     vars.sound:play()
     vars.sound:setVolume(0.7)
 
+    love.graphics.setBackgroundColor(0.62, 0.85, 0.9, 1.0)
     vars.bg = love.graphics.newImage('resources/backgrounds/02.png')
 
     local CONST = 32  -- One meter is 32px in physics engine
@@ -24,33 +47,18 @@ function m.init(args)
     vars.player = Player:init(args.img, vars.world, 400, 700)
 
     -- Create the ground body at (0, 0) static
-    ground = love.physics.newBody(vars.world, 0, 0, "static")
-    ground_shape = love.physics.newRectangleShape(400, 1000, 600, 10)
-    ground_fixture = love.physics.newFixture(ground, ground_shape)
-    ground_fixture:setUserData("Ground") -- Set a string userdata
+    local ground = love.physics.newBody(vars.world, 0, 0, 'static')
+    vars.ground_shape = love.physics.newRectangleShape(400, 1000, 600, 10)
+    local ground_fixture = love.physics.newFixture(ground, vars.ground_shape)
+    ground_fixture:setUserData('ground')
 
-    -- Set the collision callback.
-    vars.world:setCallbacks(beginContact, endContact)
-end
-
--- This is called every time a collision begin.
-function beginContact(a, b, c)
-    local aa = a:getUserData()
-    local bb = b:getUserData()
-    --text = "Collided: " .. aa .. " and " .. bb
-    vars.player:set_is_ground(true)
-end
-
--- This is called every time a collision end.
-function endContact(a, b, c)
-    local aa = a:getUserData()
-    local bb = b:getUserData()
-    --text = "Collision ended: " .. aa .. " and " .. bb
-    vars.player:set_is_ground(false)
+    vars.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 end
 
 function m.exit()
     vars.sound:stop()
+    vars.sound:release()
+    vars.bg:release()
     vars = nil
 end
 
@@ -72,7 +80,7 @@ function m.draw()
     -- Draws the ground.
     local r, g, b, a = love.graphics.getColor()
     love.graphics.setColor(0.0, 0.0, 0.0, 0.7)
-    love.graphics.polygon('fill', ground_shape:getPoints())
+    love.graphics.polygon('fill', vars.ground_shape:getPoints())
     love.graphics.setColor(r, g, b, a)
 
     vars.player:draw()
@@ -84,34 +92,20 @@ end
 function m._debug_draw()
 
 end
---
---if log.level == 'debug' then
---    function m._debug_draw()
---        local r, g, b, a = love.graphics.getColor()
---        love.graphics.setColor(0.0, 0.3, 0.0, 0.5)
---        --в отрицательных координатах постараемся не летать
---        local STEP = 100
---        local x0, y0, x1, y1
---        --vertical
---        --x0 = math.round(-vars.x0, STEP)
---        --y0 = window_height - vars.y0
---        --y1 = window_height + vars.y0
---        --while x0 < window_width - vars.x0 do
---        --    love.graphics.line(x0, y0, x0, y1)
---        --    x0 = x0 + 100
---        --end
---        --hor
---        x0 = -vars.x0
---        y0 = math.round(-vars.y0, STEP)
---        x1 = window_width + vars.x0
---        print(y0, window_width - vars.y0)
---        while y0 < window_width - vars.y0 do
---            log.debug(x0, y0, x1, y0)
---            love.graphics.line(x0, y0, x1, y0)
---            y0 = y0 + 100
---        end
---        love.graphics.setColor(r, g, b, a)
---    end
---end
+
+if log.level == 'debug' then
+    function m._debug_draw()
+        local r, g, b, a = love.graphics.getColor()
+        love.graphics.setColor(0.3, 0.6, 0.3, 1.0)
+        local Z = 10000
+        local z = -Z
+        while z < Z do
+            love.graphics.line(z, -Z, z, Z)
+            love.graphics.line(-Z, z, Z, z)
+            z = z + 100
+        end
+        love.graphics.setColor(r, g, b, a)
+    end
+end
 
 return m
