@@ -232,30 +232,45 @@ end
 function Player._draw_hp(self)
     local r_, g, b, a = love.graphics.getColor()
 
-    local W, H = self.sprite.W, 4
+    local W_HALF = self.sprite.W / 2
     local x, y = self.sprite.x, self.sprite.y
-
     local hp = self.MAX_HP / self.hp
-    if hp >= 0.8 then
-        --              80%         100%
+    if hp > const.HP_KEY_POINTS[3] then
+        -- |            80%         100%
         -- |-----------------------2
         -- |           4----------3
         -- 6----------5
-        --todo длина полоски
-        love.graphics.setColor(0.0, 0.47, 0.0, 1.0)
-        local x2, y2 = rotate_point(W, 0, self.sprite.r)
-        local x3, y3 = rotate_point(W - H, H, self.sprite.r)
-        local x4, y4 = rotate_point(W / 2, H, self.sprite.r)
-        local x5, y5 = rotate_point(W / 2 - H, 2 * H, self.sprite.r)
-        local x6, y6 = rotate_point(0, 2 * H, self.sprite.r)
+        love.graphics.setColor(const.HP_COLOR_GREEN)
+        local K = (hp - const.HP_KEY_POINTS[3]) / (const.HP_KEY_POINTS[4] - const.HP_KEY_POINTS[3])
+        local len_bottom = W_HALF + W_HALF * K
+        local x2, y2 = rotate_point(len_bottom + const.HP_H_HALF, 0, self.sprite.r)
+        local x3, y3 = rotate_point(len_bottom, const.HP_H_HALF, self.sprite.r)
+        local x4, y4 = rotate_point(W_HALF, const.HP_H_HALF, self.sprite.r)
+        local x5, y5 = rotate_point(W_HALF - const.HP_H_HALF, 2 * const.HP_H_HALF, self.sprite.r)
+        local x6, y6 = rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
         love.graphics.polygon('fill', x, y, x2 + x, y2 + y, x3 + x, y3 + y, x4 + x, y4 + y, x5 + x, y5 + y, x6 + x, y6 + y)
-    elseif hp >= 0.25 then
-        --todo
-        -- |------------2
-        -- |           /
-        -- 4----------3
+    elseif hp > const.HP_KEY_POINTS[2] then
+        -- 10%          80%
+        -- |-----------2
+        -- |          /
+        -- 6---------3
+        love.graphics.setColor(const.HP_COLOR2)
+        local K = (hp - const.HP_KEY_POINTS[2]) / (const.HP_KEY_POINTS[3] - const.HP_KEY_POINTS[2])
+        local len_bottom = W_HALF * K
+        local x2, y2 = rotate_point(len_bottom + 2 * const.HP_H_HALF, 0, self.sprite.r)
+        local x3, y3 = rotate_point(len_bottom, 2 * const.HP_H_HALF, self.sprite.r)
+        local x6, y6 = rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
+        love.graphics.polygon('fill', x, y, x2 + x, y2 + y, x3 + x, y3 + y, x6 + x, y6 + y)
     else
-        --todo
+        -- |-2
+        -- |/
+        -- 6
+        love.graphics.setColor(const.HP_COLOR_RED)
+        local K = (hp - const.HP_KEY_POINTS[1]) / (const.HP_KEY_POINTS[2] - const.HP_KEY_POINTS[1])
+        local len = 2 * const.HP_H_HALF * K
+        local x2, y2 = rotate_point(len, 0, self.sprite.r)
+        local x6, y6 = rotate_point(0, len, self.sprite.r)
+        love.graphics.polygon('fill', x, y, x2 + x, y2 + y, x6 + x, y6 + y)
     end
 
     love.graphics.setColor(r_, g, b, a)

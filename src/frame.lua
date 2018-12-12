@@ -51,7 +51,7 @@ if log.level == 'debug' then
 
         --локальный центр координат
         love.graphics.setColor(0.0, 1.0, 0.0, 1.0)
-        love.graphics.circle('line', x, y, 3)
+        --love.graphics.circle('line', x, y, 3)
 
         --рамка
         local x2, y2 = rotate_point(self.W, 0, r)
