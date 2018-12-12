@@ -90,11 +90,20 @@ end
 ---@param dt number
 function Player:update(dt)
     local dt100 = dt * 100
-    self:_update_position(dt100)  --1
+    local want_r = self:_update_position(dt100)  --1
     ---@type number
     local x, y, r = self.body:getX(), self.body:getY(), self.body:getAngle()
+
     if y < const.WORLD_LIMITY then
         self:set_damage(const.DAMAGE_OVERFLY * dt)
+    end
+    --восстанавливаем красную и жёлтые зоны
+    local hp = self.hp / self.MAX_HP
+    if (hp < const.HP_KEY_POINTS[2] - 0.05) or
+            (const.HP_KEY_POINTS[2] + 0.1 < hp and hp < const.HP_KEY_POINTS[3] - 0.1) then
+        local add = const.DAMAGE_NONE * dt
+        self.hp = self.hp + add
+        log.debug(string.format('HP +%.3f. Total: %.2f', add, self.hp))
     end
 
     self.speedx = (x - self.prev_x) * dt100
@@ -104,7 +113,7 @@ function Player:update(dt)
     self.prev_y = y
     self.prev_r = r
     self:_update_external_forces()
-    self:_update_stable_rotate(dt100, r)
+    self:_update_stable_rotate(dt100, r,want_r)
     self:_update_sprite()
     assert(self.sprite)
     self:_update_external_forces3()
@@ -116,7 +125,7 @@ end
 
 ---@param dt100 number
 function Player:_update_position(dt100)
-    local ix, iy = 0, 0
+    local ix, iy, want_r = 0, 0, 0
     if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
         ix = -self.FORCE
     end
@@ -131,45 +140,37 @@ function Player:_update_position(dt100)
     end
     if not (ix == 0 and iy == 0) then
         self.body:applyForce(ix * dt100, iy * dt100)
-        local r = math.atan(iy, ix) * dt100 * const.K_PONY_ROTATE
-        if ix < 0 then
-            --todo
-            r = -r
-        end
-        self.body:applyTorque(r)
+        want_r = math.atan2(iy, ix)  --todo чтобы можно было крутить мёртные петли
     end
     if self.is_ground and love.keyboard.isDown('space') then
         self.body:applyLinearImpulse(0, -self.FORCE * const.K_PONY_JUMP)
     end
+    return want_r
 end
 
 --- Сила трения
 function Player:_update_external_forces()
-    local k
-    if self.is_ground then
-        k = const.K_FORCE_GROUNG
-    else
-        k = const.K_FORCE_SKY
-    end
+    local k = (self.is_ground and const.K_FORCE_GROUNG) or const.K_FORCE_SKY
     self.body:applyForce(-self.speedx * k, -self.speedy * k)
 end
 
 --- Стабилизация вращения
 ---@param dt100 number
 ---@param r number
-function Player:_update_stable_rotate(dt100, r)
-    local r2 = r % math.pi--todo
-    if r2 < .01 or (math.pi - r2) < .01 then
-        return
-    end
-    --восстанавливаем знак
-    if r < 0 then
-        r2 = -r2
-    end
+function Player:_update_stable_rotate(dt100, r,want_r)
+    --local r2 = r % math.pi--todo
+    --if r2 < .01 or (math.pi - r2) < .01 then
+    --    return
+    --end
+    ----восстанавливаем знак
+    --if r < 0 then
+    --    r2 = -r2
+    --end
     --self._prev_r = r2 --todo
 
     --todo делать поворот по меньшей дуге
-    local error = r2 - 0
+    local error = r - want_r
+    log.debug(r, want_r)
     local res = error * const.K_PONY_P + self.speedr * const.K_PONY_I --PID
     --log.debug('r =', r2, 'res =', res)
     self.body:applyTorque(-res * dt100 * const.K_PONY_ROTATE2)

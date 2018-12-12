@@ -31,6 +31,8 @@ const.DAMAGE_SAFE_SPEED = 5
 const.K_DAMAGE = 0.01
 --штраф за полёты на слишком большой высоте. HP/sec
 const.DAMAGE_OVERFLY = 5
+--автовосстановление
+const.DAMAGE_NONE = 0.2
 
 assert(#const.HP_KEY_POINTS == 4)
 
