@@ -17,11 +17,13 @@ end
 
 if log.level == 'debug' then
     function debug_print_fps()
-        local stats = love.graphics.getStats()
-        local s = string.format('FPS: %d. Memory: %.2f MB', love.timer.getFPS(), stats.texturememory / 1024 / 1024)
         local r, g, b, a = love.graphics.getColor()
+        --local stats = love.graphics.getStats()
+        --local s = string.format('FPS: %d. Memory: %.2f MB', love.timer.getFPS(), stats.texturememory / 1024 / 1024)
+        local s = string.format('FPS %d', love.timer.getFPS())
         love.graphics.setColor(0.0, 0.0, 0.0, 0.5)
-        love.graphics.rectangle('fill', 0, 0, 190, 14)
+        --love.graphics.rectangle('fill', 0, 0, 190, 14)
+        love.graphics.rectangle('fill', 0, 0, 50, 16)
         love.graphics.setColor(0.0, 1.0, 0.0, 1.0)
         love.graphics.print(s, 0, 0)
         love.graphics.setColor(r, g, b, a)

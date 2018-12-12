@@ -11,17 +11,7 @@ local function beginContact(a, b, c)
     local aa = a:getUserData()
     local bb = b:getUserData()
     log.debug('Collided: ' .. aa .. ' and ' .. bb)
-
-    local speed = math.sqrt(math.pow(vars.player.speedx, 2) + math.pow(vars.player.speedy, 2))
-    log.debug('speed =', speed)
-
-    if speed > const.DAMAGE_SAFE_SPEED then
-        --todo +красную анимацию (сколько кадров?) (и label с числом причинённого урона)
-        log.debug(vars.player.hp)
-        vars.player.hp = vars.player.hp - math.pow(speed, 2) * const.K_DAMAGE
-        log.debug(vars.player.hp)
-    end
-
+    vars.player:boom()
     vars.player:set_is_ground(true)
 end
 
@@ -46,8 +36,9 @@ function m.init(args)
     vars.camera:setFollowStyle('LOCKON')
 
     vars.sound = love.audio.newSource('resources/soundtracks/EuroBeat_Brony_Discord_Instrumental_edit1.ogg', 'stream')
-    vars.sound:play()
     vars.sound:setVolume(0.7)
+    vars.sound:play()
+    vars.sound:setLooping(true)
 
     love.graphics.setBackgroundColor(0.62, 0.85, 0.9, 1.0)
     vars.bg = love.graphics.newImage('resources/backgrounds/02.png')
@@ -85,6 +76,9 @@ end
 function m.draw()
     vars.camera:attach()
 
+    local k = normalize(vars.player.prev_y, const.WORLD_LIMITY, 400)
+    love.graphics.setBackgroundColor(0.62 * k, 0.85 * k, 0.9 * k, 1.0)
+
     love.graphics.draw(vars.bg, 0, 600)
     debug_physics(vars.world)
     m._debug_draw()
@@ -110,7 +104,7 @@ if log.level == 'debug' then
     function m._debug_draw()
         local r, g, b, a = love.graphics.getColor()
         love.graphics.setColor(0.3, 0.6, 0.3, 1.0)
-        local Z = 5000
+        local Z = -const.WORLD_LIMITY
         local z = -Z
         while z < Z do
             love.graphics.line(z, -Z, z, Z)

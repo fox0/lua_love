@@ -4,12 +4,11 @@ local Frame = require('src/frame')
 local Sprite = {}
 Sprite.__index = Sprite
 
----@param self Sprite
 ---@param frames Frame[]
 ---@param delay number длительность кадра
 ---@param speed number множитель скорости анимации
 ---@return Sprite
-function Sprite.init(self, frames, delay, speed)
+function Sprite:init(frames, delay)--, speed)
     assert(frames)
     ---@class Sprite Спрайт
     local obj = {}
@@ -22,24 +21,23 @@ function Sprite.init(self, frames, delay, speed)
     ---@type Frame
     obj.current_frame = obj._frames[obj.index]
     obj.W = obj.current_frame.W
+    obj.H = obj.current_frame.H
     obj.x = 0
     obj.y = 0
     obj.r = 0
     return setmetatable(obj, Sprite)
 end
 
----@param self Sprite
 ---@param index number
-function Sprite.set_frame(self, index)
+function Sprite:set_frame(index)
     assert(index)
     self.index = index
     self.current_frame = self._frames[self.index]
     assert(self.current_frame)
 end
 
----@param self Sprite
 ---@param dt number
-function Sprite.update(self, dt)
+function Sprite:update(dt)
     if not self.is_animated then
         return
     end
@@ -54,8 +52,7 @@ function Sprite.update(self, dt)
     end
 end
 
----@param self Sprite
-function Sprite.draw(self)
+function Sprite:draw()
     self.current_frame:draw(self.x, self.y, self.r)
 end
 

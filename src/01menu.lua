@@ -64,7 +64,7 @@ function m.init()
     local window_width, window_height = love.graphics.getDimensions()
     vars.xstep = window_width / 5
     vars.ystep = window_height / 2
-    local W, H = vars.ponies[1].current_frame.W, vars.ponies[1].current_frame.H
+    local W, H = vars.ponies[1].W, vars.ponies[1].H
     local xborder = (vars.xstep - W) / 2
     local yborder = (vars.ystep - H) / 2
     for i = 1, 5 do

@@ -4,6 +4,9 @@ local const = {}
 const.K_FORCE_SKY = 10
 --сила трения о поверхность
 const.K_FORCE_GROUNG = 100
+--"потолок" мира
+const.WORLD_LIMITY = -10000
+
 --силушка дефолтной поняши в лошадиных силах
 const.FORCE_PONY = 1000
 
@@ -17,13 +20,17 @@ const.K_PONY_I = 100
 
 --высота половины полоски хитпойнтов
 const.HP_H_HALF = 4
-const.HP_KEY_POINTS = { 0.0, 0.1, 0.8, 1.0 }
+const.HP_KEY_POINTS = { 0.0, 0.25, 0.8, 1.0 }
 const.HP_COLOR_GREEN = { 0.0, 0.7, 0.0, 1.0 }
 const.HP_COLOR2 = { 0.7, 0.7, 0.0, 1.0 }
 const.HP_COLOR_RED = { 1.0, 0.0, 0.0, 1.0 }
 
+--безопасная скорость, удары об другие объекты при которой не причиняют урон
 const.DAMAGE_SAFE_SPEED = 5
-const.K_DAMAGE = 0.02
+--коэффициент в формуле кинетической энергии
+const.K_DAMAGE = 0.01
+--штраф за полёты на слишком большой высоте. HP/sec
+const.DAMAGE_OVERFLY = 5
 
 assert(#const.HP_KEY_POINTS == 4)
 

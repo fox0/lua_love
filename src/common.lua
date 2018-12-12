@@ -14,6 +14,26 @@
 --    return math.floor(v / bracket + math.sign(v) * 0.5) * bracket
 --end
 
+--- Геометрическая сумма
+---@param x number
+---@param y number
+---@return number
+function math.sum_geometry(x, y)
+    return math.sqrt(math.pow(x, 2) + math.pow(y, 2))
+end
+
+---@param x number
+---@param a number
+---@param b number
+---@return number [0.0;1.0]
+function normalize(x, a, b)
+    assert(a < b, string.format('assert error: %.2f < %.f2', a, b))
+    local result = (x - a) / (b - a)
+    result = math.max(0.0, result)
+    result = math.min(1.0, result)
+    return result
+end
+
 --- Повернуть точку на заданный угол
 ---@param x number
 ---@param y number

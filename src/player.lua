@@ -4,13 +4,12 @@ local Sprite = require('src/sprite')
 local Player = {}
 Player.__index = Player
 
----@param self Player
 ---@param image Image
 ---@param world World
 ---@param x number
 ---@param y number
 ---@return Player
-function Player.init(self, image, world, x, y)
+function Player:init(image, world, x, y)
     ---@class Player
     local obj = {}
     ---@type SpriteList
@@ -33,10 +32,10 @@ function Player.init(self, image, world, x, y)
     --obj.body:setMassData(.2)  -- kg
 
     --todo другая форма love.physics.newPolygonShape
-    local HALF_W, HALF_H = obj.sprite.current_frame.HALF_W, obj.sprite.current_frame.HALF_H
+    local W, H = obj.sprite.W, obj.sprite.H
     local dx, dy = 20, 15
     ---@type Shape
-    obj.shape = love.physics.newRectangleShape(HALF_W, HALF_H + (dy / 2), 70 - dx, 70 - dy)
+    obj.shape = love.physics.newRectangleShape(W / 2, (H + dy) / 2, 70 - dx, 70 - dy)
     local fixture = love.physics.newFixture(obj.body, obj.shape)
     fixture:setUserData('player')
 
@@ -58,9 +57,8 @@ function Player.init(self, image, world, x, y)
     return setmetatable(obj, Player)
 end
 
----@param self Player
 ---@param is_ground boolean
-function Player.set_is_ground(self, is_ground)
+function Player:set_is_ground(is_ground)
     self.is_ground = is_ground
     if is_ground then
         --todo
@@ -72,13 +70,33 @@ function Player.set_is_ground(self, is_ground)
     assert(self.sprite)
 end
 
----@param self Player
+--- Врезались в стену. Нужно расчитать и применить урон
+function Player:boom()
+    local speed = math.sum_geometry(self.speedx, self.speedy)
+    if speed < const.DAMAGE_SAFE_SPEED then
+        return
+    end
+    local damage = math.pow(speed, 2) * const.K_DAMAGE
+    self:set_damage(damage)
+end
+
+---@param damage number
+function Player:set_damage(damage)
+    --todo +красную анимацию (сколько кадров?) (и label с числом причинённого урона)
+    self.hp = self.hp - damage
+    log.debug(string.format('HP -%.2f. Total: %.2f', damage, self.hp))
+end
+
 ---@param dt number
-function Player.update(self, dt)
+function Player:update(dt)
     local dt100 = dt * 100
     self:_update_position(dt100)  --1
     ---@type number
     local x, y, r = self.body:getX(), self.body:getY(), self.body:getAngle()
+    if y < const.WORLD_LIMITY then
+        self:set_damage(const.DAMAGE_OVERFLY * dt)
+    end
+
     self.speedx = (x - self.prev_x) * dt100
     self.speedy = (y - self.prev_y) * dt100
     self.speedr = (r - self.prev_r) * dt100
@@ -96,9 +114,8 @@ function Player.update(self, dt)
     self.sprite:update(dt)
 end
 
----@param self Player
 ---@param dt100 number
-function Player._update_position(self, dt100)
+function Player:_update_position(dt100)
     local ix, iy = 0, 0
     if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
         ix = -self.FORCE
@@ -127,8 +144,7 @@ function Player._update_position(self, dt100)
 end
 
 --- Сила трения
----@param self Player
-function Player._update_external_forces(self)
+function Player:_update_external_forces()
     local k
     if self.is_ground then
         k = const.K_FORCE_GROUNG
@@ -139,10 +155,9 @@ function Player._update_external_forces(self)
 end
 
 --- Стабилизация вращения
----@param self Player
 ---@param dt100 number
 ---@param r number
-function Player._update_stable_rotate(self, dt100, r)
+function Player:_update_stable_rotate(dt100, r)
     local r2 = r % math.pi--todo
     if r2 < .01 or (math.pi - r2) < .01 then
         return
@@ -176,8 +191,7 @@ end
 --   print(v)
 --end
 
----@param self Player
-function Player._update_sprite(self)
+function Player:_update_sprite()
     local DELTA, FAST_SPEED, sprites
     if self.is_ground then
         DELTA = 1.5
@@ -213,35 +227,33 @@ function Player._update_sprite(self)
 end
 
 --- Забавный полёт
----@param self Player
-function Player._update_external_forces3(self)
+function Player:_update_external_forces3()
     if not self.is_ground and self.sprite.index == 4 then
         self.body:applyLinearImpulse(0, -self.FORCE * const.K_PONY_FLY)
     end
 end
 
----@param self Player
-function Player.draw(self)
+function Player:draw()
     self.sprite:draw()
     self:_draw_hp()
     self:debug_draw()
 end
 
 --- Нарисовать полоску hp
----@param self Player
-function Player._draw_hp(self)
-    local r_, g, b, a = love.graphics.getColor()
-
-    local W_HALF = self.sprite.W / 2
-    local x, y = self.sprite.x, self.sprite.y
+function Player:_draw_hp()
+    if self.hp <= 0 then
+        return
+    end
+    local r, g, b, a = love.graphics.getColor()
+    local x, y, W_HALF = self.sprite.x, self.sprite.y, self.sprite.W / 2
     local hp = self.hp / self.MAX_HP
     if hp > const.HP_KEY_POINTS[3] then
-        -- |            80%         100%
+        --              80%         100%
         -- |-----------------------2
         -- |           4----------3
         -- 6----------5
         love.graphics.setColor(const.HP_COLOR_GREEN)
-        local K = (hp - const.HP_KEY_POINTS[3]) / (const.HP_KEY_POINTS[4] - const.HP_KEY_POINTS[3])
+        local K = normalize(hp, const.HP_KEY_POINTS[3], const.HP_KEY_POINTS[4])
         local len_bottom = W_HALF + W_HALF * K
         local x2, y2 = rotate_point(len_bottom + const.HP_H_HALF, 0, self.sprite.r)
         local x3, y3 = rotate_point(len_bottom, const.HP_H_HALF, self.sprite.r)
@@ -249,40 +261,40 @@ function Player._draw_hp(self)
         local x5, y5 = rotate_point(W_HALF - const.HP_H_HALF, 2 * const.HP_H_HALF, self.sprite.r)
         local x6, y6 = rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
         love.graphics.polygon('fill', x, y, x2 + x, y2 + y, x3 + x, y3 + y, x4 + x, y4 + y, x5 + x, y5 + y, x6 + x, y6 + y)
-    elseif hp > const.HP_KEY_POINTS[2] then
-        -- 10%          80%
+    else
+        --              80%
         -- |-----------2
         -- |          /
         -- 6---------3
-        love.graphics.setColor(const.HP_COLOR2)
-        local K = (hp - const.HP_KEY_POINTS[2]) / (const.HP_KEY_POINTS[3] - const.HP_KEY_POINTS[2])
+        love.graphics.setColor((hp > const.HP_KEY_POINTS[2] and const.HP_COLOR2) or const.HP_COLOR_RED)
+        local K = normalize(hp, const.HP_KEY_POINTS[1], const.HP_KEY_POINTS[3])
         local len_bottom = W_HALF * K
         local x2, y2 = rotate_point(len_bottom + 2 * const.HP_H_HALF, 0, self.sprite.r)
         local x3, y3 = rotate_point(len_bottom, 2 * const.HP_H_HALF, self.sprite.r)
         local x6, y6 = rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
         love.graphics.polygon('fill', x, y, x2 + x, y2 + y, x3 + x, y3 + y, x6 + x, y6 + y)
-    else
-        -- |-2
-        -- |/
-        -- 6
-        love.graphics.setColor(const.HP_COLOR_RED)
-        local K = (hp - const.HP_KEY_POINTS[1]) / (const.HP_KEY_POINTS[2] - const.HP_KEY_POINTS[1])
-        local len = 2 * const.HP_H_HALF * K
-        local x2, y2 = rotate_point(len, 0, self.sprite.r)
-        local x6, y6 = rotate_point(0, len, self.sprite.r)
-        love.graphics.polygon('fill', x, y, x2 + x, y2 + y, x6 + x, y6 + y)
     end
 
-    love.graphics.setColor(r_, g, b, a)
+    --todo copypaste
+    --border
+    local K = 1
+    local len_bottom = W_HALF + W_HALF * K
+    local x2, y2 = rotate_point(len_bottom + const.HP_H_HALF, 0, self.sprite.r)
+    local x3, y3 = rotate_point(len_bottom, const.HP_H_HALF, self.sprite.r)
+    local x4, y4 = rotate_point(W_HALF, const.HP_H_HALF, self.sprite.r)
+    local x5, y5 = rotate_point(W_HALF - const.HP_H_HALF, 2 * const.HP_H_HALF, self.sprite.r)
+    local x6, y6 = rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
+    love.graphics.polygon('line', x, y, x2 + x, y2 + y, x3 + x, y3 + y, x4 + x, y4 + y, x5 + x, y5 + y, x6 + x, y6 + y)
+
+    love.graphics.setColor(r, g, b, a)
 end
 
-function Player.debug_draw()
+function Player:debug_draw()
 
 end
 
 if log.level == 'debug' then
-    ---@param self Player
-    function Player.debug_draw(self)
+    function Player:debug_draw()
         local r, g, b, a = love.graphics.getColor()
         love.graphics.setColor(0.0, 0.0, 1.0, 1.0)
         local x0, y0 = self.body:getWorldCenter()  -- центр масс
