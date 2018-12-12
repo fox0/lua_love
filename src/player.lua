@@ -234,7 +234,7 @@ function Player._draw_hp(self)
 
     local W_HALF = self.sprite.W / 2
     local x, y = self.sprite.x, self.sprite.y
-    local hp = self.MAX_HP / self.hp
+    local hp = self.hp / self.MAX_HP
     if hp > const.HP_KEY_POINTS[3] then
         -- |            80%         100%
         -- |-----------------------2

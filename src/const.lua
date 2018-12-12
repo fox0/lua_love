@@ -18,9 +18,12 @@ const.K_PONY_I = 100
 --высота половины полоски хитпойнтов
 const.HP_H_HALF = 4
 const.HP_KEY_POINTS = { 0.0, 0.1, 0.8, 1.0 }
-const.HP_COLOR_GREEN = { 0.0, 0.47, 0.0, 1.0 }
-const.HP_COLOR2 = { 0, 0.0, 0.47, 1.0 } --love.graphics.setColor(0.85, 1.0, 0.0, 1.0)--todo другой цвет
-const.HP_COLOR_RED = {1.0, 0.0, 0.0, 1.0}
+const.HP_COLOR_GREEN = { 0.0, 0.7, 0.0, 1.0 }
+const.HP_COLOR2 = { 0.7, 0.7, 0.0, 1.0 }
+const.HP_COLOR_RED = { 1.0, 0.0, 0.0, 1.0 }
+
+const.DAMAGE_SAFE_SPEED = 5
+const.K_DAMAGE = 0.02
 
 assert(#const.HP_KEY_POINTS == 4)
 

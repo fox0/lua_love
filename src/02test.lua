@@ -12,9 +12,15 @@ local function beginContact(a, b, c)
     local bb = b:getUserData()
     log.debug('Collided: ' .. aa .. ' and ' .. bb)
 
-    --todo damage = 90 - точно смертельно
     local speed = math.sqrt(math.pow(vars.player.speedx, 2) + math.pow(vars.player.speedy, 2))
     log.debug('speed =', speed)
+
+    if speed > const.DAMAGE_SAFE_SPEED then
+        --todo +красную анимацию (сколько кадров?) (и label с числом причинённого урона)
+        log.debug(vars.player.hp)
+        vars.player.hp = vars.player.hp - math.pow(speed, 2) * const.K_DAMAGE
+        log.debug(vars.player.hp)
+    end
 
     vars.player:set_is_ground(true)
 end
