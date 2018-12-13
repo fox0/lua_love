@@ -54,6 +54,8 @@ function Player:init(image, world, x, y)
     obj.speedx = 0
     obj.speedy = 0
     obj.speedr = 0
+    obj.ix = 0
+    obj.iy = 0
     return setmetatable(obj, Player)
 end
 
@@ -87,10 +89,44 @@ function Player:set_damage(damage)
     log.debug(string.format('HP -%.2f. Total: %.2f', damage, self.hp))
 end
 
+---Прыжок от поверхности
+function Player:jump()
+    if self.is_ground then
+        self.body:applyLinearImpulse(0, -self.FORCE * const.K_PONY_JUMP)
+    end
+end
+
 ---@param dt number
 function Player:update(dt)
     local dt100 = dt * 100
-    local want_r = self:_update_position(dt100)  --1
+
+    self.ix, self.iy = 0, 0
+    local want_r = 0
+    if love.keyboard.isDown('a') then
+        self.ix = -self.FORCE
+    end
+    if love.keyboard.isDown('d') then
+        self.ix = self.FORCE
+    end
+    if love.keyboard.isDown('w') then
+        self.iy = -self.FORCE
+    end
+    if love.keyboard.isDown('s') then
+        self.iy = self.FORCE
+    end
+    if not (self.ix == 0 and self.iy == 0) then
+        self.ix, self.iy = rotate_point(self.ix, self.iy, self.body:getAngle())
+        self.body:applyForce(self.ix * dt100, self.iy * dt100)
+        want_r = math.atan2(self.iy, self.ix)
+        want_r = normalize_angle(want_r)
+    end
+    if love.keyboard.isDown('up') then
+        want_r = want_r - const.K_PONY_R
+    end
+    if love.keyboard.isDown('down') then
+        want_r = want_r + const.K_PONY_R
+    end
+
     ---@type number
     local x, y, r = self.body:getX(), self.body:getY(), self.body:getAngle()
 
@@ -123,7 +159,6 @@ function Player:update(dt)
     end
 
     local error = r - want_r
-    log.debug(r, want_r)
     local res = error * const.K_PONY_P + self.speedr * const.K_PONY_I --PID
     self.body:applyTorque(-res * dt100 * const.K_PONY_ROTATE)
 
@@ -134,33 +169,6 @@ function Player:update(dt)
     self.sprite.r = r
     self.sprite:update(dt)
 end
-
----@param dt100 number
-function Player:_update_position(dt100)
-    local ix, iy, want_r = 0, 0, 0
-    if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
-        ix = -self.FORCE
-    end
-    if love.keyboard.isDown('d') or love.keyboard.isDown('right') then
-        ix = self.FORCE
-    end
-    if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
-        iy = -self.FORCE
-    end
-    if love.keyboard.isDown('s') or love.keyboard.isDown('down') then
-        iy = self.FORCE
-    end
-    if not (ix == 0 and iy == 0) then
-        self.body:applyForce(ix * dt100, iy * dt100)
-        want_r = math.atan2(iy, ix)
-        want_r = normalize_angle(want_r)
-    end
-    if self.is_ground and love.keyboard.isDown('space') then
-        self.body:applyLinearImpulse(0, -self.FORCE * const.K_PONY_JUMP)
-    end
-    return want_r
-end
-
 
 --DELTA = 4
 --FAST_SPEED = 20
@@ -179,7 +187,9 @@ end
 --end
 
 function Player:_update_sprite()
-    local DELTA, FAST_SPEED, sprites
+    local DELTA, FAST_SPEED
+    ---@type Sprite[]
+    local sprites
     if self.is_ground then
         DELTA = 1.5
         FAST_SPEED = 6
@@ -207,7 +217,6 @@ function Player:_update_sprite()
         return
     end
     if FAST_SPEED + DELTA < s then
-        --todo ускорять анимацию?
         self.sprite = sprites[5]
         return
     end
@@ -277,8 +286,12 @@ if log.level == 'debug' then
     function Player:debug_draw()
         local r, g, b, a = love.graphics.getColor()
         love.graphics.setColor(0.0, 0.0, 1.0, 1.0)
-        local x0, y0 = self.body:getWorldCenter()  -- центр масс
+        local x0, y0 = self.body:getWorldCenter()
+        --центр масс
         love.graphics.circle('line', x0, y0, 3)
+        --вектор силы
+        local k = 0.05
+        love.graphics.line(x0, y0, x0 + self.ix * k, y0 + self.iy * k)
         love.graphics.setColor(r, g, b, a)
     end
 end

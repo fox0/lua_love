@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-NAME='dist/NamelessHero.love'
+VERSION=`grep -o '[0-9]\{1,2\}\.[0-9]\{1,2\}\.[0-9]\{1,2\}' conf.lua`
+NAME="dist/NamelessHero${VERSION}.love"
 
-DIR=`dirname ${NAME}`
-rm -rf ${DIR}
-mkdir ${DIR}
-zip ${NAME} *.lua
+echo "Building ${NAME}"
+zip -u ${NAME} *.lua
 zip -u ${NAME} src/*.lua
 zip -u ${NAME} lib/*.lua
 zip -u -r ${NAME} resources

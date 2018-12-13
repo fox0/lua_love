@@ -65,6 +65,16 @@ function m.exit()
     vars = nil
 end
 
+---@param k string
+function m.keypressed(k)
+    if k == 'space' then
+        vars.player:jump()
+        return
+    end
+    --todo 'left' - kick 'right'
+    log.debug(k)
+end
+
 ---@param dt number
 function m.update(dt)
     vars.world:update(dt)

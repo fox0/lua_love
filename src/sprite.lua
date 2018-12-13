@@ -5,17 +5,15 @@ local Sprite = {}
 Sprite.__index = Sprite
 
 ---@param frames Frame[]
----@param delay number длительность кадра
----@param speed number множитель скорости анимации
+---@param k_speed number множитель скорости анимации
 ---@return Sprite
-function Sprite:init(frames, delay)--, speed)
+function Sprite:init(frames, k_speed)
     assert(frames)
     ---@class Sprite Спрайт
     local obj = {}
     obj._frames = frames
     obj.index = 1  -- нумерация с единицы
-    obj._delay = delay or .15
-    --obj.speed = speed or 1.
+    obj._delay = 0.15 / (k_speed or 1.0)
     obj.is_animated = true
     obj.timer = 0
     ---@type Frame
@@ -41,7 +39,7 @@ function Sprite:update(dt)
     if not self.is_animated then
         return
     end
-    self.timer = self.timer + dt --* self.speed
+    self.timer = self.timer + dt
     if self.timer > self._delay then
         self.timer = self.timer - self._delay
         self.index = self.index + 1
@@ -153,8 +151,8 @@ function Sprite.parse_texture(image)
     result.fly_run1 = Sprite:init(get_frames(6))
     result.fly_run2 = Sprite:init(get_frames(6))
     frames = get_frames(6)
-    result.left_fly_run = Sprite:init(mirror(frames))
-    result.right_fly_run = Sprite:init(frames)
+    result.left_fly_run = Sprite:init(mirror(frames), 1.3)
+    result.right_fly_run = Sprite:init(frames, 1.3)
     result.fly_run4 = Sprite:init(get_frames(6))
     result.fly_run5 = Sprite:init(get_frames(6))
 
