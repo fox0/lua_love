@@ -13,9 +13,11 @@ const.BG_COLOR = {0.62, 0.85, 0.9, 1.0}
 const.FORCE_PONY = 1000
 
 --различные коэффициенты
+const.K_PONY_FORCE_FLY_Y = 0.3
+const.K_PONY_FORCE_FLY_DJITTING = 0.05
+
 const.K_PONY_JUMP = 0.5
 const.K_PONY_R = math.pi * 0.5
-const.K_PONY_FLY = 0.05
 const.K_PONY_ROTATE = 1000
 const.K_PONY_P = 1.5
 const.K_PONY_I = 100

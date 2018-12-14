@@ -37,7 +37,7 @@ function Player:init(image, world, x, y)
     ---@type Shape
     obj.shape = love.physics.newRectangleShape(W / 2, (H + dy) / 2, 70 - dx, 70 - dy)
     local fixture = love.physics.newFixture(obj.body, obj.shape)
-    fixture:setUserData('player')
+    fixture:setUserData('player') --todo!!! Различать объекты
 
     obj.body:setMassData(obj.shape:computeMass(1))
     --obj.body:setWorldCenter(20, 25)
@@ -46,8 +46,16 @@ function Player:init(image, world, x, y)
     obj.FORCE = const.FORCE_PONY * 1.0
     obj.MAX_HP = 100
 
-    obj.hp = 100
+    --status
     obj.is_ground = false
+    obj.is_up = false
+    obj.is_down = false
+    obj.is_left = false
+    obj.is_right = false
+    obj.is_rotate_left = false
+    obj.is_rotate_right = false
+
+    obj.hp = 100
     obj.prev_x = x
     obj.prev_y = y
     obj.prev_r = 0
@@ -101,29 +109,30 @@ function Player:update(dt)
     local dt100 = dt * 100
 
     self.ix, self.iy = 0, 0
-    local want_r = 0
-    if love.keyboard.isDown('a') then
+    if self.is_left then
         self.ix = -self.FORCE
     end
-    if love.keyboard.isDown('d') then
+    if self.is_right then
         self.ix = self.FORCE
     end
-    if love.keyboard.isDown('w') then
-        self.iy = -self.FORCE
+    if self.is_up then
+        self.iy = -self.FORCE * const.K_PONY_FORCE_FLY_Y
     end
-    if love.keyboard.isDown('s') then
-        self.iy = self.FORCE
+    if self.is_down then
+        self.iy = self.FORCE * const.K_PONY_FORCE_FLY_Y
     end
+
+    local want_r = 0
     if not (self.ix == 0 and self.iy == 0) then
         self.ix, self.iy = rotate_point(self.ix, self.iy, self.body:getAngle())
         self.body:applyForce(self.ix * dt100, self.iy * dt100)
         want_r = math.atan2(self.iy, self.ix)
         want_r = normalize_angle(want_r)
     end
-    if love.keyboard.isDown('up') then
+    if self.is_rotate_left then
         want_r = want_r - const.K_PONY_R
     end
-    if love.keyboard.isDown('down') then
+    if self.is_rotate_right then
         want_r = want_r + const.K_PONY_R
     end
 
@@ -139,7 +148,7 @@ function Player:update(dt)
             (const.HP_KEY_POINTS[2] + 0.1 < hp and hp < const.HP_KEY_POINTS[3] - 0.1) then
         local add = const.DAMAGE_NONE * dt
         self.hp = self.hp + add
-        log.debug(string.format('HP +%.3f. Total: %.2f', add, self.hp))
+        --log.debug(string.format('HP +%.3f. Total: %.2f', add, self.hp))
     end
 
     self.speedx = (x - self.prev_x) * dt100
@@ -155,7 +164,7 @@ function Player:update(dt)
 
     --- Забавный полёт
     if not self.is_ground and self.sprite.index == 4 then
-        self.body:applyLinearImpulse(0, -self.FORCE * const.K_PONY_FLY)
+        self.body:applyLinearImpulse(0, -self.FORCE * const.K_PONY_FORCE_FLY_DJITTING)
     end
 
     local error = r - want_r
@@ -225,7 +234,9 @@ end
 function Player:draw()
     self.sprite:draw()
     self:_draw_hp()
-    self:debug_draw()
+    if is_debug_gui then
+        self:debug_draw()
+    end
 end
 
 --- Нарисовать полоску hp
@@ -279,21 +290,23 @@ function Player:_draw_hp()
 end
 
 function Player:debug_draw()
+    local r, g, b, a = love.graphics.getColor()
+    love.graphics.setColor(0.0, 0.0, 1.0, 1.0)
 
-end
+    local x0, y0 = self.body:getWorldCenter()
+    --центр масс
+    love.graphics.circle('line', x0, y0, 3)
 
-if log.level == 'debug' then
-    function Player:debug_draw()
-        local r, g, b, a = love.graphics.getColor()
-        love.graphics.setColor(0.0, 0.0, 1.0, 1.0)
-        local x0, y0 = self.body:getWorldCenter()
-        --центр масс
-        love.graphics.circle('line', x0, y0, 3)
-        --вектор силы
-        local k = 0.05
-        love.graphics.line(x0, y0, x0 + self.ix * k, y0 + self.iy * k)
-        love.graphics.setColor(r, g, b, a)
-    end
+    --vector force
+    local k = 0.05
+    love.graphics.line(x0, y0, x0 + self.ix * k, y0 + self.iy * k)
+
+    --vector speed
+    love.graphics.setColor(1.0, 0.0, 0.0, 1.0)
+    k = 3.0
+    love.graphics.line(x0, y0, x0 + self.speedx * k, y0 + self.speedy * k)
+
+    love.graphics.setColor(r, g, b, a)
 end
 
 return Player

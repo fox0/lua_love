@@ -17,9 +17,9 @@ function load_module(module_name, args)
         game_exit = m.exit
     end
 
-    love.keypressed = nil
+    game_keypressed = nil
     if m.keypressed then
-        love.keypressed = m.keypressed
+        game_keypressed = m.keypressed
     end
 
     love.keyreleased = nil
@@ -29,6 +29,17 @@ function load_module(module_name, args)
 
     m.init(args)
     love.timer.step()
+end
+
+---@param k string
+function love.keypressed(k)
+    if k == 'h' then
+        is_debug_gui = not is_debug_gui
+        return
+    end
+    if game_keypressed then
+        game_keypressed(k)
+    end
 end
 
 function love.run()
@@ -61,7 +72,9 @@ function love.run()
             love.graphics.origin()
             love.graphics.clear(love.graphics.getBackgroundColor())
             game_draw()
-            debug_print_fps()
+            if is_debug_gui then
+                debug_print_fps()
+            end
             love.graphics.present()
         end
         love.timer.sleep(0.001)

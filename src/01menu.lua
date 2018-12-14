@@ -33,7 +33,7 @@ local map_frames = {
 
 local function change()
     for i, pony in ipairs(vars.ponies) do
-        pony.is_animated = false  -- todo "докрутить" анимацию
+        pony.is_animated = false
         local v = map_frames[vars.sel_index][i]
         if v ~= 0 then
             pony:set_frame(v)
@@ -83,12 +83,12 @@ end
 function m.exit()
     log.debug('release')
     -- удаляем больше ненужные изображения
-    for i, img in ipairs(vars.ponies_img) do
-        if i ~= vars.sel_index then
-            img:release()
-        end
-    end
-    vars = nil
+    --for i, img in ipairs(vars.ponies_img) do --todo
+    --    if i ~= vars.sel_index then
+    --        img:release()
+    --    end
+    --end
+    --vars = nil
 end
 
 ---@param k string
@@ -128,7 +128,7 @@ function m.keyreleased(k)
     end
 
     if k == 'space' or k == 'return' then
-        load_module('02test', { img = vars.ponies_img[vars.sel_index] })
+        load_module('02test', { img = vars.ponies_img[vars.sel_index], imgs = vars.ponies_img })--todo delme
         return
     end
     log.debug('keyreleased', k)
