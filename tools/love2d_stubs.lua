@@ -7,10 +7,10 @@ love = {}
 --- Gets the current running version of LÖVE.
 ---
 --- returns:
----     number major - The major version of LÖVE, i.e. 0 for version 0.9.1.
----     number minor - The minor version of LÖVE, i.e. 9 for version 0.9.1.
----     number revision - The revision version of LÖVE, i.e. 1 for version 0.9.1.
----     string codename - The codename of the current version, i.e. "Baby Inspector" for version 0.9.1.
+---   number major - The major version of LÖVE, i.e. 0 for version 0.9.1.
+---   number minor - The minor version of LÖVE, i.e. 9 for version 0.9.1.
+---   number revision - The revision version of LÖVE, i.e. 1 for version 0.9.1.
+---   string codename - The codename of the current version, i.e. "Baby Inspector" for version 0.9.1.
 ---@return number, number, number, string
 function love.getVersion() end
 
@@ -28,7 +28,7 @@ function love.setDeprecationOutput(enable) end
 --- When deprecation output is enabled, the first use of a formally deprecated LÖVE API will show a message at the bottom of the screen for a short time, and print the message to the console.
 ---
 --- returns:
----     boolean enabled - Whether deprecation output is enabled.
+---   boolean enabled - Whether deprecation output is enabled.
 ---@return boolean
 function love.hasDeprecationOutput() end
 
@@ -42,7 +42,7 @@ love.audio = audio
 --- Gets a list of the names of the currently enabled effects.
 ---
 --- returns:
----     table effects - The list of the names of the currently enabled effects.
+---   table effects - The list of the names of the currently enabled effects.
 ---@return table
 function audio.getActiveEffects() end
 
@@ -50,7 +50,7 @@ function audio.getActiveEffects() end
 --- Gets the current number of simultaneously playing sources.
 ---
 --- returns:
----     number count - The current number of simultaneously playing sources.
+---   number count - The current number of simultaneously playing sources.
 ---@return number
 function audio.getActiveSourceCount() end
 
@@ -58,7 +58,7 @@ function audio.getActiveSourceCount() end
 --- Returns the distance attenuation model.
 ---
 --- returns:
----     DistanceModel model - The current distance model. The default is 'inverseclamped'.
+---   DistanceModel model - The current distance model. The default is 'inverseclamped'.
 ---@return DistanceModel
 function audio.getDistanceModel() end
 
@@ -66,7 +66,7 @@ function audio.getDistanceModel() end
 --- Gets the current global scale factor for velocity-based doppler effects.
 ---
 --- returns:
----     number scale - The current doppler scale factor.
+---   number scale - The current doppler scale factor.
 ---@return number
 function audio.getDopplerScale() end
 
@@ -75,7 +75,7 @@ function audio.getDopplerScale() end
 ---
 ---@param name string The name of the effect.
 --- returns:
----     table settings - The settings associated with the effect.
+---   table settings - The settings associated with the effect.
 ---@return table
 function audio.getEffect(name) end
 
@@ -83,7 +83,7 @@ function audio.getEffect(name) end
 --- Gets the maximum number of active Effects, supported by the system.
 ---
 --- returns:
----     number maximum - The maximum number of active Effects.
+---   number maximum - The maximum number of active Effects.
 ---@return number
 function audio.getMaxSceneEffects() end
 
@@ -91,7 +91,7 @@ function audio.getMaxSceneEffects() end
 --- Gets the maximum number of active Effects in a single Source object, that the system can support.
 ---
 --- returns:
----     number maximum - The maximum number of active Effects per Source.
+---   number maximum - The maximum number of active Effects per Source.
 ---@return number
 function audio.getMaxSourceEffects() end
 
@@ -99,12 +99,12 @@ function audio.getMaxSourceEffects() end
 --- Returns the orientation of the listener.
 ---
 --- returns:
----     number fx - The X component of the forward vector of the listener orientation.
----     number fy - The Y component of the forward vector of the listener orientation.
----     number fz - The Z component of the forward vector of the listener orientation.
----     number ux - The X component of the up vector of the listener orientation.
----     number uy - The Y component of the up vector of the listener orientation.
----     number uz - The Z component of the up vector of the listener orientation.
+---   number fx - The X component of the forward vector of the listener orientation.
+---   number fy - The Y component of the forward vector of the listener orientation.
+---   number fz - The Z component of the forward vector of the listener orientation.
+---   number ux - The X component of the up vector of the listener orientation.
+---   number uy - The Y component of the up vector of the listener orientation.
+---   number uz - The Z component of the up vector of the listener orientation.
 ---@return number, number, number, number, number, number
 function audio.getOrientation() end
 
@@ -112,9 +112,9 @@ function audio.getOrientation() end
 --- Returns the position of the listener.
 ---
 --- returns:
----     number x - The X position of the listener.
----     number y - The Y position of the listener.
----     number z - The Z position of the listener.
+---   number x - The X position of the listener.
+---   number y - The Y position of the listener.
+---   number z - The Z position of the listener.
 ---@return number, number, number
 function audio.getPosition() end
 
@@ -125,7 +125,7 @@ function audio.getPosition() end
 --- Recording is not supported on iOS
 ---
 --- returns:
----     table devices - The list of RecordingDevices
+---   table devices - The list of RecordingDevices
 ---@return table
 function audio.getRecordingDevices() end
 
@@ -133,7 +133,7 @@ function audio.getRecordingDevices() end
 --- Returns the number of sources which are currently playing or paused.
 ---
 --- returns:
----     number numSources - The number of sources which are currently playing or paused.
+---   number numSources - The number of sources which are currently playing or paused.
 ---@return number
 function audio.getSourceCount() end
 
@@ -141,9 +141,9 @@ function audio.getSourceCount() end
 --- Returns the velocity of the listener.
 ---
 --- returns:
----     number x - The X velocity of the listener.
----     number y - The Y velocity of the listener.
----     number z - The Z velocity of the listener.
+---   number x - The X velocity of the listener.
+---   number y - The Y velocity of the listener.
+---   number z - The Z velocity of the listener.
 ---@return number, number, number
 function audio.getVelocity() end
 
@@ -151,7 +151,7 @@ function audio.getVelocity() end
 --- Returns the master volume.
 ---
 --- returns:
----     number volume - The current master volume.
+---   number volume - The current master volume.
 ---@return number
 function audio.getVolume() end
 
@@ -159,7 +159,7 @@ function audio.getVolume() end
 --- Gets whether Effects are supported in the system.
 ---
 --- returns:
----     boolean supported - True if Effects are supported, false otherwise.
+---   boolean supported - True if Effects are supported, false otherwise.
 ---@return boolean
 function audio.isEffectsSupported() end
 
@@ -169,32 +169,32 @@ function audio.isEffectsSupported() end
 ---@param filename string The filepath to the audio file.
 ---@param type SourceType Streaming or static source.
 --- returns:
----     Source source - A new Source that can play the specified audio.
+---   Source source - A new Source that can play the specified audio.
 ---@return Source
 function audio.newSource(filename, type) end
 
 ---@param file File A File pointing to an audio file.
 ---@param type SourceType Streaming or static source.
 --- returns:
----     Source source - A new Source that can play the specified audio.
+---   Source source - A new Source that can play the specified audio.
 ---@return Source
 function audio.newSource(file, type) end
 
 ---@param decoder Decoder The Decoder to create a Source from.
 --- returns:
----     Source source - A new Source that can play the specified audio.
+---   Source source - A new Source that can play the specified audio.
 ---@return Source
 function audio.newSource(decoder) end
 
 ---@param fileData FileData The FileData to create a Source from.
 --- returns:
----     Source source - A new Source that can play the specified audio.
+---   Source source - A new Source that can play the specified audio.
 ---@return Source
 function audio.newSource(fileData) end
 
 ---@param soundData SoundData The SoundData to create a Source from.
 --- returns:
----     Source source - A new Source that can play the specified audio. The SourceType of the returned audio is "static".
+---   Source source - A new Source that can play the specified audio. The SourceType of the returned audio is "static".
 ---@return Source
 function audio.newSource(soundData) end
 
@@ -206,7 +206,7 @@ function audio.newSource(soundData) end
 ---@param channels number 1 for mono, 2 for stereo.
 ---@param buffercount number The number of buffers that can be queued up at any given time with Source:queue. Cannot be greater than 64. A sensible default (~8) is chosen if no value is specified.
 --- returns:
----     Source source - The new Source usable with Source:queue.
+---   Source source - The new Source usable with Source:queue.
 ---@return Source
 function audio.newQueueableSource(samplerate, bitdepth, channels, buffercount) end
 
@@ -242,14 +242,14 @@ function audio.setDopplerScale(scale) end
 ---@param name string The name of the effect.
 ---@param settings table The settings to use for this effect, with the following fields:
 --- returns:
----     boolean success - Whether the effect was successfully created.
+---   boolean success - Whether the effect was successfully created.
 ---@return boolean
 function audio.setEffect(name, settings) end
 
 ---@param name string The name of the effect.
 ---@param enabled boolean If false and the given effect name was previously set, disables the effect.
 --- returns:
----     boolean success - Whether the Effect was successfully disabled.
+---   boolean success - Whether the Effect was successfully disabled.
 ---@return boolean
 function audio.setEffect(name, enabled) end
 
@@ -258,7 +258,7 @@ function audio.setEffect(name, enabled) end
 ---
 ---@param mix boolean True to enable mixing, false to disable it.
 --- returns:
----     boolean success - True if the change succeeded, false otherwise.
+---   boolean success - True if the change succeeded, false otherwise.
 ---@return boolean
 function audio.setMixWithSystem(mix) end
 
@@ -316,7 +316,7 @@ Source = {}
 --- Cloned Sources inherit all the set-able state of the original Source, but they are initialized stopped.
 ---
 --- returns:
----     Source source - The new identical copy of this Source.
+---   Source source - The new identical copy of this Source.
 ---@return Source
 function Source.clone() end
 
@@ -324,8 +324,8 @@ function Source.clone() end
 --- Returns the reference and maximum distance of the source.
 ---
 --- returns:
----     number ref - The reference distance.
----     number max - The maximum distance.
+---   number ref - The reference distance.
+---   number max - The maximum distance.
 ---@return number, number
 function Source.getAttenuationDistances() end
 
@@ -333,7 +333,7 @@ function Source.getAttenuationDistances() end
 --- Gets the number of channels in the Source. Only 1-channel (mono) Sources can use directional and positional effects.
 ---
 --- returns:
----     number channels - 1 for mono, 2 for stereo.
+---   number channels - 1 for mono, 2 for stereo.
 ---@return number
 function Source.getChannelCount() end
 
@@ -341,10 +341,10 @@ function Source.getChannelCount() end
 --- Gets the Source's directional volume cones. Together with Source:setDirection, the cone angles allow for the Source's volume to vary depending on its direction.
 ---
 --- returns:
----     number innerAngle - The inner angle from the Source's direction, in radians. The Source will play at normal volume if the listener is inside the cone defined by this angle.
----     number outerAngle - The outer angle from the Source's direction, in radians. The Source will play at a volume between the normal and outer volumes, if the listener is in between the cones defined by the inner and outer angles.
----     number outerVolume - The Source's volume when the listener is outside both the inner and outer cone angles.
----     number outerHighGain - The gain for the high tones when the listener is outside both the inner and outer cone angles. Not supported in iOS.
+---   number innerAngle - The inner angle from the Source's direction, in radians. The Source will play at normal volume if the listener is inside the cone defined by this angle.
+---   number outerAngle - The outer angle from the Source's direction, in radians. The Source will play at a volume between the normal and outer volumes, if the listener is in between the cones defined by the inner and outer angles.
+---   number outerVolume - The Source's volume when the listener is outside both the inner and outer cone angles.
+---   number outerHighGain - The gain for the high tones when the listener is outside both the inner and outer cone angles. Not supported in iOS.
 ---@return number, number, number, number
 function Source.getCone() end
 
@@ -352,9 +352,9 @@ function Source.getCone() end
 --- Gets the direction of the Source.
 ---
 --- returns:
----     number x - The X part of the direction vector.
----     number y - The Y part of the direction vector.
----     number z - The Z part of the direction vector.
+---   number x - The X part of the direction vector.
+---   number y - The Y part of the direction vector.
+---   number z - The Z part of the direction vector.
 ---@return number, number, number
 function Source.getDirection() end
 
@@ -363,7 +363,7 @@ function Source.getDirection() end
 ---
 ---@param unit TimeUnit The time unit for the return value.
 --- returns:
----     number duration - The duration of the Source, or -1 if it cannot be determined.
+---   number duration - The duration of the Source, or -1 if it cannot be determined.
 ---@return number
 function Source.getDuration(unit) end
 
@@ -375,7 +375,11 @@ function Source.getDuration(unit) end
 ---@param name string The name of the effect.
 ---@param filtersettings table An optional empty table that will be filled with the filter settings.
 --- returns:
----     table filtersettings -  The settings for the filter associated to this effect, or nil if the effect is not present in this Source or has no filter associated. The table has the following fields:
+---   table filtersettings -  The settings for the filter associated to this effect, or nil if the effect is not present in this Source or has no filter associated. The table has the following fields:
+---     FilterType type - The type of filter in use.
+---     number volume - The overall volume of the audio. Must be between 0 and 1.
+---     number highgain - Volume of high-frequency audio. Only applies to low-pass and band-pass filters.
+---     number lowgain - Volume of low-frequency audio. Only applies to high-pass and band-pass filters.
 ---@return table
 function Source.getEffect(name, filtersettings) end
 
@@ -383,7 +387,7 @@ function Source.getEffect(name, filtersettings) end
 --- Returns a list of all the active effects currently applied to the Source
 ---
 --- returns:
----     table effects - The list with all the names for the currently applied effects
+---   table effects - The list with all the names for the currently applied effects
 ---@return table
 function Source.getActiveEffects() end
 
@@ -392,7 +396,11 @@ function Source.getActiveEffects() end
 ---
 ---@param settings table An optional empty table that will be filled with the filter settings.
 --- returns:
----     table settings - The settings for the active filter on this Source, or nil if the Source has no active filter. The table has the following fields:
+---   table settings - The settings for the active filter on this Source, or nil if the Source has no active filter. The table has the following fields:
+---     FilterType type - The type of filter in use.
+---     number volume - The overall volume of the audio. Must be between 0 and 1.
+---     number highgain - Volume of high-frequency audio. Only applies to low-pass and band-pass filters.
+---     number lowgain - Volume of low-frequency audio. Only applies to high-pass and band-pass filters.
 ---@return table
 function Source.getFilter(settings) end
 
@@ -400,7 +408,7 @@ function Source.getFilter(settings) end
 --- Gets the number of free buffer slots of a queueable Source.
 ---
 --- returns:
----     number buffers - How many more SoundData objects can be queued up.
+---   number buffers - How many more SoundData objects can be queued up.
 ---@return number
 function Source.getFreeBufferCount() end
 
@@ -408,7 +416,7 @@ function Source.getFreeBufferCount() end
 --- Gets the current pitch of the Source.
 ---
 --- returns:
----     number pitch - The pitch, where 1.0 is normal.
+---   number pitch - The pitch, where 1.0 is normal.
 ---@return number
 function Source.getPitch() end
 
@@ -416,9 +424,9 @@ function Source.getPitch() end
 --- Gets the position of the Source.
 ---
 --- returns:
----     number x - The X position of the Source.
----     number y - The Y position of the Source.
----     number z - The Z position of the Source.
+---   number x - The X position of the Source.
+---   number y - The Y position of the Source.
+---   number z - The Z position of the Source.
 ---@return number, number, number
 function Source.getPosition() end
 
@@ -426,7 +434,7 @@ function Source.getPosition() end
 --- Returns the rolloff factor of the source.
 ---
 --- returns:
----     number rolloff - The rolloff factor.
+---   number rolloff - The rolloff factor.
 ---@return number
 function Source.getRolloff() end
 
@@ -434,7 +442,7 @@ function Source.getRolloff() end
 --- Gets the type (static or stream) of the Source.
 ---
 --- returns:
----     SourceType sourcetype - The type of the source.
+---   SourceType sourcetype - The type of the source.
 ---@return SourceType
 function Source.getType() end
 
@@ -442,9 +450,9 @@ function Source.getType() end
 --- Gets the velocity of the Source.
 ---
 --- returns:
----     number x - The X part of the velocity vector.
----     number y - The Y part of the velocity vector.
----     number z - The Z part of the velocity vector.
+---   number x - The X part of the velocity vector.
+---   number y - The Y part of the velocity vector.
+---   number z - The Z part of the velocity vector.
 ---@return number, number, number
 function Source.getVelocity() end
 
@@ -452,7 +460,7 @@ function Source.getVelocity() end
 --- Gets the current volume of the Source.
 ---
 --- returns:
----     number volume - The volume of the Source, where 1.0 is normal volume.
+---   number volume - The volume of the Source, where 1.0 is normal volume.
 ---@return number
 function Source.getVolume() end
 
@@ -460,8 +468,8 @@ function Source.getVolume() end
 --- Returns the volume limits of the source.
 ---
 --- returns:
----     number min - The minimum volume.
----     number max - The maximum volume.
+---   number min - The minimum volume.
+---   number max - The maximum volume.
 ---@return number, number
 function Source.getVolumeLimits() end
 
@@ -469,7 +477,7 @@ function Source.getVolumeLimits() end
 --- Returns whether the Source will loop.
 ---
 --- returns:
----     boolean loop - True if the Source will loop, false otherwise.
+---   boolean loop - True if the Source will loop, false otherwise.
 ---@return boolean
 function Source.isLooping() end
 
@@ -477,7 +485,7 @@ function Source.isLooping() end
 --- Returns whether the Source is playing.
 ---
 --- returns:
----     boolean playing - True if the Source is playing, false otherwise.
+---   boolean playing - True if the Source is playing, false otherwise.
 ---@return boolean
 function Source.isPlaying() end
 
@@ -485,7 +493,7 @@ function Source.isPlaying() end
 --- Gets whether the Source's position and direction are relative to the listener.
 ---
 --- returns:
----     boolean relative - True if the position, velocity, direction and cone angles are relative to the listener, false if they're absolute.
+---   boolean relative - True if the position, velocity, direction and cone angles are relative to the listener, false if they're absolute.
 ---@return boolean
 function Source.isRelative() end
 
@@ -498,7 +506,7 @@ function Source.pause() end
 --- Starts playing the Source.
 ---
 --- returns:
----     boolean success - True if the Source started playing successfully, false otherwise.
+---   boolean success - True if the Source started playing successfully, false otherwise.
 ---@return boolean
 function Source.play() end
 
@@ -509,7 +517,7 @@ function Source.play() end
 ---
 ---@param sounddata SoundData The data to queue. The SoundData's sample rate, bit depth, and channel count must match the Source's.
 --- returns:
----     boolean success - True if the data was successfully queued for playback, false if there were no available buffers to use for queueing.
+---   boolean success - True if the data was successfully queued for playback, false if there were no available buffers to use for queueing.
 ---@return boolean
 function Source.queue(sounddata) end
 
@@ -552,14 +560,14 @@ function Source.setDirection(x, y, z) end
 ---@param name string The name of the effect previously set up with love.audio.setEffect.
 ---@param enable boolean If false and the given effect name was previously enabled on this Source, disables the effect.
 --- returns:
----     boolean success - Whether the effect and filter were successfully applied to this Source.
+---   boolean success - Whether the effect and filter were successfully applied to this Source.
 ---@return boolean
 function Source.setEffect(name, enable) end
 
 ---@param name string The name of the effect previously set up with love.audio.setEffect.
 ---@param filtersettings table The filter settings to apply prior to, with the following fields:
 --- returns:
----     boolean success - Whether the effect and filter were successfully applied to this Source.
+---   boolean success - Whether the effect and filter were successfully applied to this Source.
 ---@return boolean
 function Source.setEffect(name, filtersettings) end
 
@@ -568,7 +576,7 @@ function Source.setEffect(name, filtersettings) end
 ---
 ---@param settings table The filter settings to use for this Source, with the following fields:
 --- returns:
----     boolean success - Whether the filter was successfully applied to the Source.
+---   boolean success - Whether the filter was successfully applied to the Source.
 ---@return boolean
 function Source.setFilter(settings) end
 
@@ -639,7 +647,7 @@ function Source.stop() end
 ---
 ---@param unit TimeUnit The type of unit for the return value.
 --- returns:
----     number position - The currently playing position of the Source.
+---   number position - The currently playing position of the Source.
 ---@return number
 function Source.tell(unit) end
 
@@ -652,7 +660,7 @@ RecordingDevice = {}
 --- Gets the number of bits per sample in the data currently being recorded.
 ---
 --- returns:
----     number bitdepth - The number of bits per sample in the data that's currently being recorded. (8 or 16).
+---   number bitdepth - The number of bits per sample in the data that's currently being recorded. (8 or 16).
 ---@return number
 function RecordingDevice.getBitDepth() end
 
@@ -660,7 +668,7 @@ function RecordingDevice.getBitDepth() end
 --- Gets the number of channels currently being recorded (mono or stereo).
 ---
 --- returns:
----     number channels - The number of channels being recorded (1 for mono, 2 for stereo).
+---   number channels - The number of channels being recorded (1 for mono, 2 for stereo).
 ---@return number
 function RecordingDevice.getChannelCount() end
 
@@ -668,7 +676,7 @@ function RecordingDevice.getChannelCount() end
 --- Gets all recorded audio SoundData stored in the device's internal ring buffer.
 ---
 --- returns:
----     SoundData data - The recorded audio data, or nil if the device isn't recording.
+---   SoundData data - The recorded audio data, or nil if the device isn't recording.
 ---@return SoundData
 function RecordingDevice.getData() end
 
@@ -676,7 +684,7 @@ function RecordingDevice.getData() end
 --- Gets the name of the recording device.
 ---
 --- returns:
----     string name - The name for this device.
+---   string name - The name for this device.
 ---@return string
 function RecordingDevice.getName() end
 
@@ -684,7 +692,7 @@ function RecordingDevice.getName() end
 --- Gets the number of currently recorded samples.
 ---
 --- returns:
----     number samples - The number of samples that have been recorded so far.
+---   number samples - The number of samples that have been recorded so far.
 ---@return number
 function RecordingDevice.getSampleCount() end
 
@@ -692,7 +700,7 @@ function RecordingDevice.getSampleCount() end
 --- Gets the number of samples per second currently being recorded.
 ---
 --- returns:
----     number rate - The number of samples being recorded per second (sample rate).
+---   number rate - The number of samples being recorded per second (sample rate).
 ---@return number
 function RecordingDevice.getSampleRate() end
 
@@ -700,7 +708,7 @@ function RecordingDevice.getSampleRate() end
 --- Gets whether the device is currently recording.
 ---
 --- returns:
----     boolean recording - True if the device is recording, false otherwise.
+---   boolean recording - True if the device is recording, false otherwise.
 ---@return boolean
 function RecordingDevice.isRecording() end
 
@@ -712,7 +720,7 @@ function RecordingDevice.isRecording() end
 ---@param bitdepth number The number of bits per sample.
 ---@param channels number Whether to record in mono or stereo. Most microphones don't support more than 1 channel.
 --- returns:
----     boolean success - True if the device successfully began recording using the specified parameters, false if not.
+---   boolean success - True if the device successfully began recording using the specified parameters, false if not.
 ---@return boolean
 function RecordingDevice.start(samplecount, samplerate, bitdepth, channels) end
 
@@ -720,7 +728,7 @@ function RecordingDevice.start(samplecount, samplerate, bitdepth, channels) end
 --- Stops recording audio from this device.
 ---
 --- returns:
----     SoundData data - The sound data currently in the device's buffer, or nil if the device wasn't recording.
+---   SoundData data - The sound data currently in the device's buffer, or nil if the device wasn't recording.
 ---@return SoundData
 function RecordingDevice.stop() end
 
@@ -738,7 +746,7 @@ love.data = data
 ---@param rawstring string The raw (un-compressed) string to compress.
 ---@param level number The level of compression to use, between 0 and 9. -1 indicates the default level. The meaning of this argument depends on the compression format being used.
 --- returns:
----     CompressedData or string compressedData - CompressedData/string which contains the compressed version of data.
+---   CompressedData or string compressedData - CompressedData/string which contains the compressed version of data.
 ---@return CompressedData or string
 function data.compress(container, format, rawstring, level) end
 
@@ -747,7 +755,7 @@ function data.compress(container, format, rawstring, level) end
 ---@param data Data A Data object containing the raw (un-compressed) data to compress.
 ---@param level number The level of compression to use, between 0 and 9. -1 indicates the default level. The meaning of this argument depends on the compression format being used.
 --- returns:
----     CompressedData or string compressedData - CompressedData/string which contains the compressed version of data.
+---   CompressedData or string compressedData - CompressedData/string which contains the compressed version of data.
 ---@return CompressedData or string
 function data.compress(container, format, data, level) end
 
@@ -758,7 +766,7 @@ function data.compress(container, format, data, level) end
 ---@param format EncodeFormat The format of the input data.
 ---@param sourceString string The raw (encoded) data to decode.
 --- returns:
----     Variant decoded - ByteData/string which contains the decoded version of source.
+---   Variant decoded - ByteData/string which contains the decoded version of source.
 ---@return Variant
 function data.decode(containerType, format, sourceString) end
 
@@ -766,7 +774,7 @@ function data.decode(containerType, format, sourceString) end
 ---@param format EncodeFormat The format of the input data.
 ---@param sourceData Data The raw (encoded) data to decode.
 --- returns:
----     Variant decoded - ByteData/string which contains the decoded version of source.
+---   Variant decoded - ByteData/string which contains the decoded version of source.
 ---@return Variant
 function data.decode(containerType, format, sourceData) end
 
@@ -776,7 +784,7 @@ function data.decode(containerType, format, sourceData) end
 ---@param container ContainerType What type to return the decompressed data as.
 ---@param compressedData CompressedData The compressed data to decompress.
 --- returns:
----     string rawstring - A string containing the raw decompressed data.
+---   string rawstring - A string containing the raw decompressed data.
 ---@return string
 function data.decompress(container, compressedData) end
 
@@ -784,7 +792,7 @@ function data.decompress(container, compressedData) end
 ---@param format CompressedDataFormat The format that was used to compress the given string.
 ---@param compressedstring string A string containing data previously compressed with love.data.compress.
 --- returns:
----     string rawstring - A string containing the raw decompressed data.
+---   string rawstring - A string containing the raw decompressed data.
 ---@return string
 function data.decompress(container, format, compressedstring) end
 
@@ -792,7 +800,7 @@ function data.decompress(container, format, compressedstring) end
 ---@param format CompressedDataFormat The format that was used to compress the given data.
 ---@param data Data A Data object containing data previously compressed with love.data.compress.
 --- returns:
----     string rawstring - A string containing the raw decompressed data.
+---   string rawstring - A string containing the raw decompressed data.
 ---@return string
 function data.decompress(container, format, data) end
 
@@ -804,7 +812,7 @@ function data.decompress(container, format, data) end
 ---@param sourceString string The raw data to encode.
 ---@param lineLength number The maximum line length of the output. Only supported for base64, ignored if 0.
 --- returns:
----     Variant encoded - ByteData/string which contains the encoded version of source.
+---   Variant encoded - ByteData/string which contains the encoded version of source.
 ---@return Variant
 function data.encode(containerType, format, sourceString, lineLength) end
 
@@ -813,7 +821,7 @@ function data.encode(containerType, format, sourceString, lineLength) end
 ---@param sourceData Data The raw data to encode.
 ---@param lineLength number The maximum line length of the output. Only supported for base64, ignored if 0.
 --- returns:
----     Variant encoded - ByteData/string which contains the encoded version of source.
+---   Variant encoded - ByteData/string which contains the encoded version of source.
 ---@return Variant
 function data.encode(containerType, format, sourceData, lineLength) end
 
@@ -823,14 +831,14 @@ function data.encode(containerType, format, sourceData, lineLength) end
 ---@param hashFunction HashFunction Hash algorithm to use.
 ---@param string string String to hash.
 --- returns:
----     string rawdigest - Raw message digest string.
+---   string rawdigest - Raw message digest string.
 ---@return string
 function data.hash(hashFunction, string) end
 
 ---@param hashFunction HashFunction Hash algorithm to use.
 ---@param data Data Data to hash.
 --- returns:
----     string rawdigest - Raw message digest string.
+---   string rawdigest - Raw message digest string.
 ---@return string
 function data.hash(hashFunction, data) end
 
@@ -849,7 +857,7 @@ function event.clear() end
 --- Returns an iterator for messages in the event queue.
 ---
 --- returns:
----     function i - Iterator function usable in a for loop.
+---   function i - Iterator function usable in a for loop.
 ---@return function
 function event.poll() end
 
@@ -885,11 +893,11 @@ function event.quit() end
 --- Like love.event.poll but blocks until there is an event in the queue.
 ---
 --- returns:
----     Event e - The type of event.
----     Variant a - First event argument.
----     Variant b - Second event argument.
----     Variant c - Third event argument.
----     Variant d - Fourth event argument.
+---   Event e - The type of event.
+---   Variant a - First event argument.
+---   Variant b - Second event argument.
+---   Variant c - Third event argument.
+---   Variant d - Fourth event argument.
 ---@return Event, Variant, Variant, Variant, Variant
 function event.wait() end
 
@@ -906,8 +914,8 @@ love.filesystem = filesystem
 ---@param data string The data that should be written to the file
 ---@param size number How many bytes to write.
 --- returns:
----     boolean success - True if the operation was successful, or nil if there was an error.
----     string errormsg - The error message on failure.
+---   boolean success - True if the operation was successful, or nil if there was an error.
+---   string errormsg - The error message on failure.
 ---@return boolean, string
 function filesystem.append(name, data, size) end
 
@@ -915,7 +923,7 @@ function filesystem.append(name, data, size) end
 --- Gets whether love.filesystem follows symbolic links.
 ---
 --- returns:
----     boolean enable - Whether love.filesystem follows symbolic links.
+---   boolean enable - Whether love.filesystem follows symbolic links.
 ---@return boolean
 function filesystem.areSymlinksEnabled() end
 
@@ -924,7 +932,7 @@ function filesystem.areSymlinksEnabled() end
 ---
 ---@param name string The directory to create.
 --- returns:
----     boolean success - True if the directory was created, false if not.
+---   boolean success - True if the directory was created, false if not.
 ---@return boolean
 function filesystem.createDirectory(name) end
 
@@ -932,7 +940,7 @@ function filesystem.createDirectory(name) end
 --- Returns the application data directory (could be the same as getUserDirectory)
 ---
 --- returns:
----     string path - The path of the application data directory.
+---   string path - The path of the application data directory.
 ---@return string
 function filesystem.getAppdataDirectory() end
 
@@ -944,7 +952,7 @@ function filesystem.getAppdataDirectory() end
 --- The paths are relative to the game's source and save directories, as well as any paths mounted with love.filesystem.mount.
 ---
 --- returns:
----     string paths - The paths that the require function will check for c libraries in love's filesystem.
+---   string paths - The paths that the require function will check for c libraries in love's filesystem.
 ---@return string
 function filesystem.getCRequirePath() end
 
@@ -955,7 +963,7 @@ function filesystem.getCRequirePath() end
 ---
 ---@param dir string The directory.
 --- returns:
----     table items - A sequence with the names of all files and subdirectories as strings.
+---   table items - A sequence with the names of all files and subdirectories as strings.
 ---@return table
 function filesystem.getDirectoryItems(dir) end
 
@@ -970,14 +978,20 @@ function filesystem.getIdentity(name) end
 ---
 ---@param path string The file or directory path to check.
 --- returns:
----     table info - A table containing information about the specified path, or nil if nothing exists at the path. The table contains the following fields:
+---   table info - A table containing information about the specified path, or nil if nothing exists at the path. The table contains the following fields:
+---     FileType type - The type of the object at the path (file, directory, symlink, etc.).
+---     number size - The size in bytes of the file, or nil if it can't be determined.
+---     number modtime - The file's last modification time in seconds since the unix epoch, or nil if it can't be determined.
 ---@return table
 function filesystem.getInfo(path) end
 
 ---@param path string The file or directory path to check.
 ---@param info table A table which will be filled in with info about the specified path.
 --- returns:
----     table info - A table containing information about the specified path, or nil if nothing exists at the path. The table contains the following fields:
+---   table info - A table containing information about the specified path, or nil if nothing exists at the path. The table contains the following fields:
+---     FileType type - The type of the object at the path (file, directory, symlink, etc.).
+---     number size - The size in bytes of the file, or nil if it can't be determined.
+---     number modtime - The file's last modification time in seconds since the unix epoch, or nil if it can't be determined.
 ---@return table
 function filesystem.getInfo(path, info) end
 
@@ -988,7 +1002,7 @@ function filesystem.getInfo(path, info) end
 ---
 ---@param filepath string The filepath to get the directory of.
 --- returns:
----     string realdir - The platform-specific full path of the directory containing the filepath.
+---   string realdir - The platform-specific full path of the directory containing the filepath.
 ---@return string
 function filesystem.getRealDirectory(filepath) end
 
@@ -1000,7 +1014,7 @@ function filesystem.getRealDirectory(filepath) end
 --- The paths are relative to the game's source and save directories, as well as any paths mounted with love.filesystem.mount.
 ---
 --- returns:
----     string paths - The paths that the require function will check in love's filesystem.
+---   string paths - The paths that the require function will check in love's filesystem.
 ---@return string
 function filesystem.getRequirePath() end
 
@@ -1008,7 +1022,7 @@ function filesystem.getRequirePath() end
 --- Gets the full path to the designated save directory. This can be useful if you want to use the standard io library (or something else) to read or write in the save directory.
 ---
 --- returns:
----     string path - The absolute path to the save directory.
+---   string path - The absolute path to the save directory.
 ---@return string
 function filesystem.getSaveDirectory() end
 
@@ -1016,7 +1030,7 @@ function filesystem.getSaveDirectory() end
 --- Returns the full path to the the .love file or directory. If the game is fused to the LÖVE executable, then the executable is returned.
 ---
 --- returns:
----     string path - The full platform-dependent path of the .love file or directory.
+---   string path - The full platform-dependent path of the .love file or directory.
 ---@return string
 function filesystem.getSource() end
 
@@ -1026,7 +1040,7 @@ function filesystem.getSource() end
 --- If love.filesystem.isFused is true, the path returned by this function can be passed to love.filesystem.mount, which will make the directory containing the main game readable by love.filesystem.
 ---
 --- returns:
----     string path - The full platform-dependent path of the directory containing the .love file.
+---   string path - The full platform-dependent path of the directory containing the .love file.
 ---@return string
 function filesystem.getSourceBaseDirectory() end
 
@@ -1034,7 +1048,7 @@ function filesystem.getSourceBaseDirectory() end
 --- Returns the path of the user's directory.
 ---
 --- returns:
----     string path - The path of the user's directory.
+---   string path - The path of the user's directory.
 ---@return string
 function filesystem.getUserDirectory() end
 
@@ -1042,7 +1056,7 @@ function filesystem.getUserDirectory() end
 --- Gets the current working directory.
 ---
 --- returns:
----     string path - The current working directory.
+---   string path - The current working directory.
 ---@return string
 function filesystem.getWorkingDirectory() end
 
@@ -1060,7 +1074,7 @@ function filesystem.init(appname) end
 --- A game is in fused mode if the source .love has been fused to the executable (see Game Distribution), or if "--fused" has been given as a command-line argument when starting the game.
 ---
 --- returns:
----     boolean fused - True if the game is in fused mode, false otherwise.
+---   boolean fused - True if the game is in fused mode, false otherwise.
 ---@return boolean
 function filesystem.isFused() end
 
@@ -1069,7 +1083,7 @@ function filesystem.isFused() end
 ---
 ---@param name string The name (and path) of the file.
 --- returns:
----     function iterator - A function that iterates over all the lines in the file.
+---   function iterator - A function that iterates over all the lines in the file.
 ---@return function
 function filesystem.lines(name) end
 
@@ -1079,7 +1093,7 @@ function filesystem.lines(name) end
 ---@param name string The name (and path) of the file.
 ---@param errormsg string The error message if file could not be opened.
 --- returns:
----     function chunk - The loaded chunk.
+---   function chunk - The loaded chunk.
 ---@return function
 function filesystem.load(name, errormsg) end
 
@@ -1089,7 +1103,7 @@ function filesystem.load(name, errormsg) end
 ---@param archive string The folder or zip file in the game's save directory to mount.
 ---@param mountpoint string The new path the archive will be mounted to.
 --- returns:
----     boolean success - True if the archive was successfully mounted, false otherwise.
+---   boolean success - True if the archive was successfully mounted, false otherwise.
 ---@return boolean
 function filesystem.mount(archive, mountpoint) end
 
@@ -1097,7 +1111,7 @@ function filesystem.mount(archive, mountpoint) end
 ---@param mountpoint string The new path the archive will be mounted to.
 ---@param appendToPath string Whether the archive will be searched when reading a filepath before or after already-mounted archives. This includes the game's source and save directories.
 --- returns:
----     boolean success - True if the archive was successfully mounted, false otherwise.
+---   boolean success - True if the archive was successfully mounted, false otherwise.
 ---@return boolean
 function filesystem.mount(archive, mountpoint, appendToPath) end
 
@@ -1107,8 +1121,8 @@ function filesystem.mount(archive, mountpoint, appendToPath) end
 ---@param filename string The filename of the file to read.
 ---@param mode FileMode The mode to open the file in.
 --- returns:
----     File file - The new File object, or nil if an error occurred.
----     string errorstr - The error string if an error occurred.
+---   File file - The new File object, or nil if an error occurred.
+---   string errorstr - The error string if an error occurred.
 ---@return File, string
 function filesystem.newFile(filename, mode) end
 
@@ -1118,14 +1132,14 @@ function filesystem.newFile(filename, mode) end
 ---@param contents string The contents of the file.
 ---@param name string The name of the file.
 --- returns:
----     FileData data - Your new FileData.
+---   FileData data - Your new FileData.
 ---@return FileData
 function filesystem.newFileData(contents, name) end
 
 ---@param filepath string Path to the file.
 --- returns:
----     FileData data - The new FileData, or nil if an error occurred.
----     string err - The error string, if an error occurred.
+---   FileData data - The new FileData, or nil if an error occurred.
+---   string err - The error string, if an error occurred.
 ---@return FileData, string
 function filesystem.newFileData(filepath) end
 
@@ -1135,8 +1149,8 @@ function filesystem.newFileData(filepath) end
 ---@param name string The name (and path) of the file.
 ---@param bytes number How many bytes to read.
 --- returns:
----     string contents - The file contents.
----     number size - How many bytes have been read.
+---   string contents - The file contents.
+---   number size - How many bytes have been read.
 ---@return string, number
 function filesystem.read(name, bytes) end
 
@@ -1145,7 +1159,7 @@ function filesystem.read(name, bytes) end
 ---
 ---@param name string The file or directory to remove.
 --- returns:
----     boolean success - True if the file/directory was removed, false otherwise.
+---   boolean success - True if the file/directory was removed, false otherwise.
 ---@return boolean
 function filesystem.remove(name) end
 
@@ -1193,7 +1207,7 @@ function filesystem.setSymlinksEnabled(enable) end
 ---
 ---@param archive string The folder or zip file in the game's save directory which is currently mounted.
 --- returns:
----     boolean success - True if the archive was successfully unmounted, false otherwise.
+---   boolean success - True if the archive was successfully unmounted, false otherwise.
 ---@return boolean
 function filesystem.unmount(archive) end
 
@@ -1206,8 +1220,8 @@ function filesystem.unmount(archive) end
 ---@param data string The string data to write to the file.
 ---@param size number How many bytes to write.
 --- returns:
----     boolean success - If the operation was successful.
----     string message - Error message if operation was unsuccessful.
+---   boolean success - If the operation was successful.
+---   string message - Error message if operation was unsuccessful.
 ---@return boolean, string
 function filesystem.write(name, data, size) end
 
@@ -1215,8 +1229,8 @@ function filesystem.write(name, data, size) end
 ---@param data Data The Data object to write to the file.
 ---@param size number How many bytes to write.
 --- returns:
----     boolean success - If the operation was successful.
----     string message - Error message if operation was unsuccessful.
+---   boolean success - If the operation was successful.
+---   string message - Error message if operation was unsuccessful.
 ---@return boolean, string
 function filesystem.write(name, data, size) end
 
@@ -1229,7 +1243,7 @@ File = {}
 --- Closes a file.
 ---
 --- returns:
----     boolean success - Whether closing was successful.
+---   boolean success - Whether closing was successful.
 ---@return boolean
 function File.close() end
 
@@ -1237,8 +1251,8 @@ function File.close() end
 --- Flushes any buffered written data in the file to the disk.
 ---
 --- returns:
----     boolean success - Whether the file successfully flushed any buffered data to the disk.
----     string err - The error string, if an error occurred and the file could not be flushed.
+---   boolean success - Whether the file successfully flushed any buffered data to the disk.
+---   string err - The error string, if an error occurred and the file could not be flushed.
 ---@return boolean, string
 function File.flush() end
 
@@ -1246,8 +1260,8 @@ function File.flush() end
 --- Gets the buffer mode of a file.
 ---
 --- returns:
----     BufferMode mode - The current buffer mode of the file.
----     number size - The maximum size in bytes of the file's buffer.
+---   BufferMode mode - The current buffer mode of the file.
+---   number size - The maximum size in bytes of the file's buffer.
 ---@return BufferMode, number
 function File.getBuffer() end
 
@@ -1255,7 +1269,7 @@ function File.getBuffer() end
 --- Gets the filename that the File object was created with. If the file object originated from the love.filedropped callback, the filename will be the full platform-dependent file path.
 ---
 --- returns:
----     string filename - The filename of the File.
+---   string filename - The filename of the File.
 ---@return string
 function File.getFilename() end
 
@@ -1263,7 +1277,7 @@ function File.getFilename() end
 --- Gets the FileMode the file has been opened with.
 ---
 --- returns:
----     FileMode mode - The mode this file has been opened with.
+---   FileMode mode - The mode this file has been opened with.
 ---@return FileMode
 function File.getMode() end
 
@@ -1271,7 +1285,7 @@ function File.getMode() end
 --- Returns the file size.
 ---
 --- returns:
----     number size - The file size
+---   number size - The file size
 ---@return number
 function File.getSize() end
 
@@ -1279,7 +1293,7 @@ function File.getSize() end
 --- Gets whether end-of-file has been reached.
 ---
 --- returns:
----     boolean eof - Whether EOF has been reached.
+---   boolean eof - Whether EOF has been reached.
 ---@return boolean
 function File.isEOF() end
 
@@ -1287,7 +1301,7 @@ function File.isEOF() end
 --- Gets whether the file is open.
 ---
 --- returns:
----     boolean open - True if the file is currently open, false otherwise.
+---   boolean open - True if the file is currently open, false otherwise.
 ---@return boolean
 function File.isOpen() end
 
@@ -1295,7 +1309,7 @@ function File.isOpen() end
 --- Iterate over all the lines in a file
 ---
 --- returns:
----     function iterator - The iterator (can be used in for loops)
+---   function iterator - The iterator (can be used in for loops)
 ---@return function
 function File.lines() end
 
@@ -1306,7 +1320,7 @@ function File.lines() end
 ---
 ---@param mode FileMode The mode to open the file in.
 --- returns:
----     boolean success - True on success, false otherwise.
+---   boolean success - True on success, false otherwise.
 ---@return boolean
 function File.open(mode) end
 
@@ -1315,8 +1329,8 @@ function File.open(mode) end
 ---
 ---@param bytes number The number of bytes to read
 --- returns:
----     string contents - The contents of the read bytes.
----     number size - How many bytes have been read.
+---   string contents - The contents of the read bytes.
+---   number size - How many bytes have been read.
 ---@return string, number
 function File.read(bytes) end
 
@@ -1325,7 +1339,7 @@ function File.read(bytes) end
 ---
 ---@param position number The position to seek to.
 --- returns:
----     boolean success - Whether the operation was successful.
+---   boolean success - Whether the operation was successful.
 ---@return boolean
 function File.seek(position) end
 
@@ -1335,8 +1349,8 @@ function File.seek(position) end
 ---@param mode BufferMode The buffer mode to use.
 ---@param size number The maximum size in bytes of the file's buffer.
 --- returns:
----     boolean success - Whether the buffer mode was successfully set.
----     string errorstr - The error string, if the buffer mode could not be set and an error occurred.
+---   boolean success - Whether the buffer mode was successfully set.
+---   string errorstr - The error string, if the buffer mode could not be set and an error occurred.
 ---@return boolean, string
 function File.setBuffer(mode, size) end
 
@@ -1344,7 +1358,7 @@ function File.setBuffer(mode, size) end
 --- Returns the position in the file.
 ---
 --- returns:
----     number pos - The current position.
+---   number pos - The current position.
 ---@return number
 function File.tell() end
 
@@ -1354,7 +1368,7 @@ function File.tell() end
 ---@param data string The data to write.
 ---@param size number How many bytes to write.
 --- returns:
----     boolean success - Whether the operation was successful.
+---   boolean success - Whether the operation was successful.
 ---@return boolean
 function File.write(data, size) end
 
@@ -1367,7 +1381,7 @@ FileData = {}
 --- Gets the extension of the FileData.
 ---
 --- returns:
----     string ext - The extension of the file the FileData represents.
+---   string ext - The extension of the file the FileData represents.
 ---@return string
 function FileData.getExtension() end
 
@@ -1375,7 +1389,7 @@ function FileData.getExtension() end
 --- Gets the filename of the FileData.
 ---
 --- returns:
----     string name - The name of the file the FileData represents.
+---   string name - The name of the file the FileData represents.
 ---@return string
 function FileData.getFilename() end
 
@@ -1620,10 +1634,10 @@ function graphics.flushBatch() end
 --- Gets the current background color.
 ---
 --- returns:
----     number r - The red component (0-255).
----     number g - The green component (0-255).
----     number b - The blue component (0-255).
----     number a - The alpha component (0-255).
+---   number r - The red component (0-255).
+---   number g - The green component (0-255).
+---   number b - The blue component (0-255).
+---   number a - The alpha component (0-255).
 ---@return number, number, number, number
 function graphics.getBackgroundColor() end
 
@@ -1631,8 +1645,8 @@ function graphics.getBackgroundColor() end
 --- Gets the blending mode.
 ---
 --- returns:
----     BlendMode mode - The current blend mode.
----     BlendAlphaMode alphamode - The current blend alpha mode – it determines how the alpha of drawn objects affects blending.
+---   BlendMode mode - The current blend mode.
+---   BlendAlphaMode alphamode - The current blend alpha mode – it determines how the alpha of drawn objects affects blending.
 ---@return BlendMode, BlendAlphaMode
 function graphics.getBlendMode() end
 
@@ -1640,7 +1654,7 @@ function graphics.getBlendMode() end
 --- Gets the current target Canvas.
 ---
 --- returns:
----     Canvas canvas - The Canvas set by setCanvas. Returns nil if drawing to the real screen.
+---   Canvas canvas - The Canvas set by setCanvas. Returns nil if drawing to the real screen.
 ---@return Canvas
 function graphics.getCanvas() end
 
@@ -1649,12 +1663,12 @@ function graphics.getCanvas() end
 ---
 ---@param readable boolean If true, the returned formats will only be indicated as supported if love.graphics.newCanvas will work with the readable flag set to true for that format, and vice versa if the parameter is false.
 --- returns:
----     table formats - A table containing CanvasFormats as keys, and a boolean indicating whether the format is supported as values (taking into account the readable parameter). Not all systems support all formats.
+---   table formats - A table containing CanvasFormats as keys, and a boolean indicating whether the format is supported as values (taking into account the readable parameter). Not all systems support all formats.
 ---@return table
 function graphics.getCanvasFormats(readable) end
 
 --- returns:
----     table formats - A table containing CanvasFormats as keys, and a boolean indicating whether the format is supported as values. Not all systems support all formats.
+---   table formats - A table containing CanvasFormats as keys, and a boolean indicating whether the format is supported as values. Not all systems support all formats.
 ---@return table
 function graphics.getCanvasFormats() end
 
@@ -1662,10 +1676,10 @@ function graphics.getCanvasFormats() end
 --- Gets the current color.
 ---
 --- returns:
----     number r - The red component (0-255).
----     number g - The red component (0-255).
----     number b - The blue component (0-255).
----     number a - The alpha component (0-255).
+---   number r - The red component (0-255).
+---   number g - The red component (0-255).
+---   number b - The blue component (0-255).
+---   number a - The alpha component (0-255).
 ---@return number, number, number, number
 function graphics.getColor() end
 
@@ -1675,10 +1689,10 @@ function graphics.getColor() end
 --- The color mask determines whether individual components of the colors of drawn objects will affect the color of the screen. They affect love.graphics.clear and Canvas:clear as well.
 ---
 --- returns:
----     boolean r - Whether the red color component is active when rendering.
----     boolean g - Whether the green color component is active when rendering.
----     boolean b - Whether the blue color component is active when rendering.
----     boolean a - Whether the alpha color component is active when rendering.
+---   boolean r - Whether the red color component is active when rendering.
+---   boolean g - Whether the green color component is active when rendering.
+---   boolean b - Whether the blue color component is active when rendering.
+---   boolean a - Whether the alpha color component is active when rendering.
 ---@return boolean, boolean, boolean, boolean
 function graphics.getColorMask() end
 
@@ -1686,9 +1700,9 @@ function graphics.getColorMask() end
 --- Returns the default scaling filters used with Images, Canvases, and Fonts.
 ---
 --- returns:
----     FilterMode min - Filter mode used when scaling the image down.
----     FilterMode mag - Filter mode used when scaling the image up.
----     number anisotropy - Maximum amount of Anisotropic Filtering used.
+---   FilterMode min - Filter mode used when scaling the image down.
+---   FilterMode mag - Filter mode used when scaling the image up.
+---   number anisotropy - Maximum amount of Anisotropic Filtering used.
 ---@return FilterMode, FilterMode, number
 function graphics.getDefaultFilter() end
 
@@ -1698,8 +1712,8 @@ function graphics.getDefaultFilter() end
 --- This is low-level functionality designed for use with custom vertex shaders and Meshes with custom vertex attributes. No higher level APIs are provided to set the depth of 2D graphics such as shapes, lines, and Images.
 ---
 --- returns:
----     CompareMode comparemode - Depth comparison mode used for depth testing.
----     boolean write - Whether to write update / write values to the depth buffer when rendering.
+---   CompareMode comparemode - Depth comparison mode used for depth testing.
+---   boolean write - Whether to write update / write values to the depth buffer when rendering.
 ---@return CompareMode, boolean
 function graphics.getDepthMode() end
 
@@ -1707,8 +1721,8 @@ function graphics.getDepthMode() end
 --- Gets the width and height of the window.
 ---
 --- returns:
----     number width - The width of the window.
----     number height - The height of the window.
+---   number width - The width of the window.
+---   number height - The height of the window.
 ---@return number, number
 function graphics.getDimensions() end
 
@@ -1716,7 +1730,7 @@ function graphics.getDimensions() end
 --- Gets the current Font object.
 ---
 --- returns:
----     Font font - The current Font, or nil if none is set.
+---   Font font - The current Font, or nil if none is set.
 ---@return Font
 function graphics.getFont() end
 
@@ -1726,7 +1740,7 @@ function graphics.getFont() end
 --- This is designed for use in combination with Mesh face culling. Other love.graphics shapes, lines, and sprites are not guaranteed to have a specific winding order to their internal vertices.
 ---
 --- returns:
----     VertexWinding winding - The winding mode to use. The default winding is counterclockwise ("ccw").
+---   VertexWinding winding - The winding mode to use. The default winding is counterclockwise ("ccw").
 ---@return VertexWinding
 function graphics.getFrontFaceWinding() end
 
@@ -1734,7 +1748,7 @@ function graphics.getFrontFaceWinding() end
 --- Gets the height of the window.
 ---
 --- returns:
----     number height - The height of the window.
+---   number height - The height of the window.
 ---@return number
 function graphics.getHeight() end
 
@@ -1742,7 +1756,7 @@ function graphics.getHeight() end
 --- Gets the raw and compressed pixel formats usable for Images, and whether each is supported.
 ---
 --- returns:
----     table formats - A table containing PixelFormats as keys, and a boolean indicating whether the format is supported as values. Not all systems support all formats.
+---   table formats - A table containing PixelFormats as keys, and a boolean indicating whether the format is supported as values. Not all systems support all formats.
 ---@return table
 function graphics.getImageFormats() end
 
@@ -1750,7 +1764,7 @@ function graphics.getImageFormats() end
 --- Gets the line join style.
 ---
 --- returns:
----     LineJoin join - The LineJoin style.
+---   LineJoin join - The LineJoin style.
 ---@return LineJoin
 function graphics.getLineJoin() end
 
@@ -1758,7 +1772,7 @@ function graphics.getLineJoin() end
 --- Gets the line style.
 ---
 --- returns:
----     LineStyle style - The current line style.
+---   LineStyle style - The current line style.
 ---@return LineStyle
 function graphics.getLineStyle() end
 
@@ -1766,7 +1780,7 @@ function graphics.getLineStyle() end
 --- Gets the current line width.
 ---
 --- returns:
----     number width - The current line width.
+---   number width - The current line width.
 ---@return number
 function graphics.getLineWidth() end
 
@@ -1776,7 +1790,7 @@ function graphics.getLineWidth() end
 --- Mesh face culling is designed for use with low level custom hardware-accelerated 3D rendering via custom vertex attributes on Meshes, custom vertex shaders, and depth testing with a depth buffer.
 ---
 --- returns:
----     CullMode mode - The Mesh face culling mode in use (whether to render everything, cull back-facing triangles, or cull front-facing triangles).
+---   CullMode mode - The Mesh face culling mode in use (whether to render everything, cull back-facing triangles, or cull front-facing triangles).
 ---@return CullMode
 function graphics.getMeshCullMode() end
 
@@ -1784,7 +1798,7 @@ function graphics.getMeshCullMode() end
 --- Returns the current Shader. Returns nil if none is set.
 ---
 --- returns:
----     Shader shader - The current Shader.
+---   Shader shader - The current Shader.
 ---@return Shader
 function graphics.getShader() end
 
@@ -1792,7 +1806,7 @@ function graphics.getShader() end
 --- Gets the current depth of the transform / state stack (the number of pushes without corresponding pops).
 ---
 --- returns:
----     number depth - The current depth of the transform and state love.graphics stack.
+---   number depth - The current depth of the transform and state love.graphics stack.
 ---@return number
 function graphics.getStackDepth() end
 
@@ -1800,7 +1814,14 @@ function graphics.getStackDepth() end
 --- Gets performance-related rendering statistics.
 ---
 --- returns:
----     table stats - A table with the following fields:
+---   table stats - A table with the following fields:
+---     number drawcalls - The number of draw calls made so far during the current frame.
+---     number canvasswitches - The number of times the active Canvas has been switched so far during the current frame.
+---     number texturememory - The estimated total size in bytes of video memory used by all loaded Images, Canvases, and Fonts.
+---     number images - The number of Image objects currently loaded.
+---     number canvases - The number of Canvas objects currently loaded.
+---     number fonts - The number of Font objects currently loaded.
+---     number shaderswitches - The number of times the active Shader has been changed so far during the current frame.
 ---@return table
 function graphics.getStats() end
 
@@ -1812,8 +1833,8 @@ function graphics.getStats() end
 --- Each Canvas has its own stencil buffer.
 ---
 --- returns:
----     boolean enabled - Whether stencil testing is enabled.
----     boolean inverted - Whether the stencil test is inverted or not.
+---   boolean enabled - Whether stencil testing is enabled.
+---   boolean inverted - Whether the stencil test is inverted or not.
 ---@return boolean, boolean
 function graphics.getStencilTest() end
 
@@ -1823,7 +1844,7 @@ function graphics.getStencilTest() end
 --- Some older or low-end systems don't always support all graphics features.
 ---
 --- returns:
----     table features - A table containing GraphicsFeature keys, and boolean values indicating whether each feature is supported.
+---   table features - A table containing GraphicsFeature keys, and boolean values indicating whether each feature is supported.
 ---@return table
 function graphics.getSupported() end
 
@@ -1831,7 +1852,7 @@ function graphics.getSupported() end
 --- Gets the system-dependent maximum values for love.graphics features.
 ---
 --- returns:
----     table limits - A table containing GraphicsLimit keys, and number values.
+---   table limits - A table containing GraphicsLimit keys, and number values.
 ---@return table
 function graphics.getSystemLimits() end
 
@@ -1839,7 +1860,7 @@ function graphics.getSystemLimits() end
 --- Gets the point size.
 ---
 --- returns:
----     number size - The current point size.
+---   number size - The current point size.
 ---@return number
 function graphics.getPointSize() end
 
@@ -1847,10 +1868,10 @@ function graphics.getPointSize() end
 --- Gets information about the system's video card and drivers.
 ---
 --- returns:
----     string name - The name of the renderer, e.g. "OpenGL" or "OpenGL ES".
----     string version - The version of the renderer with some extra driver-dependent version info, e.g. "2.1 INTEL-8.10.44".
----     string vendor - The name of the graphics card vendor, e.g. "Intel Inc".
----     string device - The name of the graphics card, e.g. "Intel HD Graphics 3000 OpenGL Engine".
+---   string name - The name of the renderer, e.g. "OpenGL" or "OpenGL ES".
+---   string version - The version of the renderer with some extra driver-dependent version info, e.g. "2.1 INTEL-8.10.44".
+---   string vendor - The name of the graphics card vendor, e.g. "Intel Inc".
+---   string device - The name of the graphics card, e.g. "Intel HD Graphics 3000 OpenGL Engine".
 ---@return string, string, string, string
 function graphics.getRendererInfo() end
 
@@ -1858,10 +1879,10 @@ function graphics.getRendererInfo() end
 --- Gets the current scissor box.
 ---
 --- returns:
----     number x - The x component of the top-left point of the box.
----     number y - The y component of the top-left point of the box.
----     number width - The width of the box.
----     number height - The height of the box.
+---   number x - The x component of the top-left point of the box.
+---   number y - The y component of the top-left point of the box.
+---   number width - The width of the box.
+---   number height - The height of the box.
 ---@return number, number, number, number
 function graphics.getScissor() end
 
@@ -1869,7 +1890,7 @@ function graphics.getScissor() end
 --- Gets the available texture types, and whether each is supported.
 ---
 --- returns:
----     table texturetypes - A table containing TextureTypes as keys, and a boolean indicating whether the type is supported as values. Not all systems support all types.
+---   table texturetypes - A table containing TextureTypes as keys, and a boolean indicating whether the type is supported as values. Not all systems support all types.
 ---@return table
 function graphics.getTextureTypes() end
 
@@ -1877,7 +1898,7 @@ function graphics.getTextureTypes() end
 --- Gets the width of the window.
 ---
 --- returns:
----     number width - The width of the window.
+---   number width - The width of the window.
 ---@return number
 function graphics.getWidth() end
 
@@ -1904,8 +1925,8 @@ function graphics.intersectScissor() end
 ---@param screenX number The x component of the screen-space position.
 ---@param screenY number The y component of the screen-space position.
 --- returns:
----     number globalX - The x component of the position in global coordinates.
----     number globalY - The y component of the position in global coordinates.
+---   number globalX - The x component of the position in global coordinates.
+---   number globalY - The y component of the position in global coordinates.
 ---@return number, number
 function graphics.inverseTransformPoint(screenX, screenY) end
 
@@ -1915,7 +1936,7 @@ function graphics.inverseTransformPoint(screenX, screenY) end
 --- Not all devices support gamma-correct rendering, in which case it will be automatically disabled and this function will return false. It is supported on desktop systems which have graphics cards that are capable of using OpenGL 3 / DirectX 10, and iOS devices that can use OpenGL ES 3.
 ---
 --- returns:
----     boolean gammacorrect - True if gamma-correct rendering is supported and was enabled in love.conf, false otherwise.
+---   boolean gammacorrect - True if gamma-correct rendering is supported and was enabled in love.conf, false otherwise.
 ---@return boolean
 function graphics.isGammaCorrect() end
 
@@ -1923,7 +1944,7 @@ function graphics.isGammaCorrect() end
 --- Gets whether wireframe mode is used when drawing.
 ---
 --- returns:
----     boolean wireframe - True if wireframe lines are used when drawing, false if it's not.
+---   boolean wireframe - True if wireframe lines are used when drawing, false if it's not.
 ---@return boolean
 function graphics.isWireframe() end
 
@@ -1952,7 +1973,7 @@ function graphics.line(points) end
 ---@param format CanvasFormat The desired texture mode of the Canvas.
 ---@param msaa number The desired number of antialiasing samples used when drawing to the Canvas.
 --- returns:
----     Canvas canvas - A new Canvas object.
+---   Canvas canvas - A new Canvas object.
 ---@return Canvas
 function graphics.newCanvas(width, height, format, msaa) end
 
@@ -1963,27 +1984,27 @@ function graphics.newCanvas(width, height, format, msaa) end
 ---
 ---@param filename string The filepath to the BMFont or TrueType font file.
 --- returns:
----     Font font - A Font object which can be used to draw text on screen.
+---   Font font - A Font object which can be used to draw text on screen.
 ---@return Font
 function graphics.newFont(filename) end
 
 ---@param filename string The filepath to the TrueType font file.
 ---@param size number The size of the font in pixels.
 --- returns:
----     Font font - A Font object which can be used to draw text on screen.
+---   Font font - A Font object which can be used to draw text on screen.
 ---@return Font
 function graphics.newFont(filename, size) end
 
 ---@param filename string The filepath to the BMFont file.
 ---@param imagefilename string The filepath to the BMFont's image file. If this argument is omitted, the path specified inside the BMFont file will be used.
 --- returns:
----     Font font - A Font object which can be used to draw text on screen.
+---   Font font - A Font object which can be used to draw text on screen.
 ---@return Font
 function graphics.newFont(filename, imagefilename) end
 
 ---@param size number The size of the font in pixels.
 --- returns:
----     Font font - A Font object which can be used to draw text on screen.
+---   Font font - A Font object which can be used to draw text on screen.
 ---@return Font
 function graphics.newFont(size) end
 
@@ -1996,7 +2017,7 @@ function graphics.newFont(size) end
 ---@param mode MeshDrawMode How the vertices are used when drawing. The default mode "fan" is sufficient for simple convex polygons.
 ---@param usage SpriteBatchUsage The expected usage of the Mesh. The specified usage mode affects the Mesh's memory usage and performance.
 --- returns:
----     Mesh mesh - The new Mesh.
+---   Mesh mesh - The new Mesh.
 ---@return Mesh
 function graphics.newMesh(vertices, mode, usage) end
 
@@ -2004,7 +2025,7 @@ function graphics.newMesh(vertices, mode, usage) end
 ---@param mode MeshDrawMode How the vertices are used when drawing. The default mode "fan" is sufficient for simple convex polygons.
 ---@param usage SpriteBatchUsage The expected usage of the Mesh. The specified usage mode affects the Mesh's memory usage and performance.
 --- returns:
----     Mesh mesh - The new Mesh.
+---   Mesh mesh - The new Mesh.
 ---@return Mesh
 function graphics.newMesh(vertexcount, mode, usage) end
 
@@ -2013,7 +2034,7 @@ function graphics.newMesh(vertexcount, mode, usage) end
 ---@param mode MeshDrawMode How the vertices are used when drawing. The default mode "fan" is sufficient for simple convex polygons.
 ---@param usage SpriteBatchUsage The expected usage of the Mesh. The specified usage mode affects the Mesh's memory usage and performance.
 --- returns:
----     Mesh mesh - The new Mesh.
+---   Mesh mesh - The new Mesh.
 ---@return Mesh
 function graphics.newMesh(vertexformat, vertices, mode, usage) end
 
@@ -2022,7 +2043,7 @@ function graphics.newMesh(vertexformat, vertices, mode, usage) end
 ---@param mode MeshDrawMode How the vertices are used when drawing. The default mode "fan" is sufficient for simple convex polygons.
 ---@param usage SpriteBatchUsage The expected usage of the Mesh. The specified usage mode affects the Mesh's memory usage and performance.
 --- returns:
----     Mesh mesh - The new Mesh.
+---   Mesh mesh - The new Mesh.
 ---@return Mesh
 function graphics.newMesh(vertexformat, vertexcount, mode, usage) end
 
@@ -2031,26 +2052,26 @@ function graphics.newMesh(vertexformat, vertexcount, mode, usage) end
 ---
 ---@param filename string The filepath to the image file.
 --- returns:
----     Image image - An Image object which can be drawn on screen.
+---   Image image - An Image object which can be drawn on screen.
 ---@return Image
 function graphics.newImage(filename) end
 
 ---@param imageData ImageData An ImageData object. The Image will use this ImageData to reload itself when love.window.setMode is called.
 --- returns:
----     Image image - An Image object which can be drawn on screen.
+---   Image image - An Image object which can be drawn on screen.
 ---@return Image
 function graphics.newImage(imageData) end
 
 ---@param compressedImageData CompressedImageData A CompressedImageData object. The Image will use this CompressedImageData to reload itself when love.window.setMode is called.
 --- returns:
----     Image image - An Image object which can be drawn on screen.
+---   Image image - An Image object which can be drawn on screen.
 ---@return Image
 function graphics.newImage(compressedImageData) end
 
 ---@param filename string The filepath to the image file (or a FileData or ImageData or CompressedImageData object).
 ---@param flags table A table containing the following fields:
 --- returns:
----     Image image - An Image object which can be drawn on screen.
+---   Image image - An Image object which can be drawn on screen.
 ---@return Image
 function graphics.newImage(filename, flags) end
 
@@ -2062,14 +2083,14 @@ function graphics.newImage(filename, flags) end
 ---@param filename string The filepath to the image file.
 ---@param glyphs string A string of the characters in the image in order from left to right.
 --- returns:
----     Font font - A Font object which can be used to draw text on screen.
+---   Font font - A Font object which can be used to draw text on screen.
 ---@return Font
 function graphics.newImageFont(filename, glyphs) end
 
 ---@param imageData ImageData The ImageData object to create the font from.
 ---@param glyphs string A string of the characters in the image in order from left to right.
 --- returns:
----     Font font - A Font object which can be used to draw text on screen.
+---   Font font - A Font object which can be used to draw text on screen.
 ---@return Font
 function graphics.newImageFont(imageData, glyphs) end
 
@@ -2077,7 +2098,7 @@ function graphics.newImageFont(imageData, glyphs) end
 ---@param glyphs string A string of the characters in the image in order from left to right.
 ---@param extraspacing number Additional spacing (positive or negative) to apply to each glyph in the Font.
 --- returns:
----     Font font - A Font object which can be used to draw text on screen.
+---   Font font - A Font object which can be used to draw text on screen.
 ---@return Font
 function graphics.newImageFont(filename, glyphs, extraspacing) end
 
@@ -2087,7 +2108,7 @@ function graphics.newImageFont(filename, glyphs, extraspacing) end
 ---@param texture Texture The Image or Canvas to use.
 ---@param buffer number The max number of particles at the same time.
 --- returns:
----     ParticleSystem system - A new ParticleSystem.
+---   ParticleSystem system - A new ParticleSystem.
 ---@return ParticleSystem
 function graphics.newParticleSystem(texture, buffer) end
 
@@ -2100,14 +2121,14 @@ function graphics.newParticleSystem(texture, buffer) end
 ---
 ---@param code string The pixel shader or vertex shader code, or a filename pointing to a file with the code.
 --- returns:
----     Shader shader - A Shader object for use in drawing operations.
+---   Shader shader - A Shader object for use in drawing operations.
 ---@return Shader
 function graphics.newShader(code) end
 
 ---@param pixelcode string The pixel shader code, or a filename pointing to a file with the code.
 ---@param vertexcode string The vertex shader code, or a filename pointing to a file with the code.
 --- returns:
----     Shader shader - A Shader object for use in drawing operations.
+---   Shader shader - A Shader object for use in drawing operations.
 ---@return Shader
 function graphics.newShader(pixelcode, vertexcode) end
 
@@ -2117,7 +2138,7 @@ function graphics.newShader(pixelcode, vertexcode) end
 ---@param font Font The font to use for the text.
 ---@param textstring string The initial string of text that the new Text object will contain. May be nil.
 --- returns:
----     Text text - The new drawable Text object.
+---   Text text - The new drawable Text object.
 ---@return Text
 function graphics.newText(font, textstring) end
 
@@ -2133,7 +2154,7 @@ function graphics.newText(font, textstring) end
 ---@param sw number The reference width, the width of the Image.
 ---@param sh number The reference height, the height of the Image.
 --- returns:
----     Quad quad - The new Quad.
+---   Quad quad - The new Quad.
 ---@return Quad
 function graphics.newQuad(x, y, width, height, sw, sh) end
 
@@ -2144,7 +2165,7 @@ function graphics.newQuad(x, y, width, height, sw, sh) end
 ---@param maxsprites number The max number of sprites.
 ---@param usage SpriteBatchUsage The expected usage of the SpriteBatch. The specified usage mode affects the SpriteBatch's memory usage and performance.
 --- returns:
----     SpriteBatch spriteBatch - The new SpriteBatch.
+---   SpriteBatch spriteBatch - The new SpriteBatch.
 ---@return SpriteBatch
 function graphics.newSpriteBatch(texture, maxsprites, usage) end
 
@@ -2154,14 +2175,14 @@ function graphics.newSpriteBatch(texture, maxsprites, usage) end
 ---@param filename string The file path to the Ogg Theora video file.
 ---@param loadaudio boolean Whether to try to load the video's audio into an audio Source. If not explicitly set to true or false, it will try without causing an error if the video has no audio.
 --- returns:
----     Video video - A new Video.
+---   Video video - A new Video.
 ---@return Video
 function graphics.newVideo(filename, loadaudio) end
 
 ---@param videostream VideoStream A video stream object.
 ---@param loadaudio boolean Whether to try to load the video's audio into an audio Source. If not explicitly set to true or false, it will try without causing an error if the video has no audio.
 --- returns:
----     Video video - A new Video.
+---   Video video - A new Video.
 ---@return Video
 function graphics.newVideo(videostream, loadaudio) end
 
@@ -2474,21 +2495,21 @@ function graphics.setMeshCullMode(mode) end
 ---@param filename string The path and name of the file with the font.
 ---@param size number The size of the font.
 --- returns:
----     Font font - The new font.
+---   Font font - The new font.
 ---@return Font
 function graphics.setNewFont(filename, size) end
 
 ---@param file File A File with the font.
 ---@param size number The size of the font.
 --- returns:
----     Font font - The new font.
+---   Font font - The new font.
 ---@return Font
 function graphics.setNewFont(file, size) end
 
 ---@param data Data A Data with the font.
 ---@param size number The size of the font.
 --- returns:
----     Font font - The new font.
+---   Font font - The new font.
 ---@return Font
 function graphics.setNewFont(data, size) end
 
@@ -2570,8 +2591,8 @@ function graphics.stencil(stencilfunction, action, value, keepvalues) end
 ---@param globalX number The x component of the position in global coordinates.
 ---@param globalY number The y component of the position in global coordinates.
 --- returns:
----     number screenX - The x component of the position with graphics transformations applied.
----     number sreenY - The y component of the position with graphics transformations applied.
+---   number screenX - The x component of the position with graphics transformations applied.
+---   number sreenY - The y component of the position with graphics transformations applied.
 ---@return number, number
 function graphics.transformPoint(globalX, globalY) end
 
@@ -2596,8 +2617,8 @@ function graphics.translate(dx, dy) end
 ---@param gles boolean Validate code as GLSL ES shader.
 ---@param code string The pixel shader or vertex shader code, or a filename pointing to a file with the code.
 --- returns:
----     boolean status - true if specified shader code doesn't contain any errors. false otherwise.
----     string message - Reason why shader code validation failed (or nil if validation succeded).
+---   boolean status - true if specified shader code doesn't contain any errors. false otherwise.
+---   string message - Reason why shader code validation failed (or nil if validation succeded).
 ---@return boolean, string
 function graphics.validateShader(gles, code) end
 
@@ -2605,8 +2626,8 @@ function graphics.validateShader(gles, code) end
 ---@param pixelcode string The pixel shader code, or a filename pointing to a file with the code.
 ---@param vertexcode string The vertex shader code, or a filename pointing to a file with the code.
 --- returns:
----     boolean status - true if specified shader code doesn't contain any errors. false otherwise.
----     string message - Reason why shader code validation failed (or nil if validation succeded).
+---   boolean status - true if specified shader code doesn't contain any errors. false otherwise.
+---   string message - Reason why shader code validation failed (or nil if validation succeded).
 ---@return boolean, string
 function graphics.validateShader(gles, pixelcode, vertexcode) end
 
@@ -2623,8 +2644,8 @@ Canvas = {}
 --- Gets the width and height of the Canvas.
 ---
 --- returns:
----     number width - The width of the Canvas, in pixels.
----     number height - The height of the Canvas, in pixels.
+---   number width - The width of the Canvas, in pixels.
+---   number height - The height of the Canvas, in pixels.
 ---@return number, number
 function Canvas.getDimensions() end
 
@@ -2632,9 +2653,9 @@ function Canvas.getDimensions() end
 --- Gets the filter mode of the Canvas.
 ---
 --- returns:
----     FilterMode min - Filter mode used when minifying the canvas.
----     FilterMode mag - Filter mode used when magnifying the canvas.
----     number anisotropy - Maximum amount of anisotropic filtering used.
+---   FilterMode min - Filter mode used when minifying the canvas.
+---   FilterMode mag - Filter mode used when magnifying the canvas.
+---   number anisotropy - Maximum amount of anisotropic filtering used.
 ---@return FilterMode, FilterMode, number
 function Canvas.getFilter() end
 
@@ -2642,7 +2663,7 @@ function Canvas.getFilter() end
 --- Gets the height of the Canvas.
 ---
 --- returns:
----     number height - The height of the Canvas, in pixels.
+---   number height - The height of the Canvas, in pixels.
 ---@return number
 function Canvas.getHeight() end
 
@@ -2652,7 +2673,7 @@ function Canvas.getHeight() end
 --- This may be different than the number used as an argument to love.graphics.newCanvas if the system running LÖVE doesn't support that number.
 ---
 --- returns:
----     number samples - The number of multisample antialiasing samples used by the canvas when drawing to it.
+---   number samples - The number of multisample antialiasing samples used by the canvas when drawing to it.
 ---@return number
 function Canvas.getMSAA() end
 
@@ -2660,7 +2681,7 @@ function Canvas.getMSAA() end
 --- Gets the width of the Canvas.
 ---
 --- returns:
----     number width - The width of the Canvas, in pixels.
+---   number width - The width of the Canvas, in pixels.
 ---@return number
 function Canvas.getWidth() end
 
@@ -2670,8 +2691,8 @@ function Canvas.getWidth() end
 --- This function returns the currently set horizontal and vertical wrapping modes for the Canvas.
 ---
 --- returns:
----     WrapMode horizontal - Horizontal wrapping mode of the Canvas.
----     WrapMode vertical - Vertical wrapping mode of the Canvas.
+---   WrapMode horizontal - Horizontal wrapping mode of the Canvas.
+---   WrapMode vertical - Vertical wrapping mode of the Canvas.
 ---@return WrapMode, WrapMode
 function Canvas.getWrap() end
 
@@ -2679,7 +2700,7 @@ function Canvas.getWrap() end
 --- Generates ImageData from the contents of the Canvas.
 ---
 --- returns:
----     ImageData data - The image data stored in the Canvas.
+---   ImageData data - The image data stored in the Canvas.
 ---@return ImageData
 function Canvas.newImageData() end
 
@@ -2688,7 +2709,7 @@ function Canvas.newImageData() end
 ---@param width number The width of the area within the Canvas to capture.
 ---@param height number The height of the area within the Canvas to capture.
 --- returns:
----     ImageData data - The new ImageData made from the Canvas' contents.
+---   ImageData data - The new ImageData made from the Canvas' contents.
 ---@return ImageData
 function Canvas.newImageData(x, y, width, height) end
 
@@ -2724,7 +2745,7 @@ Font = {}
 --- Gets the ascent of the Font. The ascent spans the distance between the baseline and the top of the glyph that reaches farthest from the baseline.
 ---
 --- returns:
----     number ascent - The ascent of the Font in pixels.
+---   number ascent - The ascent of the Font in pixels.
 ---@return number
 function Font.getAscent() end
 
@@ -2732,7 +2753,7 @@ function Font.getAscent() end
 --- Gets the baseline of the Font. Most scripts share the notion of a baseline: an imaginary horizontal line on which characters rest. In some scripts, parts of glyphs lie below the baseline.
 ---
 --- returns:
----     number baseline - The baseline of the Font in pixels.
+---   number baseline - The baseline of the Font in pixels.
 ---@return number
 function Font.getBaseline() end
 
@@ -2740,7 +2761,7 @@ function Font.getBaseline() end
 --- Gets the descent of the Font. The descent spans the distance between the baseline and the lowest descending glyph in a typeface.
 ---
 --- returns:
----     number descent - The descent of the Font in pixels.
+---   number descent - The descent of the Font in pixels.
 ---@return number
 function Font.getDescent() end
 
@@ -2748,9 +2769,9 @@ function Font.getDescent() end
 --- Gets the filter mode for a font.
 ---
 --- returns:
----     FilterMode min - Filter mode used when minifying the font.
----     FilterMode mag - Filter mode used when magnifying the font.
----     number anisotropy - Maximum amount of anisotropic filtering used.
+---   FilterMode min - Filter mode used when minifying the font.
+---   FilterMode mag - Filter mode used when magnifying the font.
+---   number anisotropy - Maximum amount of anisotropic filtering used.
 ---@return FilterMode, FilterMode, number
 function Font.getFilter() end
 
@@ -2758,7 +2779,7 @@ function Font.getFilter() end
 --- Gets the height of the Font. The height of the font is the size including any spacing; the height which it will need.
 ---
 --- returns:
----     number height - The height of the Font in pixels.
+---   number height - The height of the Font in pixels.
 ---@return number
 function Font.getHeight() end
 
@@ -2766,7 +2787,7 @@ function Font.getHeight() end
 --- Gets the line height. This will be the value previously set by Font:setLineHeight, or 1.0 by default.
 ---
 --- returns:
----     number height - The current line height.
+---   number height - The current line height.
 ---@return number
 function Font.getLineHeight() end
 
@@ -2775,7 +2796,7 @@ function Font.getLineHeight() end
 ---
 ---@param line string A line of text.
 --- returns:
----     number width - The width of the line.
+---   number width - The width of the line.
 ---@return number
 function Font.getWidth(line) end
 
@@ -2787,8 +2808,8 @@ function Font.getWidth(line) end
 ---@param text string The text that will be wrapped.
 ---@param wraplimit number The maximum width in pixels of each line that text is allowed before wrapping.
 --- returns:
----     number width - The maximum width of the wrapped text.
----     table wrappedtext - A sequence containing each line of text that was wrapped.
+---   number width - The maximum width of the wrapped text.
+---   table wrappedtext - A sequence containing each line of text that was wrapped.
 ---@return number, table
 function Font.getWrap(text, wraplimit) end
 
@@ -2797,13 +2818,13 @@ function Font.getWrap(text, wraplimit) end
 ---
 ---@param character string A unicode character.
 --- returns:
----     boolean hasglyph - Whether the font can render the glyph represented by the character.
+---   boolean hasglyph - Whether the font can render the glyph represented by the character.
 ---@return boolean
 function Font.hasGlyphs(character) end
 
 ---@param codepoint number A unicode codepoint number.
 --- returns:
----     boolean hasglyph - Whether the font can render the glyph represented by the codepoint number.
+---   boolean hasglyph - Whether the font can render the glyph represented by the codepoint number.
 ---@return boolean
 function Font.hasGlyphs(codepoint) end
 
@@ -2845,7 +2866,7 @@ function Mesh.attachAttribute(name, mesh) end
 ---
 ---@param name string The name of the attached vertex attribute to detach.
 --- returns:
----     boolean success - Whether the attribute was successfully detached.
+---   boolean success - Whether the attribute was successfully detached.
 ---@return boolean
 function Mesh.detachAttribute(name) end
 
@@ -2853,7 +2874,7 @@ function Mesh.detachAttribute(name) end
 --- Gets the mode used when drawing the Mesh.
 ---
 --- returns:
----     MeshDrawMode mode - The mode used when drawing the Mesh.
+---   MeshDrawMode mode - The mode used when drawing the Mesh.
 ---@return MeshDrawMode
 function Mesh.getDrawMode() end
 
@@ -2863,8 +2884,8 @@ function Mesh.getDrawMode() end
 --- If the Mesh's draw range has not been set previously with Mesh:setDrawRange, this function will return nil.
 ---
 --- returns:
----     number min - The index of the first vertex used when drawing, or the index of the first value in the vertex map used if one is set for this Mesh.
----     number max - The index of the last vertex used when drawing, or the index of the last value in the vertex map used if one is set for this Mesh.
+---   number min - The index of the first vertex used when drawing, or the index of the first value in the vertex map used if one is set for this Mesh.
+---   number max - The index of the last vertex used when drawing, or the index of the last value in the vertex map used if one is set for this Mesh.
 ---@return number, number
 function Mesh.getDrawRange() end
 
@@ -2872,7 +2893,7 @@ function Mesh.getDrawRange() end
 --- Gets the texture (Image or Canvas) used when drawing the Mesh.
 ---
 --- returns:
----     Texture texture - The Image or Canvas to texture the Mesh with when drawing, or nil if none is set.
+---   Texture texture - The Image or Canvas to texture the Mesh with when drawing, or nil if none is set.
 ---@return Texture
 function Mesh.getTexture() end
 
@@ -2881,21 +2902,21 @@ function Mesh.getTexture() end
 ---
 ---@param index number The index of the the vertex you want to retrieve the information for.
 --- returns:
----     number attributecomponent - The first component of the first vertex attribute in the specified vertex.
----     number ... - Additional components of all vertex attributes in the specified vertex.
+---   number attributecomponent - The first component of the first vertex attribute in the specified vertex.
+---   number ... - Additional components of all vertex attributes in the specified vertex.
 ---@return number, number
 function Mesh.getVertex(index) end
 
 ---@param index number The index of the the vertex you want to retrieve the information for.
 --- returns:
----     number x - The position of the vertex on the x-axis.
----     number y - The position of the vertex on the y-axis.
----     number u - The horizontal component of the texture coordinate.
----     number v - The vertical component of the texture coordinate.
----     number r - The red component of the vertex's color.
----     number g - The green component of the vertex's color.
----     number b - The blue component of the vertex's color.
----     number a - The alpha component of the vertex's color.
+---   number x - The position of the vertex on the x-axis.
+---   number y - The position of the vertex on the y-axis.
+---   number u - The horizontal component of the texture coordinate.
+---   number v - The vertical component of the texture coordinate.
+---   number r - The red component of the vertex's color.
+---   number g - The green component of the vertex's color.
+---   number b - The blue component of the vertex's color.
+---   number a - The alpha component of the vertex's color.
 ---@return number, number, number, number, number, number, number, number
 function Mesh.getVertex(index) end
 
@@ -2907,9 +2928,9 @@ function Mesh.getVertex(index) end
 ---@param vertexindex number The index of the the vertex to be modified.
 ---@param attributeindex number The index of the attribute within the vertex to be modified.
 --- returns:
----     number value1 - The value of the first component of the attribute.
----     number value2 - The value of the second component of the attribute.
----     number ... - Any additional vertex attribute components.
+---   number value1 - The value of the first component of the attribute.
+---   number value2 - The value of the second component of the attribute.
+---   number ... - Any additional vertex attribute components.
 ---@return number, number, number
 function Mesh.getVertexAttribute(vertexindex, attributeindex) end
 
@@ -2917,7 +2938,7 @@ function Mesh.getVertexAttribute(vertexindex, attributeindex) end
 --- Returns the total number of vertices in the Mesh.
 ---
 --- returns:
----     number num - The total number of vertices in this Mesh.
+---   number num - The total number of vertices in this Mesh.
 ---@return number
 function Mesh.getVertexCount() end
 
@@ -2925,7 +2946,9 @@ function Mesh.getVertexCount() end
 --- Gets the vertex format that the Mesh was created with.
 ---
 --- returns:
----     table format - The vertex format of the Mesh, which is a table containing tables for each vertex attribute the Mesh was created with, in the form of {attribute, ...}.
+---   table format - The vertex format of the Mesh, which is a table containing tables for each vertex attribute the Mesh was created with, in the form of {attribute, ...}.
+---     table attribute - A table containing the attribute's name, it's data type, and the number of components in the attribute, in the form of {name, datatype, components}.
+---     table ... - Additional vertex attributes in the Mesh.
 ---@return table
 function Mesh.getVertexFormat() end
 
@@ -2935,7 +2958,7 @@ function Mesh.getVertexFormat() end
 --- If no vertex map has been set previously via Mesh:setVertexMap, then this function will return nil in LÖVE 0.10.0+, or an empty table in 0.9.2 and older.
 ---
 --- returns:
----     table map - A table containing a list of vertex indices used when drawing.
+---   table map - A table containing a list of vertex indices used when drawing.
 ---@return table
 function Mesh.getVertexMap() end
 
@@ -2944,7 +2967,7 @@ function Mesh.getVertexMap() end
 ---
 ---@param name string The name of the vertex attribute to enable or disable.
 --- returns:
----     boolean enabled - Whether the vertex attribute is used when drawing this Mesh.
+---   boolean enabled - Whether the vertex attribute is used when drawing this Mesh.
 ---@return boolean
 function Mesh.isAttributeEnabled(name) end
 
@@ -3054,8 +3077,8 @@ Image = {}
 --- Gets the width and height of the Image.
 ---
 --- returns:
----     number width - The width of the Image, in pixels.
----     number height - The height of the Image, in pixels.
+---   number width - The width of the Image, in pixels.
+---   number height - The height of the Image, in pixels.
 ---@return number, number
 function Image.getDimensions() end
 
@@ -3063,8 +3086,8 @@ function Image.getDimensions() end
 --- Gets the filter mode for an image.
 ---
 --- returns:
----     FilterMode min - Filter mode used when minifying the image.
----     FilterMode mag - Filter mode used when magnifying the image.
+---   FilterMode min - Filter mode used when minifying the image.
+---   FilterMode mag - Filter mode used when magnifying the image.
 ---@return FilterMode, FilterMode
 function Image.getFilter() end
 
@@ -3072,7 +3095,7 @@ function Image.getFilter() end
 --- Gets the flags used when the image was created.
 ---
 --- returns:
----     table flags - A table with ImageFlag keys.
+---   table flags - A table with ImageFlag keys.
 ---@return table
 function Image.getFlags() end
 
@@ -3080,7 +3103,7 @@ function Image.getFlags() end
 --- Gets the height of the Image.
 ---
 --- returns:
----     number height - The height of the Image, in pixels.
+---   number height - The height of the Image, in pixels.
 ---@return number
 function Image.getHeight() end
 
@@ -3088,8 +3111,8 @@ function Image.getHeight() end
 --- Gets the mipmap filter mode for an Image.
 ---
 --- returns:
----     FilterMode mode - The filter mode used in between mipmap levels. nil if mipmap filtering is not enabled.
----     number sharpness - Value used to determine whether the image should use more or less detailed mipmap levels than normal when drawing.
+---   FilterMode mode - The filter mode used in between mipmap levels. nil if mipmap filtering is not enabled.
+---   number sharpness - Value used to determine whether the image should use more or less detailed mipmap levels than normal when drawing.
 ---@return FilterMode, number
 function Image.getMipmapFilter() end
 
@@ -3097,7 +3120,7 @@ function Image.getMipmapFilter() end
 --- Gets the width of the Image.
 ---
 --- returns:
----     number width - The width of the Image, in pixels.
+---   number width - The width of the Image, in pixels.
 ---@return number
 function Image.getWidth() end
 
@@ -3107,8 +3130,8 @@ function Image.getWidth() end
 --- This function returns the currently set horizontal and vertical wrapping modes for the image.
 ---
 --- returns:
----     WrapMode horizontal - Horizontal wrapping mode of the image.
----     WrapMode vertical - Vertical wrapping mode of the image.
+---   WrapMode horizontal - Horizontal wrapping mode of the image.
+---   WrapMode vertical - Vertical wrapping mode of the image.
 ---@return WrapMode, WrapMode
 function Image.getWrap() end
 
@@ -3162,7 +3185,7 @@ ParticleSystem = {}
 --- Cloned ParticleSystem inherit all the set-able state of the original ParticleSystem, but they are initialized stopped.
 ---
 --- returns:
----     ParticleSystem particlesystem - The new identical copy of this ParticleSystem.
+---   ParticleSystem particlesystem - The new identical copy of this ParticleSystem.
 ---@return ParticleSystem
 function ParticleSystem.clone() end
 
@@ -3176,7 +3199,7 @@ function ParticleSystem.emit(numparticles) end
 --- Gets the amount of particles that are currently in the system.
 ---
 --- returns:
----     number count - The current number of live particles.
+---   number count - The current number of live particles.
 ---@return number
 function ParticleSystem.getCount() end
 
@@ -3184,9 +3207,9 @@ function ParticleSystem.getCount() end
 --- Gets the area-based spawn parameters for the particles.
 ---
 --- returns:
----     AreaSpreadDistribution distribution - The type of distribution for new particles.
----     number dx - The maximum spawn distance from the emitter along the x-axis for uniform distribution, or the standard deviation along the x-axis for normal distribution.
----     number dy - The maximum spawn distance from the emitter along the y-axis for uniform distribution, or the standard deviation along the y-axis for normal distribution.
+---   AreaSpreadDistribution distribution - The type of distribution for new particles.
+---   number dx - The maximum spawn distance from the emitter along the x-axis for uniform distribution, or the standard deviation along the x-axis for normal distribution.
+---   number dy - The maximum spawn distance from the emitter along the y-axis for uniform distribution, or the standard deviation along the y-axis for normal distribution.
 ---@return AreaSpreadDistribution, number, number
 function ParticleSystem.getAreaSpread() end
 
@@ -3194,7 +3217,7 @@ function ParticleSystem.getAreaSpread() end
 --- Gets the size of the buffer (the max allowed amount of particles in the system).
 ---
 --- returns:
----     number buffer - The buffer size.
+---   number buffer - The buffer size.
 ---@return number
 function ParticleSystem.getBufferSize() end
 
@@ -3204,15 +3227,15 @@ function ParticleSystem.getBufferSize() end
 --- Arguments are passed in groups of four, representing the components of the desired RGBA value. At least one color must be specified. A maximum of eight may be used.
 ---
 --- returns:
----     number r1 - First color, red component (0-255).
----     number g1 - First color, green component (0-255).
----     number b1 - First color, blue component (0-255).
----     number a1 - First color, alpha component (0-255).
----     number r2 - Second color, red component (0-255).
----     number g2 - Second color, green component (0-255).
----     number b2 - Second color, blue component (0-255).
----     number a2 - Second color, alpha component (0-255).
----     number ... - Etc.
+---   number r1 - First color, red component (0-255).
+---   number g1 - First color, green component (0-255).
+---   number b1 - First color, blue component (0-255).
+---   number a1 - First color, alpha component (0-255).
+---   number r2 - Second color, red component (0-255).
+---   number g2 - Second color, green component (0-255).
+---   number b2 - Second color, blue component (0-255).
+---   number a2 - Second color, alpha component (0-255).
+---   number ... - Etc.
 ---@return number, number, number, number, number, number, number, number, number
 function ParticleSystem.getColors() end
 
@@ -3220,7 +3243,7 @@ function ParticleSystem.getColors() end
 --- Gets the direction the particles will be emitted in.
 ---
 --- returns:
----     number direction - The direction of the particles (in radians).
+---   number direction - The direction of the particles (in radians).
 ---@return number
 function ParticleSystem.getDirection() end
 
@@ -3228,7 +3251,7 @@ function ParticleSystem.getDirection() end
 --- Gets the amount of particles emitted per second.
 ---
 --- returns:
----     number rate - The amount of particles per second.
+---   number rate - The amount of particles per second.
 ---@return number
 function ParticleSystem.getEmissionRate() end
 
@@ -3236,7 +3259,7 @@ function ParticleSystem.getEmissionRate() end
 --- Gets the mode to use when the ParticleSystem adds new particles.
 ---
 --- returns:
----     ParticleInsertMode mode - The mode to use when the ParticleSystem adds new particles.
+---   ParticleInsertMode mode - The mode to use when the ParticleSystem adds new particles.
 ---@return ParticleInsertMode
 function ParticleSystem.getInsertMode() end
 
@@ -3246,10 +3269,10 @@ function ParticleSystem.getInsertMode() end
 --- Every particle created will accelerate along the x and y axes between xmin,ymin and xmax,ymax.
 ---
 --- returns:
----     number xmin - The minimum acceleration along the x axis.
----     number ymin - The minimum acceleration along the y axis.
----     number xmax - The maximum acceleration along the x axis.
----     number ymax - The maximum acceleration along the y axis.
+---   number xmin - The minimum acceleration along the x axis.
+---   number ymin - The minimum acceleration along the y axis.
+---   number xmax - The maximum acceleration along the x axis.
+---   number ymax - The maximum acceleration along the y axis.
 ---@return number, number, number, number
 function ParticleSystem.getLinearAcceleration() end
 
@@ -3257,8 +3280,8 @@ function ParticleSystem.getLinearAcceleration() end
 --- Gets the amount of linear damping (constant deceleration) for particles.
 ---
 --- returns:
----     number min - The minimum amount of linear damping applied to particles.
----     number max - The maximum amount of linear damping applied to particles.
+---   number min - The minimum amount of linear damping applied to particles.
+---   number max - The maximum amount of linear damping applied to particles.
 ---@return number, number
 function ParticleSystem.getLinearDamping() end
 
@@ -3266,7 +3289,7 @@ function ParticleSystem.getLinearDamping() end
 --- Gets how long the particle system should emit particles (if -1 then it emits particles forever).
 ---
 --- returns:
----     number life - The lifetime of the emitter (in seconds).
+---   number life - The lifetime of the emitter (in seconds).
 ---@return number
 function ParticleSystem.getEmitterLifetime() end
 
@@ -3274,8 +3297,8 @@ function ParticleSystem.getEmitterLifetime() end
 --- Get the offget position which the particle sprite is rotated around. If this function is not used, the particles rotate around their center.
 ---
 --- returns:
----     number x - The x coordinate of the rotation offget.
----     number y - The y coordinate of the rotation offget.
+---   number x - The x coordinate of the rotation offget.
+---   number y - The y coordinate of the rotation offget.
 ---@return number, number
 function ParticleSystem.getOffset() end
 
@@ -3283,8 +3306,8 @@ function ParticleSystem.getOffset() end
 --- Gets the life of the particles.
 ---
 --- returns:
----     number min - The minimum life of the particles (seconds).
----     number max - The maximum life of the particles (seconds).
+---   number min - The minimum life of the particles (seconds).
+---   number max - The maximum life of the particles (seconds).
 ---@return number, number
 function ParticleSystem.getParticleLifetime() end
 
@@ -3292,7 +3315,7 @@ function ParticleSystem.getParticleLifetime() end
 --- Gets the series of Quads used for the particle sprites.
 ---
 --- returns:
----     table quads - A table containing the Quads used.
+---   table quads - A table containing the Quads used.
 ---@return table
 function ParticleSystem.getQuads() end
 
@@ -3300,8 +3323,8 @@ function ParticleSystem.getQuads() end
 --- Gets the position of the emitter.
 ---
 --- returns:
----     number x - Position along x-axis.
----     number y - Position along y-axis.
+---   number x - Position along x-axis.
+---   number y - Position along y-axis.
 ---@return number, number
 function ParticleSystem.getPosition() end
 
@@ -3309,8 +3332,8 @@ function ParticleSystem.getPosition() end
 --- Get the radial acceleration (away from the emitter).
 ---
 --- returns:
----     number min - The minimum acceleration.
----     number max - The maximum acceleration.
+---   number min - The minimum acceleration.
+---   number max - The maximum acceleration.
 ---@return number, number
 function ParticleSystem.getRadialAcceleration() end
 
@@ -3318,8 +3341,8 @@ function ParticleSystem.getRadialAcceleration() end
 --- Gets the rotation of the image upon particle creation (in radians).
 ---
 --- returns:
----     number min - The minimum initial angle (radians).
----     number max - The maximum initial angle (radians).
+---   number min - The minimum initial angle (radians).
+---   number max - The maximum initial angle (radians).
 ---@return number, number
 function ParticleSystem.getRotation() end
 
@@ -3329,9 +3352,9 @@ function ParticleSystem.getRotation() end
 --- At least one size must be specified. A maximum of eight may be used.
 ---
 --- returns:
----     number size1 - The first size.
----     number size2 - The second size.
----     number ... - Etc.
+---   number size1 - The first size.
+---   number size2 - The second size.
+---   number ... - Etc.
 ---@return number, number, number
 function ParticleSystem.getSizes() end
 
@@ -3339,7 +3362,7 @@ function ParticleSystem.getSizes() end
 --- Gets the degree of variation (0 meaning no variation and 1 meaning full variation between start and end).
 ---
 --- returns:
----     number variation - The degree of variation (0 meaning no variation and 1 meaning full variation between start and end).
+---   number variation - The degree of variation (0 meaning no variation and 1 meaning full variation between start and end).
 ---@return number
 function ParticleSystem.getSizeVariation() end
 
@@ -3347,8 +3370,8 @@ function ParticleSystem.getSizeVariation() end
 --- Gets the speed of the particles.
 ---
 --- returns:
----     number min - The minimum linear speed of the particles.
----     number max - The maximum linear speed of the particles.
+---   number min - The minimum linear speed of the particles.
+---   number max - The maximum linear speed of the particles.
 ---@return number, number
 function ParticleSystem.getSpeed() end
 
@@ -3356,8 +3379,8 @@ function ParticleSystem.getSpeed() end
 --- Gets the spin of the sprite.
 ---
 --- returns:
----     number min - The minimum spin (radians per second).
----     number max - The maximum spin (radians per second).
+---   number min - The minimum spin (radians per second).
+---   number max - The maximum spin (radians per second).
 ---@return number, number
 function ParticleSystem.getSpin() end
 
@@ -3365,7 +3388,7 @@ function ParticleSystem.getSpin() end
 --- Gets the degree of variation (0 meaning no variation and 1 meaning full variation between start and end).
 ---
 --- returns:
----     number variation - The degree of variation (0 meaning no variation and 1 meaning full variation between start and end).
+---   number variation - The degree of variation (0 meaning no variation and 1 meaning full variation between start and end).
 ---@return number
 function ParticleSystem.getSpinVariation() end
 
@@ -3373,7 +3396,7 @@ function ParticleSystem.getSpinVariation() end
 --- Gets the amount of spread for the system.
 ---
 --- returns:
----     number spread - The amount of spread (radians).
+---   number spread - The amount of spread (radians).
 ---@return number
 function ParticleSystem.getSpread() end
 
@@ -3381,7 +3404,7 @@ function ParticleSystem.getSpread() end
 --- Gets the Image or Canvas which is to be emitted.
 ---
 --- returns:
----     Texture texture - An Image or Canvas to use for the particle.
+---   Texture texture - An Image or Canvas to use for the particle.
 ---@return Texture
 function ParticleSystem.getTexture() end
 
@@ -3389,8 +3412,8 @@ function ParticleSystem.getTexture() end
 --- Gets the tangential acceleration (acceleration perpendicular to the particle's direction).
 ---
 --- returns:
----     number min - The minimum acceleration.
----     number max - The maximum acceleration.
+---   number min - The minimum acceleration.
+---   number max - The maximum acceleration.
 ---@return number, number
 function ParticleSystem.getTangentialAcceleration() end
 
@@ -3398,7 +3421,7 @@ function ParticleSystem.getTangentialAcceleration() end
 --- Gets whether particle angles and rotations are relative to their velocities. If enabled, particles are aligned to the angle of their velocities and rotate relative to that angle.
 ---
 --- returns:
----     boolean enabled - True if relative particle rotation is enabled, false if it's disabled.
+---   boolean enabled - True if relative particle rotation is enabled, false if it's disabled.
 ---@return boolean
 function ParticleSystem.hasRelativeRotation() end
 
@@ -3406,7 +3429,7 @@ function ParticleSystem.hasRelativeRotation() end
 --- Checks whether the particle system is actively emitting particles.
 ---
 --- returns:
----     boolean active - True if system is active, false otherwise.
+---   boolean active - True if system is active, false otherwise.
 ---@return boolean
 function ParticleSystem.isActive() end
 
@@ -3414,7 +3437,7 @@ function ParticleSystem.isActive() end
 --- Checks whether the particle system is paused.
 ---
 --- returns:
----     boolean paused - True if system is paused, false otherwise.
+---   boolean paused - True if system is paused, false otherwise.
 ---@return boolean
 function ParticleSystem.isPaused() end
 
@@ -3422,7 +3445,7 @@ function ParticleSystem.isPaused() end
 --- Checks whether the particle system is stopped.
 ---
 --- returns:
----     boolean stopped - True if system is stopped, false otherwise.
+---   boolean stopped - True if system is stopped, false otherwise.
 ---@return boolean
 function ParticleSystem.isStopped() end
 
@@ -3648,8 +3671,8 @@ Quad = {}
 --- Gets reference texture dimensions initially specified in love.graphics.newQuad.
 ---
 --- returns:
----     number sw - The Texture width used by the Quad.
----     number sh - The Texture height used by the Quad.
+---   number sw - The Texture width used by the Quad.
+---   number sh - The Texture height used by the Quad.
 ---@return number, number
 function Quad.getTextureDimensions() end
 
@@ -3657,10 +3680,10 @@ function Quad.getTextureDimensions() end
 --- Gets the current viewport of this Quad.
 ---
 --- returns:
----     number x - The top-left corner along the x-axis.
----     number y - The top-left corner along the y-axis.
----     number w - The width of the viewport.
----     number h - The height of the viewport.
+---   number x - The top-left corner along the x-axis.
+---   number y - The top-left corner along the y-axis.
+---   number w - The width of the viewport.
+---   number h - The height of the viewport.
 ---@return number, number, number, number
 function Quad.getViewport() end
 
@@ -3684,7 +3707,7 @@ Shader = {}
 --- Returns any warning and error messages from compiling the shader code. This can be used for debugging your shaders if there's anything the graphics hardware doesn't like.
 ---
 --- returns:
----     string warnings - Warning messages (if any).
+---   string warnings - Warning messages (if any).
 ---@return string
 function Shader.getWarnings() end
 
@@ -3695,7 +3718,7 @@ function Shader.getWarnings() end
 ---
 ---@param name string The name of the uniform variable.
 --- returns:
----     boolean hasuniform - Whether the uniform exists in the shader and affects its final output.
+---   boolean hasuniform - Whether the uniform exists in the shader and affects its final output.
 ---@return boolean
 function Shader.hasUniform(name) end
 
@@ -3754,7 +3777,7 @@ SpriteBatch = {}
 ---@param kx number Shear factor (x-axis).
 ---@param ky number Shear factor (y-axis).
 --- returns:
----     number id - An identifier for the added sprite.
+---   number id - An identifier for the added sprite.
 ---@return number
 function SpriteBatch.add(x, y, r, sx, sy, ox, oy, kx, ky) end
 
@@ -3769,7 +3792,7 @@ function SpriteBatch.add(x, y, r, sx, sy, ox, oy, kx, ky) end
 ---@param kx number Shear factor (x-axis).
 ---@param ky number Shear factor (y-axis).
 --- returns:
----     number id - An identifier for the added sprite.
+---   number id - An identifier for the added sprite.
 ---@return number
 function SpriteBatch.add(quad, x, y, r, sx, sy, ox, oy, kx, ky) end
 
@@ -3796,7 +3819,7 @@ function SpriteBatch.flush() end
 --- Gets the maximum number of sprites the SpriteBatch can hold.
 ---
 --- returns:
----     number size - The maximum number of sprites the batch can hold.
+---   number size - The maximum number of sprites the batch can hold.
 ---@return number
 function SpriteBatch.getBufferSize() end
 
@@ -3806,10 +3829,10 @@ function SpriteBatch.getBufferSize() end
 --- If no color has been set with SpriteBatch:setColor or the current SpriteBatch color has been cleared, this method will return nil.
 ---
 --- returns:
----     number r - The red component (0-255).
----     number g - The green component (0-255).
----     number b - The blue component (0-255).
----     number a - The alpha component (0-255).
+---   number r - The red component (0-255).
+---   number g - The green component (0-255).
+---   number b - The blue component (0-255).
+---   number a - The alpha component (0-255).
 ---@return number, number, number, number
 function SpriteBatch.getColor() end
 
@@ -3817,7 +3840,7 @@ function SpriteBatch.getColor() end
 --- Gets the amount of sprites currently in the SpriteBatch.
 ---
 --- returns:
----     number count - The amount of sprites currently in the batch.
+---   number count - The amount of sprites currently in the batch.
 ---@return number
 function SpriteBatch.getCount() end
 
@@ -3825,7 +3848,7 @@ function SpriteBatch.getCount() end
 --- Returns the Image or Canvas used by the SpriteBatch.
 ---
 --- returns:
----     Texture texture - The Image or Canvas for the sprites.
+---   Texture texture - The Image or Canvas for the sprites.
 ---@return Texture
 function SpriteBatch.getTexture() end
 
@@ -3904,7 +3927,7 @@ Text = {}
 ---@param kx number Shearing / skew factor on the x-axis.
 ---@param ky number Shearing / skew factor on the y-axis.
 --- returns:
----     number index - An index number that can be used with Text:getWidth or Text:getHeight.
+---   number index - An index number that can be used with Text:getWidth or Text:getHeight.
 ---@return number
 function Text.add(textstring, x, y, angle, sx, sy, ox, oy, kx, ky) end
 
@@ -3919,7 +3942,7 @@ function Text.add(textstring, x, y, angle, sx, sy, ox, oy, kx, ky) end
 ---@param kx number Shearing / skew factor on the x-axis.
 ---@param ky number Shearing / skew factor on the y-axis.
 --- returns:
----     number index - An index number that can be used with Text:getWidth or Text:getHeight.
+---   number index - An index number that can be used with Text:getWidth or Text:getHeight.
 ---@return number
 function Text.add(coloredtext, x, y, angle, sx, sy, ox, oy, kx, ky) end
 
@@ -3939,7 +3962,7 @@ function Text.add(coloredtext, x, y, angle, sx, sy, ox, oy, kx, ky) end
 ---@param kx number Shearing / skew factor on the x-axis.
 ---@param ky number Shearing / skew factor on the y-axis.
 --- returns:
----     number index - An index number that can be used with Text:getWidth or Text:getHeight.
+---   number index - An index number that can be used with Text:getWidth or Text:getHeight.
 ---@return number
 function Text.addf(textstring, wraplimit, align, x, y, angle, sx, sy, ox, oy, kx, ky) end
 
@@ -3956,7 +3979,7 @@ function Text.addf(textstring, wraplimit, align, x, y, angle, sx, sy, ox, oy, kx
 ---@param kx number Shearing / skew factor on the x-axis.
 ---@param ky number Shearing / skew factor on the y-axis.
 --- returns:
----     number index - An index number that can be used with Text:getWidth or Text:getHeight.
+---   number index - An index number that can be used with Text:getWidth or Text:getHeight.
 ---@return number
 function Text.addf(coloredtext, wraplimit, align, x, y, angle, sx, sy, ox, oy, kx, ky) end
 
@@ -3969,15 +3992,15 @@ function Text.clear() end
 --- Gets the width and height of the text in pixels.
 ---
 --- returns:
----     number width - The width of the text. If multiple sub-strings have been added with Text:add, the width of the last sub-string is returned.
----     number height - The height of the text. If multiple sub-strings have been added with Text:add, the height of the last sub-string is returned.
+---   number width - The width of the text. If multiple sub-strings have been added with Text:add, the width of the last sub-string is returned.
+---   number height - The height of the text. If multiple sub-strings have been added with Text:add, the height of the last sub-string is returned.
 ---@return number, number
 function Text.getDimensions() end
 
 ---@param index number An index number returned by Text:add or Text:addf.
 --- returns:
----     number width - The width of the sub-string (before scaling and other transformations).
----     number height - The height of the sub-string (before scaling and other transformations).
+---   number width - The width of the sub-string (before scaling and other transformations).
+---   number height - The height of the sub-string (before scaling and other transformations).
 ---@return number, number
 function Text.getDimensions(index) end
 
@@ -3985,7 +4008,7 @@ function Text.getDimensions(index) end
 --- Gets the Font used with the Text object.
 ---
 --- returns:
----     Font font - The font used with this Text object.
+---   Font font - The font used with this Text object.
 ---@return Font
 function Text.getFont() end
 
@@ -3993,13 +4016,13 @@ function Text.getFont() end
 --- Gets the height of the text in pixels.
 ---
 --- returns:
----     number height - The height of the text. If multiple sub-strings have been added with Text:add, the height of the last sub-string is returned.
+---   number height - The height of the text. If multiple sub-strings have been added with Text:add, the height of the last sub-string is returned.
 ---@return number
 function Text.getHeight() end
 
 ---@param index number An index number returned by Text:add or Text:addf.
 --- returns:
----     number height - The height of the sub-string (before scaling and other transformations).
+---   number height - The height of the sub-string (before scaling and other transformations).
 ---@return number
 function Text.getHeight(index) end
 
@@ -4007,13 +4030,13 @@ function Text.getHeight(index) end
 --- Gets the width of the text in pixels.
 ---
 --- returns:
----     number width - The width of the text. If multiple sub-strings have been added with Text:add, the width of the last sub-string is returned.
+---   number width - The width of the text. If multiple sub-strings have been added with Text:add, the width of the last sub-string is returned.
 ---@return number
 function Text.getWidth() end
 
 ---@param index number An index number returned by Text:add or Text:addf.
 --- returns:
----     number width - The width of the sub-string (before scaling and other transformations).
+---   number width - The width of the sub-string (before scaling and other transformations).
 ---@return number
 function Text.getWidth(index) end
 
@@ -4056,7 +4079,7 @@ Texture = {}
 --- Gets the depth of a Volume Texture. Returns 1 for 2D, Cubemap, and Array textures.
 ---
 --- returns:
----     number depth - The depth of the volume Texture.
+---   number depth - The depth of the volume Texture.
 ---@return number
 function Texture.getDepth() end
 
@@ -4064,7 +4087,7 @@ function Texture.getDepth() end
 --- Gets the PixelFormat of the Texture.
 ---
 --- returns:
----     PixelFormat format - The pixel format the Texture was created with.
+---   PixelFormat format - The pixel format the Texture was created with.
 ---@return PixelFormat
 function Texture.getFormat() end
 
@@ -4072,7 +4095,7 @@ function Texture.getFormat() end
 --- Gets the number of layers / slices in an Array Texture. Returns 1 for 2D, Cubemap, and Volume textures.
 ---
 --- returns:
----     number layers - The number of layers in the Array Texture.
+---   number layers - The number of layers in the Array Texture.
 ---@return number
 function Texture.getLayerCount() end
 
@@ -4080,7 +4103,7 @@ function Texture.getLayerCount() end
 --- Gets the number of mipmaps contained in the Texture. If the texture was not created with mipmaps, it will return 1.
 ---
 --- returns:
----     number mipmaps - The number of mipmaps in the Texture.
+---   number mipmaps - The number of mipmaps in the Texture.
 ---@return number
 function Texture.getMipmapCount() end
 
@@ -4088,7 +4111,7 @@ function Texture.getMipmapCount() end
 --- Gets the type of the Texture.
 ---
 --- returns:
----     TextureType texturetype - The type of the Texture.
+---   TextureType texturetype - The type of the Texture.
 ---@return TextureType
 function Texture.getTextureType() end
 
@@ -4100,7 +4123,7 @@ function Texture.getTextureType() end
 --- Non-readable Canvases can still be rendered to.
 ---
 --- returns:
----     boolean readable - Whether the Texture is readable.
+---   boolean readable - Whether the Texture is readable.
 ---@return boolean
 function Texture.isReadable() end
 
@@ -4113,8 +4136,8 @@ Video = {}
 --- Gets the width and height of the Video in pixels.
 ---
 --- returns:
----     number width - The width of the Video.
----     number height - The height of the video.
+---   number width - The width of the Video.
+---   number height - The height of the video.
 ---@return number, number
 function Video.getDimensions() end
 
@@ -4122,9 +4145,9 @@ function Video.getDimensions() end
 --- Gets the scaling filters used when drawing the Video.
 ---
 --- returns:
----     FilterMode min - The filter mode used when scaling the Video down.
----     FilterMode mag - The filter mode used when scaling the Video up.
----     number anisotropy - Maximum amount of anisotropic filtering used.
+---   FilterMode min - The filter mode used when scaling the Video down.
+---   FilterMode mag - The filter mode used when scaling the Video up.
+---   number anisotropy - Maximum amount of anisotropic filtering used.
 ---@return FilterMode, FilterMode, number
 function Video.getFilter() end
 
@@ -4132,7 +4155,7 @@ function Video.getFilter() end
 --- Gets the height of the Video in pixels.
 ---
 --- returns:
----     number height - The height of the Video.
+---   number height - The height of the Video.
 ---@return number
 function Video.getHeight() end
 
@@ -4140,7 +4163,7 @@ function Video.getHeight() end
 --- Gets the audio Source used for playing back the video's audio. May return nil if the video has no audio, or if Video:setSource is called with a nil argument.
 ---
 --- returns:
----     Source source - The audio Source used for audio playback, or nil if the video has no audio.
+---   Source source - The audio Source used for audio playback, or nil if the video has no audio.
 ---@return Source
 function Video.getSource() end
 
@@ -4148,7 +4171,7 @@ function Video.getSource() end
 --- Gets the VideoStream object used for decoding and controlling the video.
 ---
 --- returns:
----     VideoStream stream - The VideoStream used for decoding and controlling the video.
+---   VideoStream stream - The VideoStream used for decoding and controlling the video.
 ---@return VideoStream
 function Video.getStream() end
 
@@ -4156,7 +4179,7 @@ function Video.getStream() end
 --- Gets the width of the Video in pixels.
 ---
 --- returns:
----     number width - The width of the Video.
+---   number width - The width of the Video.
 ---@return number
 function Video.getWidth() end
 
@@ -4164,7 +4187,7 @@ function Video.getWidth() end
 --- Gets whether the Video is currently playing.
 ---
 --- returns:
----     boolean playing - Whether the video is playing.
+---   boolean playing - Whether the video is playing.
 ---@return boolean
 function Video.isPlaying() end
 
@@ -4220,13 +4243,13 @@ love.image = image
 ---
 ---@param filename string The filename of the potentially compressed image file.
 --- returns:
----     boolean compressed - Whether the file can be loaded as CompressedImageData or not.
+---   boolean compressed - Whether the file can be loaded as CompressedImageData or not.
 ---@return boolean
 function image.isCompressed(filename) end
 
 ---@param fileData FileData A FileData potentially containing a compressed image.
 --- returns:
----     boolean compressed - Whether the FileData can be loaded as CompressedImageData or not.
+---   boolean compressed - Whether the FileData can be loaded as CompressedImageData or not.
 ---@return boolean
 function image.isCompressed(fileData) end
 
@@ -4235,13 +4258,13 @@ function image.isCompressed(fileData) end
 ---
 ---@param filename string The filename of the compressed image file.
 --- returns:
----     CompressedImageData compressedImageData - The new CompressedImageData object.
+---   CompressedImageData compressedImageData - The new CompressedImageData object.
 ---@return CompressedImageData
 function image.newCompressedData(filename) end
 
 ---@param fileData FileData A FileData containing a compressed image.
 --- returns:
----     CompressedImageData compressedImageData - The new CompressedImageData object.
+---   CompressedImageData compressedImageData - The new CompressedImageData object.
 ---@return CompressedImageData
 function image.newCompressedData(fileData) end
 
@@ -4251,7 +4274,7 @@ function image.newCompressedData(fileData) end
 ---@param width number The width of the ImageData.
 ---@param height number The height of the ImageData.
 --- returns:
----     ImageData imageData - The new blank ImageData object. Each pixel's color values, (including the alpha values!) will be set to zero.
+---   ImageData imageData - The new blank ImageData object. Each pixel's color values, (including the alpha values!) will be set to zero.
 ---@return ImageData
 function image.newImageData(width, height) end
 
@@ -4259,19 +4282,19 @@ function image.newImageData(width, height) end
 ---@param height number The height of the ImageData.
 ---@param data string The data to load into the ImageData (RGBA bytes, left to right and top to bottom).
 --- returns:
----     ImageData imageData - The new ImageData object.
+---   ImageData imageData - The new ImageData object.
 ---@return ImageData
 function image.newImageData(width, height, data) end
 
 ---@param filename string The filename of the image file.
 --- returns:
----     ImageData imageData - The new ImageData object.
+---   ImageData imageData - The new ImageData object.
 ---@return ImageData
 function image.newImageData(filename) end
 
 ---@param filedata FileData The encoded file data to decode into image data.
 --- returns:
----     ImageData imageData - The new ImageData object.
+---   ImageData imageData - The new ImageData object.
 ---@return ImageData
 function image.newImageData(filedata) end
 
@@ -4288,15 +4311,15 @@ CompressedImageData = {}
 --- Gets the width and height of the CompressedImageData.
 ---
 --- returns:
----     number width - The width of the CompressedImageData.
----     number height - The height of the CompressedImageData.
+---   number width - The width of the CompressedImageData.
+---   number height - The height of the CompressedImageData.
 ---@return number, number
 function CompressedImageData.getDimensions() end
 
 ---@param level number A mipmap level. Must be in the range of [1, CompressedImageData:getMipmapCount()].
 --- returns:
----     number width - The width of the CompressedImageData.
----     number height - The height of the CompressedImageData.
+---   number width - The width of the CompressedImageData.
+---   number height - The height of the CompressedImageData.
 ---@return number, number
 function CompressedImageData.getDimensions(level) end
 
@@ -4304,7 +4327,7 @@ function CompressedImageData.getDimensions(level) end
 --- Gets the format of the CompressedImageData.
 ---
 --- returns:
----     CompressedImageFormat format - The format of the CompressedImageData.
+---   CompressedImageFormat format - The format of the CompressedImageData.
 ---@return CompressedImageFormat
 function CompressedImageData.getFormat() end
 
@@ -4312,13 +4335,13 @@ function CompressedImageData.getFormat() end
 --- Gets the height of the CompressedImageData.
 ---
 --- returns:
----     number height - The height of the CompressedImageData.
+---   number height - The height of the CompressedImageData.
 ---@return number
 function CompressedImageData.getHeight() end
 
 ---@param level number A mipmap level. Must be in the range of [1,  CompressedImageData:getMipmapCount()].
 --- returns:
----     number height - The height of the CompressedImageData.
+---   number height - The height of the CompressedImageData.
 ---@return number
 function CompressedImageData.getHeight(level) end
 
@@ -4326,7 +4349,7 @@ function CompressedImageData.getHeight(level) end
 --- Gets the number of mipmap levels in the CompressedImageData. The base mipmap level (original image) is included in the count.
 ---
 --- returns:
----     number mipmaps - The number of mipmap levels stored in the CompressedImageData.
+---   number mipmaps - The number of mipmap levels stored in the CompressedImageData.
 ---@return number
 function CompressedImageData.getMipmapCount() end
 
@@ -4334,13 +4357,13 @@ function CompressedImageData.getMipmapCount() end
 --- Gets the width of the CompressedImageData.
 ---
 --- returns:
----     number width - The width of the CompressedImageData.
+---   number width - The width of the CompressedImageData.
 ---@return number
 function CompressedImageData.getWidth() end
 
 ---@param level number A mipmap level. Must be in the range of [1, CompressedImageData:getMipmapCount()].
 --- returns:
----     number width - The width of the CompressedImageData.
+---   number width - The width of the CompressedImageData.
 ---@return number
 function CompressedImageData.getWidth(level) end
 
@@ -4357,7 +4380,7 @@ ImageData = {}
 ---@param format ImageFormat The format to encode the image as.
 ---@param filename string The filename to write the file to. If nil, no file will be written but the FileData will still be returned.
 --- returns:
----     FileData filedata - The encoded image as a new FileData object.
+---   FileData filedata - The encoded image as a new FileData object.
 ---@return FileData
 function ImageData.encode(format, filename) end
 
@@ -4365,8 +4388,8 @@ function ImageData.encode(format, filename) end
 --- Gets the width and height of the ImageData in pixels.
 ---
 --- returns:
----     number width - The width of the ImageData in pixels.
----     number height - The height of the ImageData in pixels.
+---   number width - The width of the ImageData in pixels.
+---   number height - The height of the ImageData in pixels.
 ---@return number, number
 function ImageData.getDimensions() end
 
@@ -4374,7 +4397,7 @@ function ImageData.getDimensions() end
 --- Gets the height of the ImageData in pixels.
 ---
 --- returns:
----     number height - The height of the ImageData in pixels.
+---   number height - The height of the ImageData in pixels.
 ---@return number
 function ImageData.getHeight() end
 
@@ -4386,10 +4409,10 @@ function ImageData.getHeight() end
 ---@param x number The position of the pixel on the x-axis.
 ---@param y number The position of the pixel on the y-axis.
 --- returns:
----     number r - The red component (0-255).
----     number g - The green component (0-255).
----     number b - The blue component (0-255).
----     number a - The alpha component (0-255).
+---   number r - The red component (0-255).
+---   number g - The green component (0-255).
+---   number b - The blue component (0-255).
+---   number a - The alpha component (0-255).
 ---@return number, number, number, number
 function ImageData.getPixel(x, y) end
 
@@ -4397,7 +4420,7 @@ function ImageData.getPixel(x, y) end
 --- Gets the width of the ImageData in pixels.
 ---
 --- returns:
----     number width - The width of the ImageData in pixels.
+---   number width - The width of the ImageData in pixels.
 ---@return number
 function ImageData.getWidth() end
 
@@ -4446,7 +4469,7 @@ love.joystick = joystick
 --- Gets the number of connected joysticks.
 ---
 --- returns:
----     number joystickcount - The number of connected joysticks.
+---   number joystickcount - The number of connected joysticks.
 ---@return number
 function joystick.getJoystickCount() end
 
@@ -4454,7 +4477,7 @@ function joystick.getJoystickCount() end
 --- Gets a list of connected Joysticks.
 ---
 --- returns:
----     table joysticks - The list of currently connected Joysticks.
+---   table joysticks - The list of currently connected Joysticks.
 ---@return table
 function joystick.getJoysticks() end
 
@@ -4472,12 +4495,12 @@ function joystick.loadGamepadMappings(mappings) end
 ---
 ---@param filename string The filename to save the mappings string to.
 --- returns:
----     string mappings - The mappings string that was written to the file.
+---   string mappings - The mappings string that was written to the file.
 ---@return string
 function joystick.saveGamepadMappings(filename) end
 
 --- returns:
----     string mappings - The mappings string.
+---   string mappings - The mappings string.
 ---@return string
 function joystick.saveGamepadMappings() end
 
@@ -4494,7 +4517,7 @@ function joystick.saveGamepadMappings() end
 ---@param inputindex number The index of the axis, button, or hat to bind the virtual gamepad button to.
 ---@param hatdirection JoystickHat The direction of the hat, if the virtual gamepad button will be bound to a hat. nil otherwise.
 --- returns:
----     boolean success - Whether the virtual gamepad button was successfully bound.
+---   boolean success - Whether the virtual gamepad button was successfully bound.
 ---@return boolean
 function joystick.setGamepadMapping(guid, button, inputtype, inputindex, hatdirection) end
 
@@ -4504,7 +4527,7 @@ function joystick.setGamepadMapping(guid, button, inputtype, inputindex, hatdire
 ---@param inputindex number The index of the axis, button, or hat to bind the virtual gamepad axis to.
 ---@param hatdirection JoystickHat The direction of the hat, if the virtual gamepad axis will be bound to a hat. nil otherwise.
 --- returns:
----     boolean success - Whether the virtual gamepad button was successfully bound.
+---   boolean success - Whether the virtual gamepad button was successfully bound.
 ---@return boolean
 function joystick.setGamepadMapping(guid, axis, inputtype, inputindex, hatdirection) end
 
@@ -4517,9 +4540,9 @@ Joystick = {}
 --- Gets the direction of each axis.
 ---
 --- returns:
----     number axisDir1 - Direction of axis1.
----     number axisDir2 - Direction of axis2.
----     number axisDirN - Direction of axisN.
+---   number axisDir1 - Direction of axis1.
+---   number axisDir2 - Direction of axis2.
+---   number axisDirN - Direction of axisN.
 ---@return number, number, number
 function Joystick.getAxes() end
 
@@ -4528,7 +4551,7 @@ function Joystick.getAxes() end
 ---
 ---@param axis number The index of the axis to be checked.
 --- returns:
----     number direction - Current value of the axis.
+---   number direction - Current value of the axis.
 ---@return number
 function Joystick.getAxis(axis) end
 
@@ -4536,7 +4559,7 @@ function Joystick.getAxis(axis) end
 --- Gets the number of axes on the joystick.
 ---
 --- returns:
----     number axes - The number of axes available.
+---   number axes - The number of axes available.
 ---@return number
 function Joystick.getAxisCount() end
 
@@ -4544,7 +4567,7 @@ function Joystick.getAxisCount() end
 --- Gets the number of buttons on the joystick.
 ---
 --- returns:
----     number buttons - The number of buttons available.
+---   number buttons - The number of buttons available.
 ---@return number
 function Joystick.getButtonCount() end
 
@@ -4552,7 +4575,7 @@ function Joystick.getButtonCount() end
 --- Gets a stable GUID unique to the type of the physical joystick which does not change over time. For example, all Sony Dualshock 3 controllers in OS X have the same GUID. The value is platform-dependent.
 ---
 --- returns:
----     string guid - The Joystick type's OS-dependent unique identifier.
+---   string guid - The Joystick type's OS-dependent unique identifier.
 ---@return string
 function Joystick.getGUID() end
 
@@ -4561,7 +4584,7 @@ function Joystick.getGUID() end
 ---
 ---@param axis GamepadAxis The virtual axis to be checked.
 --- returns:
----     number direction - Current value of the axis.
+---   number direction - Current value of the axis.
 ---@return number
 function Joystick.getGamepadAxis(axis) end
 
@@ -4570,17 +4593,17 @@ function Joystick.getGamepadAxis(axis) end
 ---
 ---@param axis GamepadAxis The virtual gamepad axis to get the binding for.
 --- returns:
----     JoystickInputType inputtype - The type of input the virtual gamepad axis is bound to.
----     number inputindex - The index of the Joystick's button, axis or hat that the virtual gamepad axis is bound to.
----     JoystickHat hatdirection - The direction of the hat, if the virtual gamepad axis is bound to a hat. nil otherwise.
+---   JoystickInputType inputtype - The type of input the virtual gamepad axis is bound to.
+---   number inputindex - The index of the Joystick's button, axis or hat that the virtual gamepad axis is bound to.
+---   JoystickHat hatdirection - The direction of the hat, if the virtual gamepad axis is bound to a hat. nil otherwise.
 ---@return JoystickInputType, number, JoystickHat
 function Joystick.getGamepadMapping(axis) end
 
 ---@param button GamepadAxis The virtual gamepad button to get the binding for.
 --- returns:
----     JoystickInputType inputtype - The type of input the virtual gamepad button is bound to.
----     number inputindex - The index of the Joystick's button, axis or hat that the virtual gamepad button is bound to.
----     JoystickHat hatdirection - The direction of the hat, if the virtual gamepad button is bound to a hat. nil otherwise.
+---   JoystickInputType inputtype - The type of input the virtual gamepad button is bound to.
+---   number inputindex - The index of the Joystick's button, axis or hat that the virtual gamepad button is bound to.
+---   JoystickHat hatdirection - The direction of the hat, if the virtual gamepad button is bound to a hat. nil otherwise.
 ---@return JoystickInputType, number, JoystickHat
 function Joystick.getGamepadMapping(button) end
 
@@ -4589,7 +4612,7 @@ function Joystick.getGamepadMapping(button) end
 ---
 ---@param hat number The index of the hat to be checked.
 --- returns:
----     JoystickHat direction - The direction the hat is pushed.
+---   JoystickHat direction - The direction the hat is pushed.
 ---@return JoystickHat
 function Joystick.getHat(hat) end
 
@@ -4597,7 +4620,7 @@ function Joystick.getHat(hat) end
 --- Gets the number of hats on the joystick.
 ---
 --- returns:
----     number hats - How many hats the joystick has.
+---   number hats - How many hats the joystick has.
 ---@return number
 function Joystick.getHatCount() end
 
@@ -4605,8 +4628,8 @@ function Joystick.getHatCount() end
 --- Gets the joystick's unique identifier. The identifier will remain the same for the life of the game, even when the Joystick is disconnected and reconnected, but it will change when the game is re-launched.
 ---
 --- returns:
----     number id - The Joystick's unique identifier. Remains the same as long as the game is running.
----     number instanceid - Unique instance identifier. Changes every time the Joystick is reconnected. nil if the Joystick is not connected.
+---   number id - The Joystick's unique identifier. Remains the same as long as the game is running.
+---   number instanceid - Unique instance identifier. Changes every time the Joystick is reconnected. nil if the Joystick is not connected.
 ---@return number, number
 function Joystick.getID() end
 
@@ -4614,7 +4637,7 @@ function Joystick.getID() end
 --- Gets the name of the joystick.
 ---
 --- returns:
----     string name - The name of the joystick.
+---   string name - The name of the joystick.
 ---@return string
 function Joystick.getName() end
 
@@ -4622,8 +4645,8 @@ function Joystick.getName() end
 --- Gets the current vibration motor strengths on a Joystick with rumble support.
 ---
 --- returns:
----     number left - Current strength of the left vibration motor on the Joystick.
----     number right - Current strength of the right vibration motor on the Joystick.
+---   number left - Current strength of the left vibration motor on the Joystick.
+---   number right - Current strength of the right vibration motor on the Joystick.
 ---@return number, number
 function Joystick.getVibration() end
 
@@ -4631,7 +4654,7 @@ function Joystick.getVibration() end
 --- Gets whether the Joystick is connected.
 ---
 --- returns:
----     boolean connected - True if the Joystick is currently connected, false otherwise.
+---   boolean connected - True if the Joystick is currently connected, false otherwise.
 ---@return boolean
 function Joystick.isConnected() end
 
@@ -4642,7 +4665,7 @@ function Joystick.isConnected() end
 ---
 ---@param ... number The index of a button to check.
 --- returns:
----     boolean anyDown - True if any supplied button is down, false if not.
+---   boolean anyDown - True if any supplied button is down, false if not.
 ---@return boolean
 function Joystick.isDown(...) end
 
@@ -4652,7 +4675,7 @@ function Joystick.isDown(...) end
 --- LÖVE automatically recognizes most popular controllers with a similar layout to the Xbox 360 controller as gamepads, but you can add more with love.joystick.setGamepadMapping.
 ---
 --- returns:
----     boolean isgamepad - True if the Joystick is recognized as a gamepad, false otherwise.
+---   boolean isgamepad - True if the Joystick is recognized as a gamepad, false otherwise.
 ---@return boolean
 function Joystick.isGamepad() end
 
@@ -4661,7 +4684,7 @@ function Joystick.isGamepad() end
 ---
 ---@param ... GamepadButton The gamepad button to check.
 --- returns:
----     boolean anyDown - True if any supplied button is down, false if not.
+---   boolean anyDown - True if any supplied button is down, false if not.
 ---@return boolean
 function Joystick.isGamepadDown(...) end
 
@@ -4669,7 +4692,7 @@ function Joystick.isGamepadDown(...) end
 --- Gets whether the Joystick supports vibration.
 ---
 --- returns:
----     boolean supported - True if rumble / force feedback vibration is supported on this Joystick, false if not.
+---   boolean supported - True if rumble / force feedback vibration is supported on this Joystick, false if not.
 ---@return boolean
 function Joystick.isVibrationSupported() end
 
@@ -4679,12 +4702,12 @@ function Joystick.isVibrationSupported() end
 ---@param left number Strength of the left vibration motor on the Joystick. Must be in the range of [0, 1].
 ---@param right number Strength of the right vibration motor on the Joystick. Must be in the range of [0, 1].
 --- returns:
----     boolean success - True if the vibration was successfully applied, false if not.
+---   boolean success - True if the vibration was successfully applied, false if not.
 ---@return boolean
 function Joystick.setVibration(left, right) end
 
 --- returns:
----     boolean success - True if the vibration was successfully disabled, false if not.
+---   boolean success - True if the vibration was successfully disabled, false if not.
 ---@return boolean
 function Joystick.setVibration() end
 
@@ -4692,7 +4715,7 @@ function Joystick.setVibration() end
 ---@param right number Strength of the right vibration motor on the Joystick. Must be in the range of [0, 1].
 ---@param duration number The duration of the vibration in seconds. A negative value means infinite duration.
 --- returns:
----     boolean success - True if the vibration was successfully applied, false if not.
+---   boolean success - True if the vibration was successfully applied, false if not.
 ---@return boolean
 function Joystick.setVibration(left, right, duration) end
 
@@ -4711,7 +4734,7 @@ love.keyboard = keyboard
 ---
 ---@param scancode Scancode The scancode to get the key from.
 --- returns:
----     KeyConstant key - The key corresponding to the given scancode, or "unknown" if the scancode doesn't map to a KeyConstant on the current system.
+---   KeyConstant key - The key corresponding to the given scancode, or "unknown" if the scancode doesn't map to a KeyConstant on the current system.
 ---@return KeyConstant
 function keyboard.getKeyFromScancode(scancode) end
 
@@ -4724,7 +4747,7 @@ function keyboard.getKeyFromScancode(scancode) end
 ---
 ---@param key KeyConstant The key to get the scancode from.
 --- returns:
----     Scancode scancode - The scancode corresponding to the given key, or "unknown" if the given key has no known physical representation on the current system.
+---   Scancode scancode - The scancode corresponding to the given key, or "unknown" if the given key has no known physical representation on the current system.
 ---@return Scancode
 function keyboard.getScancodeFromKey(key) end
 
@@ -4732,7 +4755,7 @@ function keyboard.getScancodeFromKey(key) end
 --- Gets whether key repeat is enabled.
 ---
 --- returns:
----     boolean enabled - Whether key repeat is enabled.
+---   boolean enabled - Whether key repeat is enabled.
 ---@return boolean
 function keyboard.hasKeyRepeat() end
 
@@ -4740,7 +4763,7 @@ function keyboard.hasKeyRepeat() end
 --- Gets whether text input events are enabled.
 ---
 --- returns:
----     boolean enabled - Whether text input events are enabled.
+---   boolean enabled - Whether text input events are enabled.
 ---@return boolean
 function keyboard.hasTextInput() end
 
@@ -4749,14 +4772,14 @@ function keyboard.hasTextInput() end
 ---
 ---@param key KeyConstant The key to check.
 --- returns:
----     boolean down - True if the key is down, false if not.
+---   boolean down - True if the key is down, false if not.
 ---@return boolean
 function keyboard.isDown(key) end
 
 ---@param key KeyConstant A key to check.
 ---@param ... KeyConstant Additional keys to check.
 --- returns:
----     boolean anyDown - True if any supplied key is down, false if not.
+---   boolean anyDown - True if any supplied key is down, false if not.
 ---@return boolean
 function keyboard.isDown(key, ...) end
 
@@ -4768,7 +4791,7 @@ function keyboard.isDown(key, ...) end
 ---@param scancode Scancode A Scancode to check.
 ---@param ... Scancode Additional Scancodes to check.
 --- returns:
----     boolean down - True if any supplied Scancode is down, false if not.
+---   boolean down - True if any supplied Scancode is down, false if not.
 ---@return boolean
 function keyboard.isScancodeDown(scancode, ...) end
 
@@ -4806,7 +4829,7 @@ love.math = math
 ---@param format CompressedDataFormat The format to use when compressing the string.
 ---@param level number The level of compression to use, between 0 and 9. -1 indicates the default level. The meaning of this argument depends on the compression format being used.
 --- returns:
----     CompressedData compressedData - A new Data object containing the compressed version of the string.
+---   CompressedData compressedData - A new Data object containing the compressed version of the string.
 ---@return CompressedData
 function math.compress(rawstring, format, level) end
 
@@ -4814,7 +4837,7 @@ function math.compress(rawstring, format, level) end
 ---@param format CompressedDataFormat The format to use when compressing the data.
 ---@param level number The level of compression to use, between 0 and 9. -1 indicates the default level. The meaning of this argument depends on the compression format being used.
 --- returns:
----     CompressedData compressedData - A new Data object containing the compressed version of the raw data.
+---   CompressedData compressedData - A new Data object containing the compressed version of the raw data.
 ---@return CompressedData
 function math.compress(data, format, level) end
 
@@ -4823,21 +4846,21 @@ function math.compress(data, format, level) end
 ---
 ---@param compressedData CompressedData The compressed data to decompress.
 --- returns:
----     string rawstring - A string containing the raw decompressed data.
+---   string rawstring - A string containing the raw decompressed data.
 ---@return string
 function math.decompress(compressedData) end
 
 ---@param compressedString string A string containing data previously compressed with love.math.compress.
 ---@param format CompressedDataFormat The format that was used to compress the given string.
 --- returns:
----     string rawstring - A string containing the raw decompressed data.
+---   string rawstring - A string containing the raw decompressed data.
 ---@return string
 function math.decompress(compressedString, format) end
 
 ---@param data Data A Data object containing data previously compressed with love.math.compress.
 ---@param format CompressedDataFormat The format that was used to compress the given data.
 --- returns:
----     string rawstring - A string containing the raw decompressed data.
+---   string rawstring - A string containing the raw decompressed data.
 ---@return string
 function math.decompress(data, format) end
 
@@ -4848,23 +4871,23 @@ function math.decompress(data, format) end
 ---@param g number The green channel of the sRGB color to convert.
 ---@param b number The blue channel of the sRGB color to convert.
 --- returns:
----     number lr - The red channel of the converted color in linear RGB space.
----     number lg - The green channel of the converted color in linear RGB space.
----     number lb - The blue channel of the converted color in linear RGB space.
+---   number lr - The red channel of the converted color in linear RGB space.
+---   number lg - The green channel of the converted color in linear RGB space.
+---   number lb - The blue channel of the converted color in linear RGB space.
 ---@return number, number, number
 function math.gammaToLinear(r, g, b) end
 
 ---@param color table An array with the red, green, and blue channels of the sRGB color to convert.
 --- returns:
----     number lr - The red channel of the converted color in linear RGB space.
----     number lg - The green channel of the converted color in linear RGB space.
----     number lb - The blue channel of the converted color in linear RGB space.
+---   number lr - The red channel of the converted color in linear RGB space.
+---   number lg - The green channel of the converted color in linear RGB space.
+---   number lb - The blue channel of the converted color in linear RGB space.
 ---@return number, number, number
 function math.gammaToLinear(color) end
 
 ---@param c number The value of a color channel in sRGB space to convert.
 --- returns:
----     number lc - The value of the color channel in linear RGB space.
+---   number lc - The value of the color channel in linear RGB space.
 ---@return number
 function math.gammaToLinear(c) end
 
@@ -4874,8 +4897,8 @@ function math.gammaToLinear(c) end
 --- The state is split into two numbers due to Lua's use of doubles for all number values - doubles can't accurately represent integer values above 2^53.
 ---
 --- returns:
----     number low - Integer number representing the lower 32 bits of the random number generator's 64 bit state value.
----     number high - Integer number representing the higher 32 bits of the random number generator's 64 bit state value.
+---   number low - Integer number representing the lower 32 bits of the random number generator's 64 bit state value.
+---   number high - Integer number representing the higher 32 bits of the random number generator's 64 bit state value.
 ---@return number, number
 function math.getRandomSeed() end
 
@@ -4887,7 +4910,7 @@ function math.getRandomSeed() end
 --- The value of the state string does not depend on the current operating system.
 ---
 --- returns:
----     string state - The current state of the RandomGenerator object, represented as a string.
+---   string state - The current state of the RandomGenerator object, represented as a string.
 ---@return string
 function math.getRandomState() end
 
@@ -4898,7 +4921,7 @@ function math.getRandomState() end
 ---
 ---@param vertices table The vertices of the polygon as a table in the form of {x1, y1, x2, y2, x3, y3, ...}.
 --- returns:
----     boolean convex - Whether the given polygon is convex.
+---   boolean convex - Whether the given polygon is convex.
 ---@return boolean
 function math.isConvex(vertices) end
 
@@ -4910,7 +4933,7 @@ function math.isConvex(vertices) end
 ---@param y3 number The position of the third vertex of the polygon on the y-axis.
 ---@param ... number Additional vertices.
 --- returns:
----     boolean convex - Whether the given polygon is convex.
+---   boolean convex - Whether the given polygon is convex.
 ---@return boolean
 function math.isConvex(x1, y1, x2, y2, x3, y3, ...) end
 
@@ -4923,23 +4946,23 @@ function math.isConvex(x1, y1, x2, y2, x3, y3, ...) end
 ---@param lg number The green channel of the linear RGB color to convert.
 ---@param lb number The blue channel of the linear RGB color to convert.
 --- returns:
----     number cr - The red channel of the converted color in gamma sRGB space.
----     number cg - The green channel of the converted color in gamma sRGB space.
----     number cb - The blue channel of the converted color in gamma sRGB space.
+---   number cr - The red channel of the converted color in gamma sRGB space.
+---   number cg - The green channel of the converted color in gamma sRGB space.
+---   number cb - The blue channel of the converted color in gamma sRGB space.
 ---@return number, number, number
 function math.linearToGamma(lr, lg, lb) end
 
 ---@param color table An array with the red, green, and blue channels of the linear RGB color to convert.
 --- returns:
----     number cr - The red channel of the converted color in gamma sRGB space.
----     number cg - The green channel of the converted color in gamma sRGB space.
----     number cb - The blue channel of the converted color in gamma sRGB space.
+---   number cr - The red channel of the converted color in gamma sRGB space.
+---   number cg - The green channel of the converted color in gamma sRGB space.
+---   number cb - The blue channel of the converted color in gamma sRGB space.
 ---@return number, number, number
 function math.linearToGamma(color) end
 
 ---@param lc number The value of a color channel in linear RGB space to convert.
 --- returns:
----     number c - The value of the color channel in gamma sRGB space.
+---   number c - The value of the color channel in gamma sRGB space.
 ---@return number
 function math.linearToGamma(lc) end
 
@@ -4950,7 +4973,7 @@ function math.linearToGamma(lc) end
 ---
 ---@param vertices table The vertices of the control polygon as a table in the form of {x1, y1, x2, y2, x3, y3, ...}.
 --- returns:
----     BezierCurve curve - A Bézier curve object.
+---   BezierCurve curve - A Bézier curve object.
 ---@return BezierCurve
 function math.newBezierCurve(vertices) end
 
@@ -4962,7 +4985,7 @@ function math.newBezierCurve(vertices) end
 ---@param y3 number The position of the third vertex of the control polygon on the y-axis.
 ---@param ... number Additional vertices.
 --- returns:
----     BezierCurve curve - A Bézier curve object.
+---   BezierCurve curve - A Bézier curve object.
 ---@return BezierCurve
 function math.newBezierCurve(x1, y1, x2, y2, x3, y3, ...) end
 
@@ -4970,20 +4993,20 @@ function math.newBezierCurve(x1, y1, x2, y2, x3, y3, ...) end
 --- Creates a new RandomGenerator object which is completely independent of other RandomGenerator objects and random functions.
 ---
 --- returns:
----     RandomGenerator rng - The new Random Number Generator object.
+---   RandomGenerator rng - The new Random Number Generator object.
 ---@return RandomGenerator
 function math.newRandomGenerator() end
 
 ---@param seed number The initial seed number to use for this object.
 --- returns:
----     RandomGenerator rng - The new Random Number Generator object.
+---   RandomGenerator rng - The new Random Number Generator object.
 ---@return RandomGenerator
 function math.newRandomGenerator(seed) end
 
 ---@param low number The lower 32 bits of the state number to use for this instance of the object.
 ---@param high number The higher 32 bits of the state number to use for this instance of the object.
 --- returns:
----     RandomGenerator rng - The new Random Number Generator object.
+---   RandomGenerator rng - The new Random Number Generator object.
 ---@return RandomGenerator
 function math.newRandomGenerator(low, high) end
 
@@ -4991,7 +5014,7 @@ function math.newRandomGenerator(low, high) end
 --- Creates a new Transform object.
 ---
 --- returns:
----     Transform transform - The new Transform object.
+---   Transform transform - The new Transform object.
 ---@return Transform
 function math.newTransform() end
 
@@ -5005,7 +5028,7 @@ function math.newTransform() end
 ---@param kx number Shearing / skew factor on the x-axis.
 ---@param ky number Shearing / skew factor on the y-axis.
 --- returns:
----     Transform transform - The new Transform object.
+---   Transform transform - The new Transform object.
 ---@return Transform
 function math.newTransform(x, y, angle, sx, sy, ox, oy, kx, ky) end
 
@@ -5018,14 +5041,14 @@ function math.newTransform(x, y, angle, sx, sy, ox, oy, kx, ky) end
 ---
 ---@param x number The number used to generate the noise value.
 --- returns:
----     number value - The noise value in the range of [0, 1].
+---   number value - The noise value in the range of [0, 1].
 ---@return number
 function math.noise(x) end
 
 ---@param x number The first value of the 2-dimensional vector used to generate the noise value.
 ---@param y number The second value of the 2-dimensional vector used to generate the noise value.
 --- returns:
----     number value - The noise value in the range of [0, 1].
+---   number value - The noise value in the range of [0, 1].
 ---@return number
 function math.noise(x, y) end
 
@@ -5033,7 +5056,7 @@ function math.noise(x, y) end
 ---@param y number The second value of the 3-dimensional vector used to generate the noise value.
 ---@param z number The third value of the 3-dimensional vector used to generate the noise value.
 --- returns:
----     number value - The noise value in the range of [0, 1].
+---   number value - The noise value in the range of [0, 1].
 ---@return number
 function math.noise(x, y, z) end
 
@@ -5042,7 +5065,7 @@ function math.noise(x, y, z) end
 ---@param z number The third value of the 4-dimensional vector used to generate the noise value.
 ---@param w number The fourth value of the 4-dimensional vector used to generate the noise value.
 --- returns:
----     number value - The noise value in the range of [0, 1].
+---   number value - The noise value in the range of [0, 1].
 ---@return number
 function math.noise(x, y, z, w) end
 
@@ -5050,20 +5073,20 @@ function math.noise(x, y, z, w) end
 --- Generates a pseudo-random number in a platform independent manner.
 ---
 --- returns:
----     number number - The pseudo-random number.
+---   number number - The pseudo-random number.
 ---@return number
 function math.random() end
 
 ---@param max number The maximum possible value it should return.
 --- returns:
----     number number - The pseudo-random integer number.
+---   number number - The pseudo-random integer number.
 ---@return number
 function math.random(max) end
 
 ---@param min number The minimum possible value it should return.
 ---@param max number The maximum possible value it should return.
 --- returns:
----     number number - The pseudo-random integer number.
+---   number number - The pseudo-random integer number.
 ---@return number
 function math.random(min, max) end
 
@@ -5073,7 +5096,7 @@ function math.random(min, max) end
 ---@param stddev number Standard deviation of the distribution.
 ---@param mean number The mean of the distribution.
 --- returns:
----     number number - Normally distributed random number with variance (stddev)² and the specified mean.
+---   number number - Normally distributed random number with variance (stddev)² and the specified mean.
 ---@return number
 function math.randomNormal(stddev, mean) end
 
@@ -5102,7 +5125,7 @@ function math.setRandomState(state) end
 ---
 ---@param polygon table Polygon to triangulate. Must not intersect itself.
 --- returns:
----     table triangles - List of triangles the polygon is composed of, in the form of {{x1, y1, x2, y2, x3, y3}, {x1, y1, x2, y2, x3, y3}, ...}.
+---   table triangles - List of triangles the polygon is composed of, in the form of {{x1, y1, x2, y2, x3, y3}, {x1, y1, x2, y2, x3, y3}, ...}.
 ---@return table
 function math.triangulate(polygon) end
 
@@ -5114,7 +5137,7 @@ function math.triangulate(polygon) end
 ---@param y3 number The position of the third vertex of the polygon on the y-axis.
 ---@param ... number Additional vertices.
 --- returns:
----     table triangles - List of triangles the polygon is composed of, in the form of {{x1, y1, x2, y2, x3, y3}, {x1, y1, x2, y2, x3, y3}, ...}.
+---   table triangles - List of triangles the polygon is composed of, in the form of {{x1, y1, x2, y2, x3, y3}, {x1, y1, x2, y2, x3, y3}, ...}.
 ---@return table
 function math.triangulate(x1, y1, x2, y2, x3, y3, ...) end
 
@@ -5130,8 +5153,8 @@ BezierCurve = {}
 ---
 ---@param t number Where to evaluate the curve.
 --- returns:
----     number x - x coordinate of the curve at parameter t.
----     number y - y coordinate of the curve at parameter t.
+---   number x - x coordinate of the curve at parameter t.
+---   number y - y coordinate of the curve at parameter t.
 ---@return number, number
 function BezierCurve.evaluate(t) end
 
@@ -5140,8 +5163,8 @@ function BezierCurve.evaluate(t) end
 ---
 ---@param i number Index of the control point.
 --- returns:
----     number x - Position of the control point along the x axis.
----     number y - Position of the control point along the y axis.
+---   number x - Position of the control point along the x axis.
+---   number y - Position of the control point along the y axis.
 ---@return number, number
 function BezierCurve.getControlPoint(i) end
 
@@ -5149,7 +5172,7 @@ function BezierCurve.getControlPoint(i) end
 --- Get the number of control points in the Bézier curve.
 ---
 --- returns:
----     number count - The number of control points.
+---   number count - The number of control points.
 ---@return number
 function BezierCurve.getControlPointCount() end
 
@@ -5157,7 +5180,7 @@ function BezierCurve.getControlPointCount() end
 --- Get degree of the Bézier curve. The degree is equal to number-of-control-points - 1.
 ---
 --- returns:
----     number degree - Degree of the Bézier curve.
+---   number degree - Degree of the Bézier curve.
 ---@return number
 function BezierCurve.getDegree() end
 
@@ -5167,7 +5190,7 @@ function BezierCurve.getDegree() end
 --- This function can be used to rotate sprites moving along a curve in the direction of the movement and compute the direction perpendicular to the curve at some parameter t.
 ---
 --- returns:
----     BezierCurve derivative - The derivative curve.
+---   BezierCurve derivative - The derivative curve.
 ---@return BezierCurve
 function BezierCurve.getDerivative() end
 
@@ -5177,7 +5200,7 @@ function BezierCurve.getDerivative() end
 ---@param startpoint number The starting point along the curve. Must be between 0 and 1.
 ---@param endpoint number The end of the segment. Must be between 0 and 1.
 --- returns:
----     BezierCurve curve - A BezierCurve that corresponds to the specified segment.
+---   BezierCurve curve - A BezierCurve that corresponds to the specified segment.
 ---@return BezierCurve
 function BezierCurve.getSegment(startpoint, endpoint) end
 
@@ -5204,7 +5227,7 @@ function BezierCurve.removeControlPoint(index) end
 ---
 ---@param depth number Number of recursive subdivision steps.
 --- returns:
----     table coordinates - List of x,y-coordinate pairs of points on the curve.
+---   table coordinates - List of x,y-coordinate pairs of points on the curve.
 ---@return table
 function BezierCurve.render(depth) end
 
@@ -5219,7 +5242,7 @@ function BezierCurve.render(depth) end
 ---@param endpoint number The end of the segment to render. Must be between 0 and 1.
 ---@param depth number Number of recursive subdivision steps.
 --- returns:
----     table coordinates - List of x,y-coordinate pairs of points on the curve.
+---   table coordinates - List of x,y-coordinate pairs of points on the curve.
 ---@return table
 function BezierCurve.renderSegment(startpoint, endpoint, depth) end
 
@@ -5265,7 +5288,7 @@ CompressedData = {}
 --- Gets the compression format of the CompressedData.
 ---
 --- returns:
----     CompressedDataFormat format - The format of the CompressedData.
+---   CompressedDataFormat format - The format of the CompressedData.
 ---@return CompressedDataFormat
 function CompressedData.getFormat() end
 
@@ -5280,8 +5303,8 @@ RandomGenerator = {}
 --- The state is split into two numbers due to Lua's use of doubles for all number values - doubles can't accurately represent integer values above 2^53.
 ---
 --- returns:
----     number low - Integer number representing the lower 32 bits of the random number generator's 64 bit state value.
----     number high - Integer number representing the higher 32 bits of the random number generator's 64 bit state value.
+---   number low - Integer number representing the lower 32 bits of the random number generator's 64 bit state value.
+---   number high - Integer number representing the higher 32 bits of the random number generator's 64 bit state value.
 ---@return number, number
 function RandomGenerator.getSeed() end
 
@@ -5293,7 +5316,7 @@ function RandomGenerator.getSeed() end
 --- The value of the state string does not depend on the current operating system.
 ---
 --- returns:
----     string state - The current state of the RandomGenerator object, represented as a string.
+---   string state - The current state of the RandomGenerator object, represented as a string.
 ---@return string
 function RandomGenerator.getState() end
 
@@ -5301,20 +5324,20 @@ function RandomGenerator.getState() end
 --- Generates a pseudo-random number in a platform independent manner.
 ---
 --- returns:
----     number number - The pseudo random number.
+---   number number - The pseudo random number.
 ---@return number
 function RandomGenerator.random() end
 
 ---@param max number The maximum possible value it should return.
 --- returns:
----     number number - The pseudo-random integer number.
+---   number number - The pseudo-random integer number.
 ---@return number
 function RandomGenerator.random(max) end
 
 ---@param min number The minimum possible value it should return.
 ---@param max number The maximum possible value it should return.
 --- returns:
----     number number - The pseudo-random integer number.
+---   number number - The pseudo-random integer number.
 ---@return number
 function RandomGenerator.random(min, max) end
 
@@ -5324,7 +5347,7 @@ function RandomGenerator.random(min, max) end
 ---@param stddev number Standard deviation of the distribution.
 ---@param mean number The mean of the distribution.
 --- returns:
----     number number - Normally distributed random number with variance (stddev)² and the specified mean.
+---   number number - Normally distributed random number with variance (stddev)² and the specified mean.
 ---@return number
 function RandomGenerator.randomNormal(stddev, mean) end
 
@@ -5360,7 +5383,7 @@ Transform = {}
 ---
 ---@param other Transform The other Transform object to apply to this Transform.
 --- returns:
----     Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
+---   Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
 ---@return Transform
 function Transform.apply(other) end
 
@@ -5368,7 +5391,7 @@ function Transform.apply(other) end
 --- Creates a new copy of this Transform.
 ---
 --- returns:
----     Transform clone - The copy of this Transform.
+---   Transform clone - The copy of this Transform.
 ---@return Transform
 function Transform.clone() end
 
@@ -5376,10 +5399,10 @@ function Transform.clone() end
 --- Gets the internal 4x4 transformation matrix stored by this Transform. The matrix is returned in row-major order.
 ---
 --- returns:
----     number e1_1 - The first column of the first row of the matrix.
----     number e1_2 - The second column of the first row of the matrix.
----     number ... - Additional matrix elements.
----     number e4_4 - The fourth column of the fourth row of the matrix.
+---   number e1_1 - The first column of the first row of the matrix.
+---   number e1_2 - The second column of the first row of the matrix.
+---   number ... - Additional matrix elements.
+---   number e4_4 - The fourth column of the fourth row of the matrix.
 ---@return number, number, number, number
 function Transform.getMatrix() end
 
@@ -5387,7 +5410,7 @@ function Transform.getMatrix() end
 --- Creates a new Transform containing the inverse of this Transform.
 ---
 --- returns:
----     Transform inverse - A new Transform object representing the inverse of this Transform's matrix.
+---   Transform inverse - A new Transform object representing the inverse of this Transform's matrix.
 ---@return Transform
 function Transform.inverse() end
 
@@ -5401,8 +5424,8 @@ function Transform.inverse() end
 ---@param localX number The x component of the position with the transform applied.
 ---@param localY number The y component of the position with the transform applied.
 --- returns:
----     number globalX - The x component of the position in global coordinates.
----     number globalY - The y component of the position in global coordinates.
+---   number globalX - The x component of the position in global coordinates.
+---   number globalY - The y component of the position in global coordinates.
 ---@return number, number
 function Transform.inverseTransformPoint(localX, localY) end
 
@@ -5410,7 +5433,7 @@ function Transform.inverseTransformPoint(localX, localY) end
 --- Resets the Transform to an identity state. All previously applied transformations are erased.
 ---
 --- returns:
----     Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
+---   Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
 ---@return Transform
 function Transform.reset() end
 
@@ -5419,7 +5442,7 @@ function Transform.reset() end
 ---
 ---@param angle number The relative angle in radians to rotate this Transform by.
 --- returns:
----     Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
+---   Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
 ---@return Transform
 function Transform.rotate(angle) end
 
@@ -5429,7 +5452,7 @@ function Transform.rotate(angle) end
 ---@param sx number The relative scale factor along the x-axis.
 ---@param sy number The relative scale factor along the y-axis.
 --- returns:
----     Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
+---   Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
 ---@return Transform
 function Transform.scale(sx, sy) end
 
@@ -5441,7 +5464,7 @@ function Transform.scale(sx, sy) end
 ---@param ... number Additional matrix elements.
 ---@param e4_4 number The fourth column of the fourth row of the matrix.
 --- returns:
----     Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
+---   Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
 ---@return Transform
 function Transform.setMatrix(e1_1, e1_2, ..., e4_4) end
 
@@ -5451,21 +5474,21 @@ function Transform.setMatrix(e1_1, e1_2, ..., e4_4) end
 ---@param ... number Additional matrix elements.
 ---@param e4_4 number The fourth column of the fourth row of the matrix.
 --- returns:
----     Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
+---   Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
 ---@return Transform
 function Transform.setMatrix(layout, e1_1, e1_2, ..., e4_4) end
 
 ---@param layout MatrixLayout How to interpret the matrix element arguments (row-major or column-major).
 ---@param matrix table A flat table containing the 16 matrix elements.
 --- returns:
----     Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
+---   Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
 ---@return Transform
 function Transform.setMatrix(layout, matrix) end
 
 ---@param layout MatrixLayout How to interpret the matrix element arguments (row-major or column-major).
 ---@param matrix table A table of 4 tables, with each sub-table containing 4 matrix elements.
 --- returns:
----     Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
+---   Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
 ---@return Transform
 function Transform.setMatrix(layout, matrix) end
 
@@ -5482,7 +5505,7 @@ function Transform.setMatrix(layout, matrix) end
 ---@param kx number Shearing / skew factor on the x-axis.
 ---@param ky number Shearing / skew factor on the y-axis.
 --- returns:
----     Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
+---   Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
 ---@return Transform
 function Transform.setTransformation(x, y, angle, sx, sy, ox, oy, kx, ky) end
 
@@ -5492,7 +5515,7 @@ function Transform.setTransformation(x, y, angle, sx, sy, ox, oy, kx, ky) end
 ---@param kx number The shear factor along the x-axis.
 ---@param ky number The shear factor along the y-axis.
 --- returns:
----     Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
+---   Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
 ---@return Transform
 function Transform.shear(kx, ky) end
 
@@ -5504,8 +5527,8 @@ function Transform.shear(kx, ky) end
 ---@param globalX number The x component of the position in global coordinates.
 ---@param globalY number The y component of the position in global coordinates.
 --- returns:
----     number localX - The x component of the position with the transform applied.
----     number localY - The y component of the position with the transform applied.
+---   number localX - The x component of the position with the transform applied.
+---   number localY - The y component of the position with the transform applied.
 ---@return number, number
 function Transform.transformPoint(globalX, globalY) end
 
@@ -5515,7 +5538,7 @@ function Transform.transformPoint(globalX, globalY) end
 ---@param dx number The relative translation along the x-axis.
 ---@param dy number The relative translation along the y-axis.
 --- returns:
----     Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
+---   Transform transform - The Transform object the method was called on. Allows easily chaining Transform methods.
 ---@return Transform
 function Transform.translate(dx, dy) end
 
@@ -5529,7 +5552,7 @@ love.mouse = mouse
 --- Gets the current Cursor.
 ---
 --- returns:
----     Cursor cursor - The current cursor, or nil if no cursor is set.
+---   Cursor cursor - The current cursor, or nil if no cursor is set.
 ---@return Cursor
 function mouse.getCursor() end
 
@@ -5537,8 +5560,8 @@ function mouse.getCursor() end
 --- Returns the current position of the mouse.
 ---
 --- returns:
----     number x - The position of the mouse along the x-axis.
----     number y - The position of the mouse along the y-axis.
+---   number x - The position of the mouse along the x-axis.
+---   number y - The position of the mouse along the y-axis.
 ---@return number, number
 function mouse.getPosition() end
 
@@ -5550,7 +5573,7 @@ function mouse.getPosition() end
 --- The reported position of the mouse is not updated while relative mode is enabled, even when relative mouse motion events are generated.
 ---
 --- returns:
----     boolean enabled - True if relative mode is enabled, false if it's disabled.
+---   boolean enabled - True if relative mode is enabled, false if it's disabled.
 ---@return boolean
 function mouse.getRelativeMode() end
 
@@ -5561,7 +5584,7 @@ function mouse.getRelativeMode() end
 ---
 ---@param ctype CursorType The type of system cursor to get.
 --- returns:
----     Cursor cursor - The Cursor object representing the system cursor type.
+---   Cursor cursor - The Cursor object representing the system cursor type.
 ---@return Cursor
 function mouse.getSystemCursor(ctype) end
 
@@ -5569,7 +5592,7 @@ function mouse.getSystemCursor(ctype) end
 --- Returns the current x position of the mouse.
 ---
 --- returns:
----     number x - The position of the mouse along the x-axis.
+---   number x - The position of the mouse along the x-axis.
 ---@return number
 function mouse.getX() end
 
@@ -5577,7 +5600,7 @@ function mouse.getX() end
 --- Returns the current y position of the mouse.
 ---
 --- returns:
----     number y - The position of the mouse along the y-axis.
+---   number y - The position of the mouse along the y-axis.
 ---@return number
 function mouse.getY() end
 
@@ -5587,7 +5610,7 @@ function mouse.getY() end
 --- If it isn't supported, calling love.mouse.newCursor and love.mouse.getSystemCursor will cause an error. Mobile devices do not support cursors.
 ---
 --- returns:
----     boolean hascursor - Whether the system has cursor functionality.
+---   boolean hascursor - Whether the system has cursor functionality.
 ---@return boolean
 function mouse.hasCursor() end
 
@@ -5597,7 +5620,7 @@ function mouse.hasCursor() end
 --- If it isn't supported, calling love.mouse.newCursor and love.mouse.getSystemCursor will cause an error. Mobile devices do not support cursors.
 ---
 --- returns:
----     boolean supported - Whether the system has cursor functionality.
+---   boolean supported - Whether the system has cursor functionality.
 ---@return boolean
 function mouse.isCursorSupported() end
 
@@ -5607,7 +5630,7 @@ function mouse.isCursorSupported() end
 ---@param button number The index of a button to check. 1 is the primary mouse button, 2 is the secondary mouse button, etc.
 ---@param ... number Additional button numbers to check.
 --- returns:
----     boolean down - True if the specified button is down.
+---   boolean down - True if the specified button is down.
 ---@return boolean
 function mouse.isDown(button, ...) end
 
@@ -5615,7 +5638,7 @@ function mouse.isDown(button, ...) end
 --- Checks if the mouse is grabbed.
 ---
 --- returns:
----     boolean grabbed - True if the cursor is grabbed, false if it is not.
+---   boolean grabbed - True if the cursor is grabbed, false if it is not.
 ---@return boolean
 function mouse.isGrabbed() end
 
@@ -5623,7 +5646,7 @@ function mouse.isGrabbed() end
 --- Checks if the cursor is visible.
 ---
 --- returns:
----     boolean visible - True if the cursor to visible, false if the cursor is hidden.
+---   boolean visible - True if the cursor to visible, false if the cursor is hidden.
 ---@return boolean
 function mouse.isVisible() end
 
@@ -5638,7 +5661,7 @@ function mouse.isVisible() end
 ---@param hotx number The x-coordinate in the ImageData of the cursor's hot spot.
 ---@param hoty number The y-coordinate in the ImageData of the cursor's hot spot.
 --- returns:
----     Cursor cursor - The new Cursor object.
+---   Cursor cursor - The new Cursor object.
 ---@return Cursor
 function mouse.newCursor(imageData, hotx, hoty) end
 
@@ -5646,7 +5669,7 @@ function mouse.newCursor(imageData, hotx, hoty) end
 ---@param hotx number The x-coordinate in the ImageData of the cursor's hot spot.
 ---@param hoty number The y-coordinate in the ImageData of the cursor's hot spot.
 --- returns:
----     Cursor cursor - The new Cursor object.
+---   Cursor cursor - The new Cursor object.
 ---@return Cursor
 function mouse.newCursor(filepath, hotx, hoty) end
 
@@ -5654,7 +5677,7 @@ function mouse.newCursor(filepath, hotx, hoty) end
 ---@param hotx number The x-coordinate in the ImageData of the cursor's hot spot.
 ---@param hoty number The y-coordinate in the ImageData of the cursor's hot spot.
 --- returns:
----     Cursor cursor - The new Cursor object.
+---   Cursor cursor - The new Cursor object.
 ---@return Cursor
 function mouse.newCursor(fileData, hotx, hoty) end
 
@@ -5718,7 +5741,7 @@ Cursor = {}
 --- Gets the type of the Cursor.
 ---
 --- returns:
----     CursorType cursortype - The type of the Cursor.
+---   CursorType cursortype - The type of the Cursor.
 ---@return CursorType
 function Cursor.getType() end
 
@@ -5734,11 +5757,11 @@ love.physics = physics
 ---@param fixture1 Fixture The first fixture.
 ---@param fixture2 Fixture The second fixture.
 --- returns:
----     number distance - The distance of the two points.
----     number x1 - The x-coordinate of the first point.
----     number y1 - The y-coordinate of the first point.
----     number x2 - The x-coordinate of the second point.
----     number y2 - The y-coordinate of the second point.
+---   number distance - The distance of the two points.
+---   number x1 - The x-coordinate of the first point.
+---   number y1 - The y-coordinate of the first point.
+---   number x2 - The x-coordinate of the second point.
+---   number y2 - The y-coordinate of the second point.
 ---@return number, number, number, number, number
 function physics.getDistance(fixture1, fixture2) end
 
@@ -5750,7 +5773,7 @@ function physics.getDistance(fixture1, fixture2) end
 --- This is important because the physics in Box2D is tuned to work well for objects of size 0.1m up to 10m. All physics coordinates are divided by this number for the physics calculations.
 ---
 --- returns:
----     number scale - The size of 1 meter in pixels.
+---   number scale - The size of 1 meter in pixels.
 ---@return number
 function physics.getMeter() end
 
@@ -5766,7 +5789,7 @@ function physics.getMeter() end
 ---@param y number The y position of the body.
 ---@param type BodyType The type of the body.
 --- returns:
----     Body body - A new body.
+---   Body body - A new body.
 ---@return Body
 function physics.newBody(world, x, y, type) end
 
@@ -5780,14 +5803,14 @@ function physics.newBody(world, x, y, type) end
 ---@param y2 number The y position of the second point.
 ---@param ... number Additional point positions.
 --- returns:
----     ChainShape shape - The new shape.
+---   ChainShape shape - The new shape.
 ---@return ChainShape
 function physics.newChainShape(loop, x1, y1, x2, y2, ...) end
 
 ---@param loop boolean If the chain should loop back to the first point.
 ---@param points table A list of points to construct the ChainShape, in the form of {x1, y1, x2, y2, ...}.
 --- returns:
----     ChainShape shape - The new shape.
+---   ChainShape shape - The new shape.
 ---@return ChainShape
 function physics.newChainShape(loop, points) end
 
@@ -5796,7 +5819,7 @@ function physics.newChainShape(loop, points) end
 ---
 ---@param radius number The radius of the circle.
 --- returns:
----     CircleShape shape - The new shape.
+---   CircleShape shape - The new shape.
 ---@return CircleShape
 function physics.newCircleShape(radius) end
 
@@ -5804,7 +5827,7 @@ function physics.newCircleShape(radius) end
 ---@param y number The y offset of the circle.
 ---@param radius number The radius of the circle.
 --- returns:
----     CircleShape shape - The new shape.
+---   CircleShape shape - The new shape.
 ---@return CircleShape
 function physics.newCircleShape(x, y, radius) end
 
@@ -5821,7 +5844,7 @@ function physics.newCircleShape(x, y, radius) end
 ---@param y2 number The y position of the second anchor point (world space).
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- returns:
----     DistanceJoint joint - The new distance joint.
+---   DistanceJoint joint - The new distance joint.
 ---@return DistanceJoint
 function physics.newDistanceJoint(body1, body2, x1, y1, x2, y2, collideConnected) end
 
@@ -5833,7 +5856,7 @@ function physics.newDistanceJoint(body1, body2, x1, y1, x2, y2, collideConnected
 ---@param x2 number The x position of the second point.
 ---@param y2 number The y position of the second point.
 --- returns:
----     EdgeShape shape - The new shape.
+---   EdgeShape shape - The new shape.
 ---@return EdgeShape
 function physics.newEdgeShape(x1, y1, x2, y2) end
 
@@ -5844,7 +5867,7 @@ function physics.newEdgeShape(x1, y1, x2, y2) end
 ---@param shape Shape The shape of the fixture.
 ---@param density number The density of the fixture.
 --- returns:
----     Fixture fixture - The new fixture.
+---   Fixture fixture - The new fixture.
 ---@return Fixture
 function physics.newFixture(body, shape, density) end
 
@@ -5857,7 +5880,7 @@ function physics.newFixture(body, shape, density) end
 ---@param y number The y position of the anchor point.
 ---@param collideConnected boolean Specifies whether the two bodies should collide with eachother.
 --- returns:
----     FrictionJoint joint - The new FrictionJoint.
+---   FrictionJoint joint - The new FrictionJoint.
 ---@return FrictionJoint
 function physics.newFrictionJoint(body1, body2, x, y, collideConnected) end
 
@@ -5873,7 +5896,7 @@ function physics.newFrictionJoint(body1, body2, x, y, collideConnected) end
 ---@param ratio number The gear ratio.
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- returns:
----     GearJoint joint - The new gear joint.
+---   GearJoint joint - The new gear joint.
 ---@return GearJoint
 function physics.newGearJoint(joint1, joint2, ratio, collideConnected) end
 
@@ -5886,7 +5909,7 @@ function physics.newGearJoint(joint1, joint2, ratio, collideConnected) end
 ---@param body2 Body The second body to attach to the joint.
 ---@param correctionFactor number The joint's initial position correction factor, in the range of [0, 1].
 --- returns:
----     MotorJoint joint - The new MotorJoint.
+---   MotorJoint joint - The new MotorJoint.
 ---@return MotorJoint
 function physics.newMotorJoint(body1, body2, correctionFactor) end
 
@@ -5895,7 +5918,7 @@ function physics.newMotorJoint(body1, body2, correctionFactor) end
 ---@param correctionFactor number The joint's initial position correction factor, in the range of [0, 1].
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- returns:
----     MotorJoint joint - The new MotorJoint.
+---   MotorJoint joint - The new MotorJoint.
 ---@return MotorJoint
 function physics.newMotorJoint(body1, body2, correctionFactor, collideConnected) end
 
@@ -5910,7 +5933,7 @@ function physics.newMotorJoint(body1, body2, correctionFactor, collideConnected)
 ---@param x number The x position of the connecting point.
 ---@param y number The y position of the connecting point.
 --- returns:
----     MouseJoint joint - The new mouse joint.
+---   MouseJoint joint - The new mouse joint.
 ---@return MouseJoint
 function physics.newMouseJoint(body, x, y) end
 
@@ -5925,13 +5948,13 @@ function physics.newMouseJoint(body, x, y) end
 ---@param y2 number The position of second point on the y-axis.
 ---@param ... number You can continue passing more point positions to create the PolygonShape.
 --- returns:
----     PolygonShape shape - A new PolygonShape.
+---   PolygonShape shape - A new PolygonShape.
 ---@return PolygonShape
 function physics.newPolygonShape(x1, y1, x2, y2, ...) end
 
 ---@param vertices table A list of vertices to construct the polygon, in the form of {x1, y1, x2, y2, x3, y3, ...}.
 --- returns:
----     PolygonShape shape - A new PolygonShape.
+---   PolygonShape shape - A new PolygonShape.
 ---@return PolygonShape
 function physics.newPolygonShape(vertices) end
 
@@ -5948,7 +5971,7 @@ function physics.newPolygonShape(vertices) end
 ---@param ay number The y coordinate of the axis unit vector.
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- returns:
----     PrismaticJoint joint - The new prismatic joint.
+---   PrismaticJoint joint - The new prismatic joint.
 ---@return PrismaticJoint
 function physics.newPrismaticJoint(body1, body2, x, y, ax, ay, collideConnected) end
 
@@ -5962,7 +5985,7 @@ function physics.newPrismaticJoint(body1, body2, x, y, ax, ay, collideConnected)
 ---@param ay number The y coordinate of the axis unit vector.
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- returns:
----     PrismaticJoint joint - The new prismatic joint.
+---   PrismaticJoint joint - The new prismatic joint.
 ---@return PrismaticJoint
 function physics.newPrismaticJoint(body1, body2, x1, y1, x2, y2, ax, ay, collideConnected) end
 
@@ -5977,7 +6000,7 @@ function physics.newPrismaticJoint(body1, body2, x1, y1, x2, y2, ax, ay, collide
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 ---@param referenceAngle number The reference angle between body1 and body2, in radians.
 --- returns:
----     PrismaticJoint joint - The new prismatic joint.
+---   PrismaticJoint joint - The new prismatic joint.
 ---@return PrismaticJoint
 function physics.newPrismaticJoint(body1, body2, x1, y1, x2, y2, ax, ay, collideConnected, referenceAngle) end
 
@@ -6001,7 +6024,7 @@ function physics.newPrismaticJoint(body1, body2, x1, y1, x2, y2, ax, ay, collide
 ---@param ratio number The joint ratio.
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- returns:
----     PulleyJoint joint - The new pulley joint.
+---   PulleyJoint joint - The new pulley joint.
 ---@return PulleyJoint
 function physics.newPulleyJoint(body1, body2, gx1, gy1, gx2, gy2, x1, y1, x2, y2, ratio, collideConnected) end
 
@@ -6013,7 +6036,7 @@ function physics.newPulleyJoint(body1, body2, gx1, gy1, gx2, gy2, x1, y1, x2, y2
 ---@param width number The width of the rectangle.
 ---@param height number The height of the rectangle.
 --- returns:
----     PolygonShape shape - A new PolygonShape.
+---   PolygonShape shape - A new PolygonShape.
 ---@return PolygonShape
 function physics.newRectangleShape(width, height) end
 
@@ -6023,7 +6046,7 @@ function physics.newRectangleShape(width, height) end
 ---@param height number The height of the rectangle.
 ---@param angle number The initial angle of the rectangle.
 --- returns:
----     PolygonShape shape - A new PolygonShape.
+---   PolygonShape shape - A new PolygonShape.
 ---@return PolygonShape
 function physics.newRectangleShape(x, y, width, height, angle) end
 
@@ -6038,7 +6061,7 @@ function physics.newRectangleShape(x, y, width, height, angle) end
 ---@param y number The y position of the connecting point.
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- returns:
----     RevoluteJoint joint - The new revolute joint.
+---   RevoluteJoint joint - The new revolute joint.
 ---@return RevoluteJoint
 function physics.newRevoluteJoint(body1, body2, x, y, collideConnected) end
 
@@ -6051,7 +6074,7 @@ function physics.newRevoluteJoint(body1, body2, x, y, collideConnected) end
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 ---@param referenceAngle number Specifies whether the two bodies should collide with each other.
 --- returns:
----     RevoluteJoint joint - The new revolute joint.
+---   RevoluteJoint joint - The new revolute joint.
 ---@return RevoluteJoint
 function physics.newRevoluteJoint(body1, body2, x1, y1, x2, y2, collideConnected, referenceAngle) end
 
@@ -6067,7 +6090,7 @@ function physics.newRevoluteJoint(body1, body2, x1, y1, x2, y2, collideConnected
 ---@param maxLength number The maximum distance for the bodies.
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- returns:
----     RopeJoint joint - The new RopeJoint.
+---   RopeJoint joint - The new RopeJoint.
 ---@return RopeJoint
 function physics.newRopeJoint(body1, body2, x1, y1, x2, y2, maxLength, collideConnected) end
 
@@ -6080,7 +6103,7 @@ function physics.newRopeJoint(body1, body2, x1, y1, x2, y2, maxLength, collideCo
 ---@param y number The y position of the anchor point (world space).
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- returns:
----     WeldJoint joint - The new WeldJoint.
+---   WeldJoint joint - The new WeldJoint.
 ---@return WeldJoint
 function physics.newWeldJoint(body1, body2, x, y, collideConnected) end
 
@@ -6092,7 +6115,7 @@ function physics.newWeldJoint(body1, body2, x, y, collideConnected) end
 ---@param y2 number The y position of the second anchor point (world space).
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- returns:
----     WeldJoint joint - The new WeldJoint.
+---   WeldJoint joint - The new WeldJoint.
 ---@return WeldJoint
 function physics.newWeldJoint(body1, body2, x1, y1, x2, y2, collideConnected) end
 
@@ -6105,7 +6128,7 @@ function physics.newWeldJoint(body1, body2, x1, y1, x2, y2, collideConnected) en
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 ---@param referenceAngle number The reference angle between body1 and body2, in radians.
 --- returns:
----     WeldJoint joint - The new WeldJoint.
+---   WeldJoint joint - The new WeldJoint.
 ---@return WeldJoint
 function physics.newWeldJoint(body1, body2, x1, y1, x2, y2, collideConnected, referenceAngle) end
 
@@ -6120,7 +6143,7 @@ function physics.newWeldJoint(body1, body2, x1, y1, x2, y2, collideConnected, re
 ---@param ay number The y position of the axis unit vector.
 ---@param collideConnected boolean Specifies whether the two bodies should collide with each other.
 --- returns:
----     WheelJoint joint - The new WheelJoint.
+---   WheelJoint joint - The new WheelJoint.
 ---@return WheelJoint
 function physics.newWheelJoint(body1, body2, x, y, ax, ay, collideConnected) end
 
@@ -6131,7 +6154,7 @@ function physics.newWheelJoint(body1, body2, x, y, ax, ay, collideConnected) end
 ---@param yg number The y component of gravity.
 ---@param sleep boolean Whether the bodies in this world are allowed to sleep.
 --- returns:
----     World world - A brave new World.
+---   World world - A brave new World.
 ---@return World
 function physics.newWorld(xg, yg, sleep) end
 
@@ -6219,7 +6242,7 @@ function Body.destroy() end
 --- A value of 0 radians will mean "looking to the right". Although radians increase counter-clockwise, the y-axis points down so it becomes clockwise from our point of view.
 ---
 --- returns:
----     number angle - The angle in radians.
+---   number angle - The angle in radians.
 ---@return number
 function Body.getAngle() end
 
@@ -6233,7 +6256,7 @@ function Body.getAngle() end
 --- Damping parameters should be between 0 and infinity, with 0 meaning no damping, and infinity meaning full damping. Normally you will use a damping value between 0 and 0.1.
 ---
 --- returns:
----     number damping - The value of the angular damping.
+---   number damping - The value of the angular damping.
 ---@return number
 function Body.getAngularDamping() end
 
@@ -6247,7 +6270,7 @@ function Body.getAngularDamping() end
 --- If you need the rate of change of position over time, use Body:getLinearVelocity.
 ---
 --- returns:
----     number w - The angular velocity in radians/second.
+---   number w - The angular velocity in radians/second.
 ---@return number
 function Body.getAngularVelocity() end
 
@@ -6255,7 +6278,7 @@ function Body.getAngularVelocity() end
 --- Gets a list of all Contacts attached to the Body.
 ---
 --- returns:
----     table contacts - A list with all contacts associated with the Body.
+---   table contacts - A list with all contacts associated with the Body.
 ---@return table
 function Body.getContactList() end
 
@@ -6263,7 +6286,7 @@ function Body.getContactList() end
 --- Returns a table with all fixtures.
 ---
 --- returns:
----     table fixtures - A sequence with all fixtures.
+---   table fixtures - A sequence with all fixtures.
 ---@return table
 function Body.getFixtureList() end
 
@@ -6271,7 +6294,7 @@ function Body.getFixtureList() end
 --- Returns the gravity scale factor.
 ---
 --- returns:
----     number scale - The gravity scale factor.
+---   number scale - The gravity scale factor.
 ---@return number
 function Body.getGravityScale() end
 
@@ -6281,7 +6304,7 @@ function Body.getGravityScale() end
 --- The rotational inertia is how hard is it to make the body spin.
 ---
 --- returns:
----     number inertia - The rotational inertial of the body.
+---   number inertia - The rotational inertial of the body.
 ---@return number
 function Body.getInertia() end
 
@@ -6289,7 +6312,7 @@ function Body.getInertia() end
 --- Returns a table containing the Joints attached to this Body.
 ---
 --- returns:
----     table joints - A sequence with the Joints attached to the Body.
+---   table joints - A sequence with the Joints attached to the Body.
 ---@return table
 function Body.getJointList() end
 
@@ -6301,7 +6324,7 @@ function Body.getJointList() end
 --- Damping is not the same as friction - they can be modelled together. However, only damping is provided by Box2D (and LÖVE).
 ---
 --- returns:
----     number damping - The value of the linear damping.
+---   number damping - The value of the linear damping.
 ---@return number
 function Body.getLinearDamping() end
 
@@ -6317,8 +6340,8 @@ function Body.getLinearDamping() end
 --- Body:getLinearVelocityFromWorldPoint allows you to specify the point in world coordinates.
 ---
 --- returns:
----     number x - The x component of the velocity vector.
----     number y - The y component of the velocity vector.
+---   number x - The x component of the velocity vector.
+---   number y - The y component of the velocity vector.
 ---@return number, number
 function Body.getLinearVelocity() end
 
@@ -6332,8 +6355,8 @@ function Body.getLinearVelocity() end
 ---@param x number The x position to measure velocity.
 ---@param y number The y position to measure velocity.
 --- returns:
----     number vx - The x component of velocity at point (x,y).
----     number vy - The y component of velocity at point (x,y).
+---   number vx - The x component of velocity at point (x,y).
+---   number vy - The y component of velocity at point (x,y).
 ---@return number, number
 function Body.getLinearVelocityFromLocalPoint(x, y) end
 
@@ -6347,8 +6370,8 @@ function Body.getLinearVelocityFromLocalPoint(x, y) end
 ---@param x number The x position to measure velocity.
 ---@param y number The y position to measure velocity.
 --- returns:
----     number vx - The x component of velocity at point (x,y).
----     number vy - The y component of velocity at point (x,y).
+---   number vx - The x component of velocity at point (x,y).
+---   number vy - The y component of velocity at point (x,y).
 ---@return number, number
 function Body.getLinearVelocityFromWorldPoint(x, y) end
 
@@ -6358,8 +6381,8 @@ function Body.getLinearVelocityFromWorldPoint(x, y) end
 --- Use Body:getWorldCenter to get the center of mass in world coordinates.
 ---
 --- returns:
----     number x - The x coordinate of the center of mass.
----     number y - The y coordinate of the center of mass.
+---   number x - The x coordinate of the center of mass.
+---   number y - The y coordinate of the center of mass.
 ---@return number, number
 function Body.getLocalCenter() end
 
@@ -6369,8 +6392,8 @@ function Body.getLocalCenter() end
 ---@param worldX number The x position in world coordinates.
 ---@param worldY number The y position in world coordinates.
 --- returns:
----     number localX - The x position in local coordinates.
----     number localY - The y position in local coordinates.
+---   number localX - The x position in local coordinates.
+---   number localY - The y position in local coordinates.
 ---@return number, number
 function Body.getLocalPoint(worldX, worldY) end
 
@@ -6380,8 +6403,8 @@ function Body.getLocalPoint(worldX, worldY) end
 ---@param worldX number The vector x component in world coordinates.
 ---@param worldY number The vector y component in world coordinates.
 --- returns:
----     number localX - The vector x component in local coordinates.
----     number localY - The vector y component in local coordinates.
+---   number localX - The vector x component in local coordinates.
+---   number localY - The vector y component in local coordinates.
 ---@return number, number
 function Body.getLocalVector(worldX, worldY) end
 
@@ -6389,7 +6412,7 @@ function Body.getLocalVector(worldX, worldY) end
 --- Get the mass of the body.
 ---
 --- returns:
----     number mass - The mass of the body (in kilograms).
+---   number mass - The mass of the body (in kilograms).
 ---@return number
 function Body.getMass() end
 
@@ -6397,10 +6420,10 @@ function Body.getMass() end
 --- Returns the mass, its center, and the rotational inertia.
 ---
 --- returns:
----     number x - The x position of the center of mass.
----     number y - The y position of the center of mass.
----     number mass - The mass of the body.
----     number inertia - The rotational inertia.
+---   number x - The x position of the center of mass.
+---   number y - The y position of the center of mass.
+---   number mass - The mass of the body.
+---   number inertia - The rotational inertia.
 ---@return number, number, number, number
 function Body.getMassData() end
 
@@ -6410,8 +6433,8 @@ function Body.getMassData() end
 --- Note that this may not be the center of mass of the body.
 ---
 --- returns:
----     number x - The x position.
----     number y - The y position.
+---   number x - The x position.
+---   number y - The y position.
 ---@return number, number
 function Body.getPosition() end
 
@@ -6419,7 +6442,7 @@ function Body.getPosition() end
 --- Returns the type of the body.
 ---
 --- returns:
----     BodyType type - The body type.
+---   BodyType type - The body type.
 ---@return BodyType
 function Body.getType() end
 
@@ -6427,7 +6450,7 @@ function Body.getType() end
 --- Returns the Lua value associated with this Body.
 ---
 --- returns:
----     any value - The Lua value associated with the Body.
+---   any value - The Lua value associated with the Body.
 ---@return any
 function Body.getUserData() end
 
@@ -6435,7 +6458,7 @@ function Body.getUserData() end
 --- Gets the World the body lives in.
 ---
 --- returns:
----     World world - The world the body lives in.
+---   World world - The world the body lives in.
 ---@return World
 function Body.getWorld() end
 
@@ -6445,8 +6468,8 @@ function Body.getWorld() end
 --- Use Body:getLocalCenter to get the center of mass in local coordinates.
 ---
 --- returns:
----     number x - The x coordinate of the center of mass.
----     number y - The y coordinate of the center of mass.
+---   number x - The x coordinate of the center of mass.
+---   number y - The y coordinate of the center of mass.
 ---@return number, number
 function Body.getWorldCenter() end
 
@@ -6456,8 +6479,8 @@ function Body.getWorldCenter() end
 ---@param localX number The x position in local coordinates.
 ---@param localY number The y position in local coordinates.
 --- returns:
----     number worldX - The x position in world coordinates.
----     number worldY - The y position in world coordinates.
+---   number worldX - The x position in world coordinates.
+---   number worldY - The y position in world coordinates.
 ---@return number, number
 function Body.getWorldPoint(localX, localY) end
 
@@ -6470,11 +6493,11 @@ function Body.getWorldPoint(localX, localY) end
 ---@param y2 number The y position of the second point.
 ---@param ... number More x and y points.
 --- returns:
----     number x1 - The transformed x position of the first point.
----     number y1 - The transformed y position of the first point.
----     number x2 - The transformed x position of the second point.
----     number y2 - The transformed y position of the second point.
----     number ... - The transformed x and y positions of additional points.
+---   number x1 - The transformed x position of the first point.
+---   number y1 - The transformed y position of the first point.
+---   number x2 - The transformed x position of the second point.
+---   number y2 - The transformed y position of the second point.
+---   number ... - The transformed x and y positions of additional points.
 ---@return number, number, number, number, number
 function Body.getWorldPoints(x1, y1, x2, y2, ...) end
 
@@ -6484,8 +6507,8 @@ function Body.getWorldPoints(x1, y1, x2, y2, ...) end
 ---@param localX number The vector x component in local coordinates.
 ---@param localY number The vector y component in local coordinates.
 --- returns:
----     number worldX - The vector x component in world coordinates.
----     number worldY - The vector y component in world coordinates.
+---   number worldX - The vector x component in world coordinates.
+---   number worldY - The vector y component in world coordinates.
 ---@return number, number
 function Body.getWorldVector(localX, localY) end
 
@@ -6493,7 +6516,7 @@ function Body.getWorldVector(localX, localY) end
 --- Get the x position of the body in world coordinates.
 ---
 --- returns:
----     number x - The x position in world coordinates.
+---   number x - The x position in world coordinates.
 ---@return number
 function Body.getX() end
 
@@ -6501,7 +6524,7 @@ function Body.getX() end
 --- Get the y position of the body in world coordinates.
 ---
 --- returns:
----     number y - The y position in world coordinates.
+---   number y - The y position in world coordinates.
 ---@return number
 function Body.getY() end
 
@@ -6509,7 +6532,7 @@ function Body.getY() end
 --- Returns whether the body is actively used in the simulation.
 ---
 --- returns:
----     boolean status - True if the body is active or false if not.
+---   boolean status - True if the body is active or false if not.
 ---@return boolean
 function Body.isActive() end
 
@@ -6517,7 +6540,7 @@ function Body.isActive() end
 --- Returns the sleep status of the body.
 ---
 --- returns:
----     boolean status - True if the body is awake or false if not.
+---   boolean status - True if the body is awake or false if not.
 ---@return boolean
 function Body.isAwake() end
 
@@ -6535,7 +6558,7 @@ function Body.isAwake() end
 --- Note that static bodies (with zero mass) always use CCD, so your walls will not let a fast moving body pass through even if it is not a bullet.
 ---
 --- returns:
----     boolean status - The bullet status of the body.
+---   boolean status - The bullet status of the body.
 ---@return boolean
 function Body.isBullet() end
 
@@ -6543,7 +6566,7 @@ function Body.isBullet() end
 --- Gets whether the Body is destroyed. Destroyed bodies cannot be used.
 ---
 --- returns:
----     boolean destroyed - Whether the Body is destroyed.
+---   boolean destroyed - Whether the Body is destroyed.
 ---@return boolean
 function Body.isDestroyed() end
 
@@ -6551,7 +6574,7 @@ function Body.isDestroyed() end
 --- Returns whether the body rotation is locked.
 ---
 --- returns:
----     boolean fixed - True if the body's rotation is locked or false if not.
+---   boolean fixed - True if the body's rotation is locked or false if not.
 ---@return boolean
 function Body.isFixedRotation() end
 
@@ -6559,7 +6582,7 @@ function Body.isFixedRotation() end
 --- Returns the sleeping behaviour of the body.
 ---
 --- returns:
----     boolean status - True if the body is allowed to sleep or false if not.
+---   boolean status - True if the body is allowed to sleep or false if not.
 ---@return boolean
 function Body.isSleepingAllowed() end
 
@@ -6737,7 +6760,7 @@ ChainShape = {}
 ---
 ---@param index number The index of the child.
 --- returns:
----     number EdgeShape - The child as an EdgeShape.
+---   number EdgeShape - The child as an EdgeShape.
 ---@return number
 function ChainShape.getChildEdge(index) end
 
@@ -6755,8 +6778,8 @@ function ChainShape.getNextVertex(x, y) end
 ---
 ---@param index number The index of the point to return.
 --- returns:
----     number x - The x-coordinate of the point.
----     number y - The y-coordinate of the point.
+---   number x - The x-coordinate of the point.
+---   number y - The y-coordinate of the point.
 ---@return number, number
 function ChainShape.getPoint(index) end
 
@@ -6764,11 +6787,11 @@ function ChainShape.getPoint(index) end
 --- Returns all points of the shape.
 ---
 --- returns:
----     number x1 - The x-coordinate of the first point.
----     number y1 - The y-coordinate of the first point.
----     number x2 - The x-coordinate of the second point.
----     number y2 - The y-coordinate of the second point.
----     number ... - Additional x and y values.
+---   number x1 - The x-coordinate of the first point.
+---   number y1 - The y-coordinate of the first point.
+---   number x2 - The x-coordinate of the second point.
+---   number y2 - The y-coordinate of the second point.
+---   number ... - Additional x and y values.
 ---@return number, number, number, number, number
 function ChainShape.getPoints() end
 
@@ -6778,8 +6801,8 @@ function ChainShape.getPoints() end
 --- Setting next and previous ChainShape vertices can help prevent unwanted collisions when a flat shape slides along the edge and moves over to the new shape.
 ---
 --- returns:
----     number x - The x-component of the vertex, or nil if ChainShape:setNextVertex hasn't been called.
----     number y - The y-component of the vertex, or nil if ChainShape:setNextVertex hasn't been called.
+---   number x - The x-component of the vertex, or nil if ChainShape:setNextVertex hasn't been called.
+---   number y - The y-component of the vertex, or nil if ChainShape:setNextVertex hasn't been called.
 ---@return number, number
 function ChainShape.getPreviousVertex() end
 
@@ -6787,7 +6810,7 @@ function ChainShape.getPreviousVertex() end
 --- Returns the number of vertices the shape has.
 ---
 --- returns:
----     number count - The number of vertices.
+---   number count - The number of vertices.
 ---@return number
 function ChainShape.getVertexCount() end
 
@@ -6818,8 +6841,8 @@ CircleShape = {}
 --- Gets the center point of the circle shape.
 ---
 --- returns:
----     number x - The x-component of the center point of the circle.
----     number y - The y-component of the center point of the circle.
+---   number x - The x-component of the center point of the circle.
+---   number y - The y-component of the center point of the circle.
 ---@return number, number
 function CircleShape.getPoint() end
 
@@ -6827,7 +6850,7 @@ function CircleShape.getPoint() end
 --- Gets the radius of the circle shape.
 ---
 --- returns:
----     number radius - The radius of the circle.
+---   number radius - The radius of the circle.
 ---@return number
 function CircleShape.getRadius() end
 
@@ -6853,8 +6876,8 @@ Contact = {}
 --- Gets the two Fixtures that hold the shapes that are in contact.
 ---
 --- returns:
----     Fixture fixtureA - The first Fixture.
----     Fixture fixtureB - The second Fixture.
+---   Fixture fixtureA - The first Fixture.
+---   Fixture fixtureB - The second Fixture.
 ---@return Fixture, Fixture
 function Contact.getFixtures() end
 
@@ -6862,7 +6885,7 @@ function Contact.getFixtures() end
 --- Get the friction between two shapes that are in contact.
 ---
 --- returns:
----     number friction - The friction of the contact.
+---   number friction - The friction of the contact.
 ---@return number
 function Contact.getFriction() end
 
@@ -6872,8 +6895,8 @@ function Contact.getFriction() end
 --- This function returns the coordinates of a unit vector that points from the first shape to the second.
 ---
 --- returns:
----     number nx - The x component of the normal vector.
----     number ny - The y component of the normal vector.
+---   number nx - The x component of the normal vector.
+---   number ny - The y component of the normal vector.
 ---@return number, number
 function Contact.getNormal() end
 
@@ -6881,10 +6904,10 @@ function Contact.getNormal() end
 --- Returns the contact points of the two colliding fixtures. There can be one or two points.
 ---
 --- returns:
----     number x1 - The x coordinate of the first contact point. 
----     number y1 - The y coordinate of the first contact point.
----     number x2 - The x coordinate of the second contact point.
----     number y2 - The y coordinate of the second contact point.
+---   number x1 - The x coordinate of the first contact point. 
+---   number y1 - The y coordinate of the first contact point.
+---   number x2 - The x coordinate of the second contact point.
+---   number y2 - The y coordinate of the second contact point.
 ---@return number, number, number, number
 function Contact.getPositions() end
 
@@ -6892,7 +6915,7 @@ function Contact.getPositions() end
 --- Get the restitution between two shapes that are in contact.
 ---
 --- returns:
----     number restitution - The restitution between the two shapes.
+---   number restitution - The restitution between the two shapes.
 ---@return number
 function Contact.getRestitution() end
 
@@ -6900,7 +6923,7 @@ function Contact.getRestitution() end
 --- Returns whether the contact is enabled. The collision will be ignored if a contact gets disabled in the preSolve callback.
 ---
 --- returns:
----     boolean enabled - True if enabled, false otherwise.
+---   boolean enabled - True if enabled, false otherwise.
 ---@return boolean
 function Contact.isEnabled() end
 
@@ -6908,7 +6931,7 @@ function Contact.isEnabled() end
 --- Returns whether the two colliding fixtures are touching each other.
 ---
 --- returns:
----     boolean touching - True if they touch or false if not.
+---   boolean touching - True if they touch or false if not.
 ---@return boolean
 function Contact.isTouching() end
 
@@ -6949,10 +6972,10 @@ EdgeShape = {}
 --- Returns the local coordinates of the edge points.
 ---
 --- returns:
----     number x1 - The x component of the first vertex.
----     number y1 - The y component of the first vertex.
----     number x2 - The x component of the second vertex.
----     number y2 - The y component of the second vertex.
+---   number x1 - The x component of the first vertex.
+---   number y1 - The y component of the first vertex.
+---   number x2 - The x component of the second vertex.
+---   number y2 - The y component of the second vertex.
 ---@return number, number, number, number
 function EdgeShape.getPoints() end
 
@@ -6962,8 +6985,8 @@ function EdgeShape.getPoints() end
 --- Setting next and previous EdgeShape vertices can help prevent unwanted collisions when a flat shape slides along the edge and moves over to the new shape.
 ---
 --- returns:
----     number x - The x-component of the vertex, or nil if EdgeShape:setNextVertex hasn't been called.
----     number y - The y-component of the vertex, or nil if EdgeShape:setNextVertex hasn't been called.
+---   number x - The x-component of the vertex, or nil if EdgeShape:setNextVertex hasn't been called.
+---   number y - The y-component of the vertex, or nil if EdgeShape:setNextVertex hasn't been called.
 ---@return number, number
 function EdgeShape.getNextVertex() end
 
@@ -6973,8 +6996,8 @@ function EdgeShape.getNextVertex() end
 --- Setting next and previous EdgeShape vertices can help prevent unwanted collisions when a flat shape slides along the edge and moves over to the new shape.
 ---
 --- returns:
----     number x - The x-component of the vertex, or nil if EdgeShape:setPreviousVertex hasn't been called.
----     number y - The y-component of the vertex, or nil if EdgeShape:setPreviousVertex hasn't been called.
+---   number x - The x-component of the vertex, or nil if EdgeShape:setPreviousVertex hasn't been called.
+---   number y - The y-component of the vertex, or nil if EdgeShape:setPreviousVertex hasn't been called.
 ---@return number, number
 function EdgeShape.getPreviousVertex() end
 
@@ -7005,7 +7028,7 @@ DistanceJoint = {}
 --- Gets the damping ratio.
 ---
 --- returns:
----     number ratio - The damping ratio.
+---   number ratio - The damping ratio.
 ---@return number
 function DistanceJoint.getDampingRatio() end
 
@@ -7013,7 +7036,7 @@ function DistanceJoint.getDampingRatio() end
 --- Gets the response speed.
 ---
 --- returns:
----     number Hz - The response speed.
+---   number Hz - The response speed.
 ---@return number
 function DistanceJoint.getFrequency() end
 
@@ -7021,7 +7044,7 @@ function DistanceJoint.getFrequency() end
 --- Gets the equilibrium distance between the two Bodies.
 ---
 --- returns:
----     number l - The length between the two Bodies.
+---   number l - The length between the two Bodies.
 ---@return number
 function DistanceJoint.getLength() end
 
@@ -7057,7 +7080,7 @@ function Fixture.destroy() end
 --- Returns the body to which the fixture is attached.
 ---
 --- returns:
----     Body body - The parent body.
+---   Body body - The parent body.
 ---@return Body
 function Fixture.getBody() end
 
@@ -7066,10 +7089,10 @@ function Fixture.getBody() end
 ---
 ---@param index number A bounding box of the fixture.
 --- returns:
----     number topLeftX - The x position of the top-left point.
----     number topLeftY - The y position of the top-left point.
----     number bottomRightX - The x position of the bottom-right point.
----     number bottomRightY - The y position of the bottom-right point.
+---   number topLeftX - The x position of the top-left point.
+---   number topLeftY - The y position of the top-left point.
+---   number bottomRightX - The x position of the bottom-right point.
+---   number bottomRightY - The y position of the bottom-right point.
 ---@return number, number, number, number
 function Fixture.getBoundingBox(index) end
 
@@ -7077,9 +7100,9 @@ function Fixture.getBoundingBox(index) end
 --- Returns the categories the fixture belongs to.
 ---
 --- returns:
----     number category1 - The first category.
----     number category2 - The second category.
----     number ... - Additional categories.
+---   number category1 - The first category.
+---   number category2 - The second category.
+---   number ... - Additional categories.
 ---@return number, number, number
 function Fixture.getCategory() end
 
@@ -7087,7 +7110,7 @@ function Fixture.getCategory() end
 --- Returns the density of the fixture.
 ---
 --- returns:
----     number density - The fixture density in kilograms per square meter.
+---   number density - The fixture density in kilograms per square meter.
 ---@return number
 function Fixture.getDensity() end
 
@@ -7095,9 +7118,9 @@ function Fixture.getDensity() end
 --- Returns the filter data of the fixture. Categories and masks are encoded as the bits of a 16-bit integer.
 ---
 --- returns:
----     number categories - The categories as an integer from 0 to 65535.
----     number mask - The mask as an integer from 0 to 65535.
----     number group - The group as an integer from -32768 to 32767.
+---   number categories - The categories as an integer from 0 to 65535.
+---   number mask - The mask as an integer from 0 to 65535.
+---   number group - The group as an integer from -32768 to 32767.
 ---@return number, number, number
 function Fixture.getFilterData() end
 
@@ -7105,7 +7128,7 @@ function Fixture.getFilterData() end
 --- Returns the friction of the fixture.
 ---
 --- returns:
----     number friction - The fixture friction.
+---   number friction - The fixture friction.
 ---@return number
 function Fixture.getFriction() end
 
@@ -7115,7 +7138,7 @@ function Fixture.getFriction() end
 --- The groups range from -32768 to 32767.
 ---
 --- returns:
----     number group - The group of the fixture.
+---   number group - The group of the fixture.
 ---@return number
 function Fixture.getGroupIndex() end
 
@@ -7123,9 +7146,9 @@ function Fixture.getGroupIndex() end
 --- Returns the category mask of the fixture.
 ---
 --- returns:
----     number mask1 - The first category selected by the mask.
----     number mask2 - The second category selected by the mask.
----     number ... - Additional categories selected by the mask.
+---   number mask1 - The first category selected by the mask.
+---   number mask2 - The second category selected by the mask.
+---   number ... - Additional categories selected by the mask.
 ---@return number, number, number
 function Fixture.getMask() end
 
@@ -7133,10 +7156,10 @@ function Fixture.getMask() end
 --- Returns the mass, its center and the rotational inertia.
 ---
 --- returns:
----     number x - The x position of the center of mass.
----     number y - The y position of the center of mass.
----     number mass - The mass of the fixture.
----     number inertia - The rotational inertia.
+---   number x - The x position of the center of mass.
+---   number y - The y position of the center of mass.
+---   number mass - The mass of the fixture.
+---   number inertia - The rotational inertia.
 ---@return number, number, number, number
 function Fixture.getMassData() end
 
@@ -7144,7 +7167,7 @@ function Fixture.getMassData() end
 --- Returns the restitution of the fixture.
 ---
 --- returns:
----     number restitution - The fixture restitution.
+---   number restitution - The fixture restitution.
 ---@return number
 function Fixture.getRestitution() end
 
@@ -7154,7 +7177,7 @@ function Fixture.getRestitution() end
 --- Do not call any functions on this shape after the parent fixture has been destroyed. This shape will point to an invalid memory address and likely cause crashes if you interact further with it.
 ---
 --- returns:
----     Shape shape - The fixture's shape.
+---   Shape shape - The fixture's shape.
 ---@return Shape
 function Fixture.getShape() end
 
@@ -7164,7 +7187,7 @@ function Fixture.getShape() end
 --- Use this function in one thread only.
 ---
 --- returns:
----     any value - The Lua value associated with the fixture.
+---   any value - The Lua value associated with the fixture.
 ---@return any
 function Fixture.getUserData() end
 
@@ -7172,7 +7195,7 @@ function Fixture.getUserData() end
 --- Gets whether the Fixture is destroyed. Destroyed fixtures cannot be used.
 ---
 --- returns:
----     boolean destroyed - Whether the Fixture is destroyed.
+---   boolean destroyed - Whether the Fixture is destroyed.
 ---@return boolean
 function Fixture.isDestroyed() end
 
@@ -7180,7 +7203,7 @@ function Fixture.isDestroyed() end
 --- Returns whether the fixture is a sensor.
 ---
 --- returns:
----     boolean sensor - If the fixture is a sensor.
+---   boolean sensor - If the fixture is a sensor.
 ---@return boolean
 function Fixture.isSensor() end
 
@@ -7202,9 +7225,9 @@ function Fixture.isSensor() end
 ---@param maxFraction number The maximum distance the ray is going to travel as a number from 0 to 1.
 ---@param childIndex number The index of the child the ray gets cast against.
 --- returns:
----     number x - The x position where the ray intersects with the shape.
----     number y - The y position where the ray intersects with the shape.
----     number fraction - The position on the input vector where the intersection happened as a number from 0 to 1.
+---   number x - The x position where the ray intersects with the shape.
+---   number y - The y position where the ray intersects with the shape.
+---   number fraction - The position on the input vector where the intersection happened as a number from 0 to 1.
 ---@return number, number, number
 function Fixture.rayCast(x1, y1, x2, y2, maxFraction, childIndex) end
 
@@ -7288,7 +7311,7 @@ function Fixture.setUserData(value) end
 ---@param x number The x position of the point.
 ---@param y number The y position of the point.
 --- returns:
----     boolean isInside - True if the point is inside or false if it is outside.
+---   boolean isInside - True if the point is inside or false if it is outside.
 ---@return boolean
 function Fixture.testPoint(x, y) end
 
@@ -7301,7 +7324,7 @@ FrictionJoint = {}
 --- Gets the maximum friction force in Newtons.
 ---
 --- returns:
----     number force - Maximum force in Newtons.
+---   number force - Maximum force in Newtons.
 ---@return number
 function FrictionJoint.getMaxForce() end
 
@@ -7309,7 +7332,7 @@ function FrictionJoint.getMaxForce() end
 --- Gets the maximum friction torque in Newton-meters.
 ---
 --- returns:
----     number torque - Maximum torque in Newton-meters.
+---   number torque - Maximum torque in Newton-meters.
 ---@return number
 function FrictionJoint.getMaxTorque() end
 
@@ -7334,8 +7357,8 @@ GearJoint = {}
 --- Get the Joints connected by this GearJoint.
 ---
 --- returns:
----     Joint joint1 - The first connected Joint.
----     Joint joint2 - The second connected Joint.
+---   Joint joint1 - The first connected Joint.
+---   Joint joint2 - The second connected Joint.
 ---@return Joint, Joint
 function GearJoint.getJoints() end
 
@@ -7343,7 +7366,7 @@ function GearJoint.getJoints() end
 --- Get the ratio of a gear joint.
 ---
 --- returns:
----     number ratio - The ratio of the joint.
+---   number ratio - The ratio of the joint.
 ---@return number
 function GearJoint.getRatio() end
 
@@ -7367,10 +7390,10 @@ function Joint.destroy() end
 --- Get the anchor points of the joint.
 ---
 --- returns:
----     number x1 - The x component of the anchor on Body 1.
----     number y1 - The y component of the anchor on Body 1.
----     number x2 - The x component of the anchor on Body 2.
----     number y2 - The y component of the anchor on Body 2.
+---   number x1 - The x component of the anchor on Body 1.
+---   number y1 - The y component of the anchor on Body 1.
+---   number x2 - The x component of the anchor on Body 2.
+---   number y2 - The y component of the anchor on Body 2.
 ---@return number, number, number, number
 function Joint.getAnchors() end
 
@@ -7378,8 +7401,8 @@ function Joint.getAnchors() end
 --- Gets the bodies that the Joint is attached to.
 ---
 --- returns:
----     Body bodyA - The first Body.
----     Body bodyB - The second Body.
+---   Body bodyA - The first Body.
+---   Body bodyB - The second Body.
 ---@return Body, Body
 function Joint.getBodies() end
 
@@ -7387,7 +7410,7 @@ function Joint.getBodies() end
 --- Gets whether the connected Bodies collide.
 ---
 --- returns:
----     boolean c - True if they collide, false otherwise.
+---   boolean c - True if they collide, false otherwise.
 ---@return boolean
 function Joint.getCollideConnected() end
 
@@ -7395,8 +7418,8 @@ function Joint.getCollideConnected() end
 --- Gets the reaction force on Body 2 at the joint anchor.
 ---
 --- returns:
----     number x - The x component of the force.
----     number y - The y component of the force.
+---   number x - The x component of the force.
+---   number y - The y component of the force.
 ---@return number, number
 function Joint.getReactionForce() end
 
@@ -7405,7 +7428,7 @@ function Joint.getReactionForce() end
 ---
 ---@param invdt number How long the force applies. Usually the inverse time step or 1/dt.
 --- returns:
----     number torque - The reaction torque on the second body.
+---   number torque - The reaction torque on the second body.
 ---@return number
 function Joint.getReactionTorque(invdt) end
 
@@ -7413,7 +7436,7 @@ function Joint.getReactionTorque(invdt) end
 --- Gets a string representing the type.
 ---
 --- returns:
----     JointType type - A string with the name of the Joint type.
+---   JointType type - A string with the name of the Joint type.
 ---@return JointType
 function Joint.getType() end
 
@@ -7421,7 +7444,7 @@ function Joint.getType() end
 --- Returns the Lua value associated with this Joint.
 ---
 --- returns:
----     any value - The Lua value associated with the Joint.
+---   any value - The Lua value associated with the Joint.
 ---@return any
 function Joint.getUserData() end
 
@@ -7429,7 +7452,7 @@ function Joint.getUserData() end
 --- Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 ---
 --- returns:
----     boolean destroyed - Whether the Joint is destroyed.
+---   boolean destroyed - Whether the Joint is destroyed.
 ---@return boolean
 function Joint.isDestroyed() end
 
@@ -7450,7 +7473,7 @@ MotorJoint = {}
 --- Gets the target angular offset between the two Bodies the Joint is attached to.
 ---
 --- returns:
----     number angularoffset - The target angular offset in radians: the second body's angle minus the first body's angle.
+---   number angularoffset - The target angular offset in radians: the second body's angle minus the first body's angle.
 ---@return number
 function MotorJoint.getAngularOffset() end
 
@@ -7458,8 +7481,8 @@ function MotorJoint.getAngularOffset() end
 --- Gets the target linear offset between the two Bodies the Joint is attached to.
 ---
 --- returns:
----     number x - The x component of the target linear offset, relative to the first Body.
----     number y - The y component of the target linear offset, relative to the first Body.
+---   number x - The x component of the target linear offset, relative to the first Body.
+---   number y - The y component of the target linear offset, relative to the first Body.
 ---@return number, number
 function MotorJoint.getLinearOffset() end
 
@@ -7485,7 +7508,7 @@ MouseJoint = {}
 --- Returns the damping ratio.
 ---
 --- returns:
----     number ratio - The new damping ratio.
+---   number ratio - The new damping ratio.
 ---@return number
 function MouseJoint.getDampingRatio() end
 
@@ -7493,7 +7516,7 @@ function MouseJoint.getDampingRatio() end
 --- Returns the frequency.
 ---
 --- returns:
----     number freq - The frequency in hertz.
+---   number freq - The frequency in hertz.
 ---@return number
 function MouseJoint.getFrequency() end
 
@@ -7501,7 +7524,7 @@ function MouseJoint.getFrequency() end
 --- Gets the highest allowed force.
 ---
 --- returns:
----     number f - The max allowed force.
+---   number f - The max allowed force.
 ---@return number
 function MouseJoint.getMaxForce() end
 
@@ -7509,8 +7532,8 @@ function MouseJoint.getMaxForce() end
 --- Gets the target point.
 ---
 --- returns:
----     number x - The x component of the target.
----     number y - The x component of the target.
+---   number x - The x component of the target.
+---   number y - The x component of the target.
 ---@return number, number
 function MouseJoint.getTarget() end
 
@@ -7552,11 +7575,11 @@ PolygonShape = {}
 --- This function may have up to 16 return values, since it returns two values for each vertex in the polygon. In other words, it can return the coordinates of up to 8 points.
 ---
 --- returns:
----     number x1 - The x component of the first vertex.
----     number y1 - The y component of the first vertex.
----     number x2 - The x component of the second vertex.
----     number y2 - The y component of the second vertex.
----     number ... - Additional x and y values.
+---   number x1 - The x component of the first vertex.
+---   number y1 - The y component of the first vertex.
+---   number x2 - The x component of the second vertex.
+---   number y2 - The y component of the second vertex.
+---   number ... - Additional x and y values.
 ---@return number, number, number, number, number
 function PolygonShape.getPoints() end
 
@@ -7569,7 +7592,7 @@ PrismaticJoint = {}
 --- Checks whether the limits are enabled.
 ---
 --- returns:
----     boolean enabled - True if enabled, false otherwise.
+---   boolean enabled - True if enabled, false otherwise.
 ---@return boolean
 function PrismaticJoint.areLimitsEnabled() end
 
@@ -7577,8 +7600,8 @@ function PrismaticJoint.areLimitsEnabled() end
 --- Gets the world-space axis vector of the Prismatic Joint.
 ---
 --- returns:
----     number x - The x-axis coordinate of the world-space axis vector.
----     number y - The y-axis coordinate of the world-space axis vector.
+---   number x - The x-axis coordinate of the world-space axis vector.
+---   number y - The y-axis coordinate of the world-space axis vector.
 ---@return number, number
 function PrismaticJoint.getAxis() end
 
@@ -7586,7 +7609,7 @@ function PrismaticJoint.getAxis() end
 --- Get the current joint angle speed.
 ---
 --- returns:
----     number s - Joint angle speed in meters/second.
+---   number s - Joint angle speed in meters/second.
 ---@return number
 function PrismaticJoint.getJointSpeed() end
 
@@ -7594,7 +7617,7 @@ function PrismaticJoint.getJointSpeed() end
 --- Get the current joint translation.
 ---
 --- returns:
----     number t - Joint translation, usually in meters.
+---   number t - Joint translation, usually in meters.
 ---@return number
 function PrismaticJoint.getJointTranslation() end
 
@@ -7602,8 +7625,8 @@ function PrismaticJoint.getJointTranslation() end
 --- Gets the joint limits.
 ---
 --- returns:
----     number lower - The lower limit, usually in meters.
----     number upper - The upper limit, usually in meters.
+---   number lower - The lower limit, usually in meters.
+---   number upper - The upper limit, usually in meters.
 ---@return number, number
 function PrismaticJoint.getLimits() end
 
@@ -7611,7 +7634,7 @@ function PrismaticJoint.getLimits() end
 --- Gets the lower limit.
 ---
 --- returns:
----     number lower - The lower limit, usually in meters.
+---   number lower - The lower limit, usually in meters.
 ---@return number
 function PrismaticJoint.getLowerLimit() end
 
@@ -7619,7 +7642,7 @@ function PrismaticJoint.getLowerLimit() end
 --- Gets the maximum motor force.
 ---
 --- returns:
----     number f - The maximum motor force, usually in N.
+---   number f - The maximum motor force, usually in N.
 ---@return number
 function PrismaticJoint.getMaxMotorForce() end
 
@@ -7627,7 +7650,7 @@ function PrismaticJoint.getMaxMotorForce() end
 --- Get the current motor force.
 ---
 --- returns:
----     number f - The current motor force, usually in N.
+---   number f - The current motor force, usually in N.
 ---@return number
 function PrismaticJoint.getMotorForce() end
 
@@ -7635,7 +7658,7 @@ function PrismaticJoint.getMotorForce() end
 --- Gets the motor speed.
 ---
 --- returns:
----     number s - The motor speed, usually in meters per second.
+---   number s - The motor speed, usually in meters per second.
 ---@return number
 function PrismaticJoint.getMotorSpeed() end
 
@@ -7643,7 +7666,7 @@ function PrismaticJoint.getMotorSpeed() end
 --- Gets the upper limit.
 ---
 --- returns:
----     number upper - The upper limit, usually in meters.
+---   number upper - The upper limit, usually in meters.
 ---@return number
 function PrismaticJoint.getUpperLimit() end
 
@@ -7651,7 +7674,7 @@ function PrismaticJoint.getUpperLimit() end
 --- Checks whether the motor is enabled.
 ---
 --- returns:
----     boolean enabled - True if enabled, false if disabled.
+---   boolean enabled - True if enabled, false if disabled.
 ---@return boolean
 function PrismaticJoint.isMotorEnabled() end
 
@@ -7707,7 +7730,7 @@ PulleyJoint = {}
 --- Get the total length of the rope.
 ---
 --- returns:
----     number length - The length of the rope in the joint.
+---   number length - The length of the rope in the joint.
 ---@return number
 function PulleyJoint.getConstant() end
 
@@ -7715,10 +7738,10 @@ function PulleyJoint.getConstant() end
 --- Get the ground anchor positions in world coordinates.
 ---
 --- returns:
----     number a1x - The x coordinate of the first anchor.
----     number a1y - The y coordinate of the first anchor.
----     number a2x - The x coordinate of the second anchor.
----     number a2y - The y coordinate of the second anchor.
+---   number a1x - The x coordinate of the first anchor.
+---   number a1y - The y coordinate of the first anchor.
+---   number a2x - The x coordinate of the second anchor.
+---   number a2y - The y coordinate of the second anchor.
 ---@return number, number, number, number
 function PulleyJoint.getGroundAnchors() end
 
@@ -7726,7 +7749,7 @@ function PulleyJoint.getGroundAnchors() end
 --- Get the current length of the rope segment attached to the first body.
 ---
 --- returns:
----     number length - The length of the rope segment.
+---   number length - The length of the rope segment.
 ---@return number
 function PulleyJoint.getLengthA() end
 
@@ -7734,7 +7757,7 @@ function PulleyJoint.getLengthA() end
 --- Get the current length of the rope segment attached to the second body.
 ---
 --- returns:
----     number length - The length of the rope segment.
+---   number length - The length of the rope segment.
 ---@return number
 function PulleyJoint.getLengthB() end
 
@@ -7742,8 +7765,8 @@ function PulleyJoint.getLengthB() end
 --- Get the maximum lengths of the rope segments.
 ---
 --- returns:
----     number len1 - The maximum length of the first rope segment.
----     number len2 - The maximum length of the second rope segment.
+---   number len1 - The maximum length of the first rope segment.
+---   number len2 - The maximum length of the second rope segment.
 ---@return number, number
 function PulleyJoint.getMaxLengths() end
 
@@ -7751,7 +7774,7 @@ function PulleyJoint.getMaxLengths() end
 --- Get the pulley ratio.
 ---
 --- returns:
----     number ratio - The pulley ratio of the joint.
+---   number ratio - The pulley ratio of the joint.
 ---@return number
 function PulleyJoint.getRatio() end
 
@@ -7787,7 +7810,7 @@ RevoluteJoint = {}
 --- Checks whether the limits are enabled.
 ---
 --- returns:
----     boolean enabled - True if enabled, false otherwise.
+---   boolean enabled - True if enabled, false otherwise.
 ---@return boolean
 function RevoluteJoint.areLimitsEnabled() end
 
@@ -7807,7 +7830,7 @@ function RevoluteJoint.setMotorEnabled(enable) end
 --- Get the current joint angle.
 ---
 --- returns:
----     number angle - The joint angle in radians.
+---   number angle - The joint angle in radians.
 ---@return number
 function RevoluteJoint.getJointAngle() end
 
@@ -7815,7 +7838,7 @@ function RevoluteJoint.getJointAngle() end
 --- Get the current joint angle speed.
 ---
 --- returns:
----     number s - Joint angle speed in radians/second.
+---   number s - Joint angle speed in radians/second.
 ---@return number
 function RevoluteJoint.getJointSpeed() end
 
@@ -7823,8 +7846,8 @@ function RevoluteJoint.getJointSpeed() end
 --- Gets the joint limits.
 ---
 --- returns:
----     number lower - The lower limit, in radians.
----     number upper - The upper limit, in radians.
+---   number lower - The lower limit, in radians.
+---   number upper - The upper limit, in radians.
 ---@return number, number
 function RevoluteJoint.getLimits() end
 
@@ -7832,7 +7855,7 @@ function RevoluteJoint.getLimits() end
 --- Gets the lower limit.
 ---
 --- returns:
----     number lower - The lower limit, in radians.
+---   number lower - The lower limit, in radians.
 ---@return number
 function RevoluteJoint.getLowerLimit() end
 
@@ -7840,7 +7863,7 @@ function RevoluteJoint.getLowerLimit() end
 --- Gets the maximum motor force.
 ---
 --- returns:
----     number f - The maximum motor force, in Nm.
+---   number f - The maximum motor force, in Nm.
 ---@return number
 function RevoluteJoint.getMaxMotorTorque() end
 
@@ -7848,7 +7871,7 @@ function RevoluteJoint.getMaxMotorTorque() end
 --- Gets the motor speed.
 ---
 --- returns:
----     number s - The motor speed, radians per second.
+---   number s - The motor speed, radians per second.
 ---@return number
 function RevoluteJoint.getMotorSpeed() end
 
@@ -7856,7 +7879,7 @@ function RevoluteJoint.getMotorSpeed() end
 --- Get the current motor force.
 ---
 --- returns:
----     number f - The current motor force, in Nm.
+---   number f - The current motor force, in Nm.
 ---@return number
 function RevoluteJoint.getMotorTorque() end
 
@@ -7864,7 +7887,7 @@ function RevoluteJoint.getMotorTorque() end
 --- Gets the upper limit.
 ---
 --- returns:
----     number upper - The upper limit, in radians.
+---   number upper - The upper limit, in radians.
 ---@return number
 function RevoluteJoint.getUpperLimit() end
 
@@ -7872,7 +7895,7 @@ function RevoluteJoint.getUpperLimit() end
 --- Checks whether the motor is enabled.
 ---
 --- returns:
----     boolean enabled - True if enabled, false if disabled.
+---   boolean enabled - True if enabled, false if disabled.
 ---@return boolean
 function RevoluteJoint.isMotorEnabled() end
 
@@ -7916,7 +7939,7 @@ RopeJoint = {}
 --- Gets the maximum length of a RopeJoint.
 ---
 --- returns:
----     number maxLength - The maximum length of the RopeJoint.
+---   number maxLength - The maximum length of the RopeJoint.
 ---@return number
 function RopeJoint.getMaxLength() end
 
@@ -7941,10 +7964,10 @@ Shape = {}
 ---@param tr number The shape rotation.
 ---@param childIndex number The index of the child to compute the bounding box of.
 --- returns:
----     number topLeftX - The x position of the top-left point.
----     number topLeftY - The y position of the top-left point.
----     number bottomRightX - The x position of the bottom-right point.
----     number bottomRightY - The y position of the bottom-right point.
+---   number topLeftX - The x position of the top-left point.
+---   number topLeftY - The y position of the top-left point.
+---   number bottomRightX - The x position of the bottom-right point.
+---   number bottomRightY - The y position of the bottom-right point.
 ---@return number, number, number, number
 function Shape.computeAABB(tx, ty, tr, childIndex) end
 
@@ -7953,10 +7976,10 @@ function Shape.computeAABB(tx, ty, tr, childIndex) end
 ---
 ---@param density number The shape density.
 --- returns:
----     number x - The x postition of the center of mass.
----     number y - The y postition of the center of mass.
----     number mass - The mass of the shape.
----     number inertia - The rotational inertia.
+---   number x - The x postition of the center of mass.
+---   number y - The y postition of the center of mass.
+---   number mass - The mass of the shape.
+---   number inertia - The rotational inertia.
 ---@return number, number, number, number
 function Shape.computeMass(density) end
 
@@ -7964,7 +7987,7 @@ function Shape.computeMass(density) end
 --- Returns the number of children the shape has.
 ---
 --- returns:
----     number count - The number of children.
+---   number count - The number of children.
 ---@return number
 function Shape.getChildCount() end
 
@@ -7972,7 +7995,7 @@ function Shape.getChildCount() end
 --- Gets the radius of the shape.
 ---
 --- returns:
----     number radius - The radius of the shape.
+---   number radius - The radius of the shape.
 ---@return number
 function Shape.getRadius() end
 
@@ -7980,7 +8003,7 @@ function Shape.getRadius() end
 --- Gets a string representing the Shape. This function can be useful for conditional debug drawing.
 ---
 --- returns:
----     ShapeType type - The type of the Shape.
+---   ShapeType type - The type of the Shape.
 ---@return ShapeType
 function Shape.getType() end
 
@@ -8005,9 +8028,9 @@ function Shape.getType() end
 ---@param tr number The shape rotation.
 ---@param childIndex number The index of the child the ray gets cast against.
 --- returns:
----     number xn - The x component of the normal vector of the edge where the ray hit the shape.
----     number yn - The y component of the normal vector of the edge where the ray hit the shape.
----     number fraction - The position on the input line where the intersection happened as a factor of the line length.
+---   number xn - The x component of the normal vector of the edge where the ray hit the shape.
+---   number yn - The y component of the normal vector of the edge where the ray hit the shape.
+---   number fraction - The position on the input line where the intersection happened as a factor of the line length.
 ---@return number, number, number
 function Shape.rayCast(x1, y1, x2, y2, maxFraction, tx, ty, tr, childIndex) end
 
@@ -8017,7 +8040,7 @@ function Shape.rayCast(x1, y1, x2, y2, maxFraction, tx, ty, tr, childIndex) end
 ---@param x number The x component of the point.
 ---@param y number The y component of the point.
 --- returns:
----     boolean hit - True if inside, false if outside
+---   boolean hit - True if inside, false if outside
 ---@return boolean
 function Shape.testPoint(x, y) end
 
@@ -8030,7 +8053,7 @@ WeldJoint = {}
 --- Returns the damping ratio of the joint.
 ---
 --- returns:
----     number ratio - The damping ratio.
+---   number ratio - The damping ratio.
 ---@return number
 function WeldJoint.getDampingRatio() end
 
@@ -8038,7 +8061,7 @@ function WeldJoint.getDampingRatio() end
 --- Returns the frequency.
 ---
 --- returns:
----     number freq - The frequency in hertz.
+---   number freq - The frequency in hertz.
 ---@return number
 function WeldJoint.getFrequency() end
 
@@ -8063,8 +8086,8 @@ WheelJoint = {}
 --- Gets the world-space axis vector of the Wheel Joint.
 ---
 --- returns:
----     number x - The x-axis coordinate of the world-space axis vector.
----     number y - The y-axis coordinate of the world-space axis vector.
+---   number x - The x-axis coordinate of the world-space axis vector.
+---   number y - The y-axis coordinate of the world-space axis vector.
 ---@return number, number
 function WheelJoint.getAxis() end
 
@@ -8072,7 +8095,7 @@ function WheelJoint.getAxis() end
 --- Returns the current joint translation speed.
 ---
 --- returns:
----     number speed - The translation speed of the joint in meters per second.
+---   number speed - The translation speed of the joint in meters per second.
 ---@return number
 function WheelJoint.getJointSpeed() end
 
@@ -8080,7 +8103,7 @@ function WheelJoint.getJointSpeed() end
 --- Returns the current joint translation.
 ---
 --- returns:
----     number position - The translation of the joint in meters.
+---   number position - The translation of the joint in meters.
 ---@return number
 function WheelJoint.getJointTranslation() end
 
@@ -8088,7 +8111,7 @@ function WheelJoint.getJointTranslation() end
 --- Returns the maximum motor torque.
 ---
 --- returns:
----     number maxTorque - The maximum torque of the joint motor in newton meters.
+---   number maxTorque - The maximum torque of the joint motor in newton meters.
 ---@return number
 function WheelJoint.getMaxMotorTorque() end
 
@@ -8096,7 +8119,7 @@ function WheelJoint.getMaxMotorTorque() end
 --- Returns the speed of the motor.
 ---
 --- returns:
----     number speed - The speed of the joint motor in radians per second.
+---   number speed - The speed of the joint motor in radians per second.
 ---@return number
 function WheelJoint.getMotorSpeed() end
 
@@ -8105,7 +8128,7 @@ function WheelJoint.getMotorSpeed() end
 ---
 ---@param invdt number How long the force applies. Usually the inverse time step or 1/dt.
 --- returns:
----     number torque - The torque on the motor in newton meters.
+---   number torque - The torque on the motor in newton meters.
 ---@return number
 function WheelJoint.getMotorTorque(invdt) end
 
@@ -8113,7 +8136,7 @@ function WheelJoint.getMotorTorque(invdt) end
 --- Returns the damping ratio.
 ---
 --- returns:
----     number ratio - The damping ratio.
+---   number ratio - The damping ratio.
 ---@return number
 function WheelJoint.getSpringDampingRatio() end
 
@@ -8121,7 +8144,7 @@ function WheelJoint.getSpringDampingRatio() end
 --- Returns the spring frequency.
 ---
 --- returns:
----     number freq - The frequency in hertz.
+---   number freq - The frequency in hertz.
 ---@return number
 function WheelJoint.getSpringFrequency() end
 
@@ -8171,7 +8194,7 @@ function World.destroy() end
 --- Get the number of bodies in the world.
 ---
 --- returns:
----     number n - The number of bodies in the world.
+---   number n - The number of bodies in the world.
 ---@return number
 function World.getBodyCount() end
 
@@ -8179,7 +8202,7 @@ function World.getBodyCount() end
 --- Returns a table with all bodies.
 ---
 --- returns:
----     table bodies - A sequence with all bodies.
+---   table bodies - A sequence with all bodies.
 ---@return table
 function World.getBodyList() end
 
@@ -8187,10 +8210,10 @@ function World.getBodyList() end
 --- Returns functions for the callbacks during the world update.
 ---
 --- returns:
----     function beginContact - Gets called when two fixtures begin to overlap.
----     function endContact - Gets called when two fixtures cease to overlap.
----     function preSolve - Gets called before a collision gets resolved.
----     function postSolve - Gets called after the collision has been resolved.
+---   function beginContact - Gets called when two fixtures begin to overlap.
+---   function endContact - Gets called when two fixtures cease to overlap.
+---   function preSolve - Gets called before a collision gets resolved.
+---   function postSolve - Gets called after the collision has been resolved.
 ---@return function, function, function, function
 function World.getCallbacks() end
 
@@ -8198,7 +8221,7 @@ function World.getCallbacks() end
 --- Returns the number of contacts in the world.
 ---
 --- returns:
----     number n - The number of contacts in the world.
+---   number n - The number of contacts in the world.
 ---@return number
 function World.getContactCount() end
 
@@ -8206,7 +8229,7 @@ function World.getContactCount() end
 --- Returns the function for collision filtering.
 ---
 --- returns:
----     function contactFilter - The function that handles the contact filtering.
+---   function contactFilter - The function that handles the contact filtering.
 ---@return function
 function World.getContactFilter() end
 
@@ -8214,7 +8237,7 @@ function World.getContactFilter() end
 --- Returns a table with all contacts.
 ---
 --- returns:
----     table contacts - A sequence with all contacts.
+---   table contacts - A sequence with all contacts.
 ---@return table
 function World.getContactList() end
 
@@ -8222,8 +8245,8 @@ function World.getContactList() end
 --- Get the gravity of the world.
 ---
 --- returns:
----     number x - The x component of gravity.
----     number y - The y component of gravity.
+---   number x - The x component of gravity.
+---   number y - The y component of gravity.
 ---@return number, number
 function World.getGravity() end
 
@@ -8231,7 +8254,7 @@ function World.getGravity() end
 --- Get the number of joints in the world.
 ---
 --- returns:
----     number n - The number of joints in the world.
+---   number n - The number of joints in the world.
 ---@return number
 function World.getJointCount() end
 
@@ -8239,7 +8262,7 @@ function World.getJointCount() end
 --- Returns a table with all joints.
 ---
 --- returns:
----     table joints - A sequence with all joints.
+---   table joints - A sequence with all joints.
 ---@return table
 function World.getJointList() end
 
@@ -8247,7 +8270,7 @@ function World.getJointList() end
 --- Gets whether the World is destroyed. Destroyed worlds cannot be used.
 ---
 --- returns:
----     boolean destroyed - Whether the World is destroyed.
+---   boolean destroyed - Whether the World is destroyed.
 ---@return boolean
 function World.isDestroyed() end
 
@@ -8257,7 +8280,7 @@ function World.isDestroyed() end
 --- This will return true inside the callbacks from World:setCallbacks.
 ---
 --- returns:
----     boolean locked - Will be true if the world is in the process of updating its state.
+---   boolean locked - Will be true if the world is in the process of updating its state.
 ---@return boolean
 function World.isLocked() end
 
@@ -8265,7 +8288,7 @@ function World.isLocked() end
 --- Returns the sleep behaviour of the world.
 ---
 --- returns:
----     boolean allowSleep - True if the bodies are allowed to sleep or false if not.
+---   boolean allowSleep - True if the bodies are allowed to sleep or false if not.
 ---@return boolean
 function World.isSleepingAllowed() end
 
@@ -8354,14 +8377,14 @@ love.sound = sound
 ---@param file File The file with encoded sound data.
 ---@param buffer number The size of each decoded chunk, in bytes.
 --- returns:
----     Decoder decoder - A new Decoder object.
+---   Decoder decoder - A new Decoder object.
 ---@return Decoder
 function sound.newDecoder(file, buffer) end
 
 ---@param filename string The filename of the file with encoded sound data.
 ---@param buffer number The size of each decoded chunk, in bytes.
 --- returns:
----     Decoder decoder - A new Decoder object.
+---   Decoder decoder - A new Decoder object.
 ---@return Decoder
 function sound.newDecoder(filename, buffer) end
 
@@ -8372,19 +8395,19 @@ function sound.newDecoder(filename, buffer) end
 ---
 ---@param filename string The filename of the file to load.
 --- returns:
----     SoundData soundData - A new SoundData object.
+---   SoundData soundData - A new SoundData object.
 ---@return SoundData
 function sound.newSoundData(filename) end
 
 ---@param file File A File pointing to an audio file.
 --- returns:
----     SoundData soundData - A new SoundData object.
+---   SoundData soundData - A new SoundData object.
 ---@return SoundData
 function sound.newSoundData(file) end
 
 ---@param data Data The encoded data to decode into audio.
 --- returns:
----     SoundData soundData - A new SoundData object.
+---   SoundData soundData - A new SoundData object.
 ---@return SoundData
 function sound.newSoundData(data) end
 
@@ -8393,7 +8416,7 @@ function sound.newSoundData(data) end
 ---@param bits number Bits per sample (8 or 16).
 ---@param channels number Either 1 for mono or 2 for stereo.
 --- returns:
----     SoundData soundData - A new SoundData object.
+---   SoundData soundData - A new SoundData object.
 ---@return SoundData
 function sound.newSoundData(samples, rate, bits, channels) end
 
@@ -8406,7 +8429,7 @@ Decoder = {}
 --- Returns the number of bits per sample.
 ---
 --- returns:
----     number bitDepth - Either 8 or 16.
+---   number bitDepth - Either 8 or 16.
 ---@return number
 function Decoder.getBitDepth() end
 
@@ -8414,7 +8437,7 @@ function Decoder.getBitDepth() end
 --- Returns the number of channels in the stream.
 ---
 --- returns:
----     number channels - 1 for mono, 2 for stereo.
+---   number channels - 1 for mono, 2 for stereo.
 ---@return number
 function Decoder.getChannelCount() end
 
@@ -8422,7 +8445,7 @@ function Decoder.getChannelCount() end
 --- Gets the duration of the sound file. It may not always be sample-accurate, and it may return -1 if the duration cannot be determined at all.
 ---
 --- returns:
----     number duration - The duration of the sound file in seconds, or -1 if it cannot be determined.
+---   number duration - The duration of the sound file in seconds, or -1 if it cannot be determined.
 ---@return number
 function Decoder.getDuration() end
 
@@ -8430,7 +8453,7 @@ function Decoder.getDuration() end
 --- Returns the sample rate of the Decoder.
 ---
 --- returns:
----     number rate - Number of samples per second.
+---   number rate - Number of samples per second.
 ---@return number
 function Decoder.getSampleRate() end
 
@@ -8443,7 +8466,7 @@ SoundData = {}
 --- Returns the number of bits per sample.
 ---
 --- returns:
----     number bits - Either 8 or 16.
+---   number bits - Either 8 or 16.
 ---@return number
 function SoundData.getBitDepth() end
 
@@ -8451,7 +8474,7 @@ function SoundData.getBitDepth() end
 --- Returns the number of channels in the stream.
 ---
 --- returns:
----     number channels - 1 for mono, 2 for stereo.
+---   number channels - 1 for mono, 2 for stereo.
 ---@return number
 function SoundData.getChannelCount() end
 
@@ -8459,7 +8482,7 @@ function SoundData.getChannelCount() end
 --- Gets the duration of the sound data.
 ---
 --- returns:
----     number duration - The duration of the sound data in seconds.
+---   number duration - The duration of the sound data in seconds.
 ---@return number
 function SoundData.getDuration() end
 
@@ -8468,7 +8491,7 @@ function SoundData.getDuration() end
 ---
 ---@param i number An integer value specifying the position of the sample (0 points to the first sample).
 --- returns:
----     number sample - The normalized sample (range -1.0 to 1.0).
+---   number sample - The normalized sample (range -1.0 to 1.0).
 ---@return number
 function SoundData.getSample(i) end
 
@@ -8476,7 +8499,7 @@ function SoundData.getSample(i) end
 --- Returns the number of samples per channel of the SoundData.
 ---
 --- returns:
----     number count - Total number of samples.
+---   number count - Total number of samples.
 ---@return number
 function SoundData.getSampleCount() end
 
@@ -8484,7 +8507,7 @@ function SoundData.getSampleCount() end
 --- Returns the sample rate of the SoundData.
 ---
 --- returns:
----     number rate - Number of samples per second.
+---   number rate - Number of samples per second.
 ---@return number
 function SoundData.getSampleRate() end
 
@@ -8505,7 +8528,7 @@ love.system = system
 --- Gets text from the clipboard.
 ---
 --- returns:
----     string text - The text currently held in the system's clipboard.
+---   string text - The text currently held in the system's clipboard.
 ---@return string
 function system.getClipboardText() end
 
@@ -8513,7 +8536,7 @@ function system.getClipboardText() end
 --- Gets the current operating system. In general, LÖVE abstracts away the need to know the current operating system, but there are a few cases where it can be useful (especially in combination with os.execute.)
 ---
 --- returns:
----     string osString - The current operating system. "OS X", "Windows", "Linux", "Android" or "iOS".
+---   string osString - The current operating system. "OS X", "Windows", "Linux", "Android" or "iOS".
 ---@return string
 function system.getOS() end
 
@@ -8521,9 +8544,9 @@ function system.getOS() end
 --- Gets information about the system's power supply.
 ---
 --- returns:
----     PowerState state - The basic state of the power supply.
----     number percent - Percentage of battery life left, between 0 and 100. nil if the value can't be determined or there's no battery.
----     number seconds - Seconds of battery life left. nil if the value can't be determined or there's no battery.
+---   PowerState state - The basic state of the power supply.
+---   number percent - Percentage of battery life left, between 0 and 100. nil if the value can't be determined or there's no battery.
+---   number seconds - Seconds of battery life left. nil if the value can't be determined or there's no battery.
 ---@return PowerState, number, number
 function system.getPowerInfo() end
 
@@ -8531,7 +8554,7 @@ function system.getPowerInfo() end
 --- Gets the amount of logical processor in the system.
 ---
 --- returns:
----     number processorCount - Amount of logical processors.
+---   number processorCount - Amount of logical processors.
 ---@return number
 function system.getProcessorCount() end
 
@@ -8542,7 +8565,7 @@ function system.getProcessorCount() end
 --- 
 --- To open a file or folder, "file://" must be prepended to the path.
 --- returns:
----     boolean success - Whether the URL was opened successfully.
+---   boolean success - Whether the URL was opened successfully.
 ---@return boolean
 function system.openURL(url) end
 
@@ -8575,7 +8598,7 @@ love.thread = thread
 ---
 ---@param name string The name of the channel you want to create or retrieve.
 --- returns:
----     Channel channel - A named channel object which can be further manipulated.
+---   Channel channel - A named channel object which can be further manipulated.
 ---@return Channel
 function thread.getChannel(name) end
 
@@ -8585,7 +8608,7 @@ function thread.getChannel(name) end
 --- One use for them is to pass new unnamed channels to other threads via Channel:push
 ---
 --- returns:
----     Channel channel - A unnamed channel object which can be further manipulated.
+---   Channel channel - A unnamed channel object which can be further manipulated.
 ---@return Channel
 function thread.newChannel() end
 
@@ -8594,19 +8617,19 @@ function thread.newChannel() end
 ---
 ---@param filename string The name of the Lua File to use as source.
 --- returns:
----     Thread thread - A new Thread that has yet to be started.
+---   Thread thread - A new Thread that has yet to be started.
 ---@return Thread
 function thread.newThread(filename) end
 
 ---@param fileData FileData The FileData containing the Lua code to use as the source.
 --- returns:
----     Thread thread - A new Thread that has yet to be started.
+---   Thread thread - A new Thread that has yet to be started.
 ---@return Thread
 function thread.newThread(fileData) end
 
 ---@param codestring string A string containing the Lua code to use as the source. It needs to either be at least 1024 characters long, or contain at least one newline.
 --- returns:
----     Thread thread - A new Thread that has yet to be started.
+---   Thread thread - A new Thread that has yet to be started.
 ---@return Thread
 function thread.newThread(codestring) end
 
@@ -8619,7 +8642,7 @@ Thread = {}
 --- Retrieves the error string from the thread if it produced an error.
 ---
 --- returns:
----     string message - The error message.
+---   string message - The error message.
 ---@return string
 function Thread.getError() end
 
@@ -8646,7 +8669,7 @@ function Thread.wait() end
 --- Threads which are not running can be (re)started with Thread:start.
 ---
 --- returns:
----     boolean running - True if the thread is running, false otherwise.
+---   boolean running - True if the thread is running, false otherwise.
 ---@return boolean
 function Thread.isRunning() end
 
@@ -8666,13 +8689,13 @@ function Channel.clear() end
 --- It waits until a message is in the queue then returns the message value.
 ---
 --- returns:
----     Variant value - The contents of the message.
+---   Variant value - The contents of the message.
 ---@return Variant
 function Channel.demand() end
 
 ---@param timeout number The maximum amount of time to wait.
 --- returns:
----     Variant value - The contents of the message or nil if the timeout expired.
+---   Variant value - The contents of the message or nil if the timeout expired.
 ---@return Variant
 function Channel.demand(timeout) end
 
@@ -8680,7 +8703,7 @@ function Channel.demand(timeout) end
 --- Retrieves the number of messages in the thread Channel queue.
 ---
 --- returns:
----     number count - The number of messages in the queue.
+---   number count - The number of messages in the queue.
 ---@return number
 function Channel.getCount() end
 
@@ -8689,7 +8712,7 @@ function Channel.getCount() end
 ---
 ---@param id number An id value previously returned by Channel:push.
 --- returns:
----     boolean hasread - Whether the value represented by the id has been removed from the Channel via Channel:pop, Channel:demand, or Channel:clear.
+---   boolean hasread - Whether the value represented by the id has been removed from the Channel via Channel:pop, Channel:demand, or Channel:clear.
 ---@return boolean
 function Channel.hasRead(id) end
 
@@ -8699,7 +8722,7 @@ function Channel.hasRead(id) end
 --- It returns nil if there's no message in the queue.
 ---
 --- returns:
----     Variant value - The contents of the message.
+---   Variant value - The contents of the message.
 ---@return Variant
 function Channel.peek() end
 
@@ -8714,8 +8737,8 @@ function Channel.peek() end
 ---@param arg1 any Additional arguments that the given function will receive when it is called.
 ---@param ... any Additional arguments that the given function will receive when it is called.
 --- returns:
----     any ret1 - The first return value of the given function (if any.)
----     any ... - Any other return values.
+---   any ret1 - The first return value of the given function (if any.)
+---   any ... - Any other return values.
 ---@return any, any
 function Channel.performAtomic(func, arg1, ...) end
 
@@ -8725,7 +8748,7 @@ function Channel.performAtomic(func, arg1, ...) end
 --- It returns nil if there are no messages in the queue.
 ---
 --- returns:
----     Variant value - The contents of the message.
+---   Variant value - The contents of the message.
 ---@return Variant
 function Channel.pop() end
 
@@ -8744,14 +8767,14 @@ function Channel.push(value) end
 ---
 ---@param value Variant The contents of the message.
 --- returns:
----     boolean success - Whether the message was successfully supplied (always true).
+---   boolean success - Whether the message was successfully supplied (always true).
 ---@return boolean
 function Channel.supply(value) end
 
 ---@param value Variant The contents of the message.
 ---@param timeout number The maximum amount of time to wait.
 --- returns:
----     boolean success - Whether the message was successfully supplied before the timeout expired.
+---   boolean success - Whether the message was successfully supplied before the timeout expired.
 ---@return boolean
 function Channel.supply(value, timeout) end
 
@@ -8765,7 +8788,7 @@ love.timer = timer
 --- Returns the average delta time (seconds per frame) over the last second.
 ---
 --- returns:
----     number delta - The average delta time over the last second.
+---   number delta - The average delta time over the last second.
 ---@return number
 function timer.getAverageDelta() end
 
@@ -8773,7 +8796,7 @@ function timer.getAverageDelta() end
 --- Returns the time between the last two frames.
 ---
 --- returns:
----     number dt - The time passed (in seconds).
+---   number dt - The time passed (in seconds).
 ---@return number
 function timer.getDelta() end
 
@@ -8781,7 +8804,7 @@ function timer.getDelta() end
 --- Returns the current frames per second.
 ---
 --- returns:
----     number fps - The current FPS.
+---   number fps - The current FPS.
 ---@return number
 function timer.getFPS() end
 
@@ -8789,7 +8812,7 @@ function timer.getFPS() end
 --- Returns the value of a timer with an unspecified starting time. This function should only be used to calculate differences between points in time, as the starting time of the timer is unknown.
 ---
 --- returns:
----     number time - The time in seconds.
+---   number time - The time in seconds.
 ---@return number
 function timer.getTime() end
 
@@ -8805,7 +8828,7 @@ function timer.sleep(s) end
 function timer.step() end
 
 --- returns:
----     number dt - The time passed (in seconds).
+---   number dt - The time passed (in seconds).
 ---@return number
 function timer.step() end
 
@@ -8820,8 +8843,8 @@ love.touch = touch
 ---
 ---@param id light userdata The identifier of the touch-press. Use love.touch.getTouches, love.touchpressed, or love.touchmoved to obtain touch id values.
 --- returns:
----     number x - The position along the x-axis of the touch-press inside the window, in pixels.
----     number y - The position along the y-axis of the touch-press inside the window, in pixels.
+---   number x - The position along the x-axis of the touch-press inside the window, in pixels.
+---   number y - The position along the y-axis of the touch-press inside the window, in pixels.
 ---@return number, number
 function touch.getPosition(id) end
 
@@ -8830,7 +8853,7 @@ function touch.getPosition(id) end
 ---
 ---@param id light userdata The identifier of the touch-press. Use love.touch.getTouches, love.touchpressed, or love.touchmoved to obtain touch id values.
 --- returns:
----     number pressure - The pressure of the touch-press. Most touch screens aren't pressure sensitive, in which case the pressure will be 1.
+---   number pressure - The pressure of the touch-press. Most touch screens aren't pressure sensitive, in which case the pressure will be 1.
 ---@return number
 function touch.getPressure(id) end
 
@@ -8838,7 +8861,7 @@ function touch.getPressure(id) end
 --- Gets a list of all active touch-presses.
 ---
 --- returns:
----     table touches - A list of active touch-press id values, which can be used with love.touch.getPosition.
+---   table touches - A list of active touch-press id values, which can be used with love.touch.getPosition.
 ---@return table
 function touch.getTouches() end
 
@@ -8855,13 +8878,13 @@ love.video = video
 ---
 ---@param filename string The file path to the Ogg Theora video file.
 --- returns:
----     VideoStream videostream - A new VideoStream.
+---   VideoStream videostream - A new VideoStream.
 ---@return VideoStream
 function video.newVideoStream(filename) end
 
 ---@param file File The File object containing the Ogg Theora video.
 --- returns:
----     VideoStream videostream - A new VideoStream.
+---   VideoStream videostream - A new VideoStream.
 ---@return VideoStream
 function video.newVideoStream(file) end
 
@@ -8892,15 +8915,15 @@ function window.close() end
 ---
 ---@param pixelvalue number A number in pixels to convert to density-independent units.
 --- returns:
----     number value - The converted number, in density-independent units.
+---   number value - The converted number, in density-independent units.
 ---@return number
 function window.fromPixels(pixelvalue) end
 
 ---@param px number The x-axis value of a coordinate in pixels.
 ---@param py number The y-axis value of a coordinate in pixels.
 --- returns:
----     number x - The converted x-axis value of the coordinate, in density-independent units.
----     number y - The converted y-axis value of the coordinate, in density-independent units.
+---   number x - The converted x-axis value of the coordinate, in density-independent units.
+---   number y - The converted y-axis value of the coordinate, in density-independent units.
 ---@return number, number
 function window.fromPixels(px, py) end
 
@@ -8909,7 +8932,7 @@ function window.fromPixels(px, py) end
 ---
 ---@param displayindex number The index of the display to get the name of.
 --- returns:
----     string name - The name of the specified display.
+---   string name - The name of the specified display.
 ---@return string
 function window.getDisplayName(displayindex) end
 
@@ -8923,7 +8946,7 @@ function window.getDisplayName(displayindex) end
 --- The highdpi window flag must be enabled to use the full pixel density of a Retina screen on Mac OS X and iOS. The flag currently does nothing on Windows and Linux, and on Android it is effectively always enabled.
 ---
 --- returns:
----     number scale - The pixel scale factor associated with the window.
+---   number scale - The pixel scale factor associated with the window.
 ---@return number
 function window.getDPIScale() end
 
@@ -8931,8 +8954,8 @@ function window.getDPIScale() end
 --- Gets whether the window is fullscreen.
 ---
 --- returns:
----     boolean fullscreen - True if the window is fullscreen, false otherwise.
----     FullscreenType fstype - The type of fullscreen mode used.
+---   boolean fullscreen - True if the window is fullscreen, false otherwise.
+---   FullscreenType fstype - The type of fullscreen mode used.
 ---@return boolean, FullscreenType
 function window.getFullscreen() end
 
@@ -8941,7 +8964,7 @@ function window.getFullscreen() end
 ---
 ---@param display number The index of the display, if multiple monitors are available.
 --- returns:
----     table modes - A table of width/height pairs. (Note that this may not be in order.)
+---   table modes - A table of width/height pairs. (Note that this may not be in order.)
 ---@return table
 function window.getFullscreenModes(display) end
 
@@ -8949,7 +8972,7 @@ function window.getFullscreenModes(display) end
 --- Gets the window icon.
 ---
 --- returns:
----     ImageData imagedata - The window icon imagedata, or nil of no icon has been set with love.window.setIcon.
+---   ImageData imagedata - The window icon imagedata, or nil of no icon has been set with love.window.setIcon.
 ---@return ImageData
 function window.getIcon() end
 
@@ -8957,9 +8980,23 @@ function window.getIcon() end
 --- Returns the current display mode.
 ---
 --- returns:
----     number width - Window width.
----     number height - Window height.
----     table flags - Table containing the window properties.
+---   number width - Window width.
+---   number height - Window height.
+---   table flags - Table containing the window properties.
+---     boolean fullscreen - Fullscreen (true), or windowed (false).
+---     FullscreenType fullscreentype - The type of fullscreen mode used.
+---     boolean vsync - True if the graphics framerate is synchronized with the monitor's refresh rate, false otherwise.
+---     number msaa - The number of antialiasing samples used (0 if MSAA is disabled).
+---     boolean resizable - True if the window is resizable in windowed mode, false otherwise.
+---     boolean borderless - True if the window is borderless in windowed mode, false otherwise.
+---     boolean centered - True if the window is centered in windowed mode, false otherwise.
+---     number display - The index of the display the window is currently in, if multiple monitors are available.
+---     number minwidth - The minimum width of the window, if it's resizable.
+---     number minheight - The minimum height of the window, if it's resizable.
+---     boolean highdpi - True if high-dpi mode should be used on Retina displays in OS X and iOS. Does nothing on non-Retina displays. Added in 0.9.1.
+---     number refreshrate - The refresh rate of the screen's current display mode, in Hz. May be 0 if the value can't be determined.
+---     number x - The x-coordinate of the window's position in its current display.
+---     number y - The y-coordinate of the window's position in its current display.
 ---@return number, number, table
 function window.getMode() end
 
@@ -8973,7 +9010,7 @@ function window.getMode() end
 --- The highdpi window flag must be enabled to use the full pixel density of a Retina screen on Mac OS X and iOS. The flag currently does nothing on Windows and Linux, and on Android it is effectively always enabled.
 ---
 --- returns:
----     number scale - The pixel scale factor associated with the window.
+---   number scale - The pixel scale factor associated with the window.
 ---@return number
 function window.getPixelScale() end
 
@@ -8983,9 +9020,9 @@ function window.getPixelScale() end
 --- The window position is in the coordinate space of the display it is currently in.
 ---
 --- returns:
----     number x - The x-coordinate of the window's position.
----     number y - The y-coordinate of the window's position.
----     number display - The index of the display that the window is in.
+---   number x - The x-coordinate of the window's position.
+---   number y - The y-coordinate of the window's position.
+---   number display - The index of the display that the window is in.
 ---@return number, number, number
 function window.getPosition() end
 
@@ -8993,7 +9030,7 @@ function window.getPosition() end
 --- Gets the window title.
 ---
 --- returns:
----     string title - The current window title.
+---   string title - The current window title.
 ---@return string
 function window.getTitle() end
 
@@ -9001,7 +9038,7 @@ function window.getTitle() end
 --- Checks if the game window has keyboard focus.
 ---
 --- returns:
----     boolean focus - True if the window has the focus or false if not.
+---   boolean focus - True if the window has the focus or false if not.
 ---@return boolean
 function window.hasFocus() end
 
@@ -9009,7 +9046,7 @@ function window.hasFocus() end
 --- Checks if the game window has mouse focus.
 ---
 --- returns:
----     boolean focus - True if the window has mouse focus or false if not.
+---   boolean focus - True if the window has mouse focus or false if not.
 ---@return boolean
 function window.hasMouseFocus() end
 
@@ -9019,7 +9056,7 @@ function window.hasMouseFocus() end
 --- Display sleep is disabled by default. Some types of input (e.g. joystick button presses) might not prevent the display from sleeping, if display sleep is allowed.
 ---
 --- returns:
----     boolean enabled - True if system display sleep is enabled / allowed, false otherwise.
+---   boolean enabled - True if system display sleep is enabled / allowed, false otherwise.
 ---@return boolean
 function window.isDisplaySleepEnabled() end
 
@@ -9029,7 +9066,7 @@ function window.isDisplaySleepEnabled() end
 --- The window can be maximized if it is not fullscreen and is resizable, and either the user has pressed the window's Maximize button or love.window.maximize has been called.
 ---
 --- returns:
----     boolean maximized - True if the window is currently maximized in windowed mode, false otherwise.
+---   boolean maximized - True if the window is currently maximized in windowed mode, false otherwise.
 ---@return boolean
 function window.isMaximized() end
 
@@ -9037,7 +9074,7 @@ function window.isMaximized() end
 --- Gets whether the Window is currently minimized.
 ---
 --- returns:
----     boolean maximized - True if the window is currently minimized, false otherwise.
+---   boolean maximized - True if the window is currently minimized, false otherwise.
 ---@return boolean
 function window.isMinimized() end
 
@@ -9045,7 +9082,7 @@ function window.isMinimized() end
 --- Checks if the window is open.
 ---
 --- returns:
----     boolean open - True if the window is open, false otherwise.
+---   boolean open - True if the window is open, false otherwise.
 ---@return boolean
 function window.isOpen() end
 
@@ -9055,7 +9092,7 @@ function window.isOpen() end
 --- The window is considered visible if it's not minimized and the program isn't hidden.
 ---
 --- returns:
----     boolean visible - True if the window is visible or false if not.
+---   boolean visible - True if the window is visible or false if not.
 ---@return boolean
 function window.isVisible() end
 
@@ -9099,14 +9136,14 @@ function window.setDisplaySleepEnabled(enable) end
 ---
 ---@param fullscreen boolean Whether to enter or exit fullscreen mode.
 --- returns:
----     boolean success - True if successful, false otherwise.
+---   boolean success - True if successful, false otherwise.
 ---@return boolean
 function window.setFullscreen(fullscreen) end
 
 ---@param fullscreen boolean Whether to enter or exit fullscreen mode.
 ---@param fstype FullscreenType The type of fullscreen mode to use.
 --- returns:
----     boolean success - True if successful, false otherwise.
+---   boolean success - True if successful, false otherwise.
 ---@return boolean
 function window.setFullscreen(fullscreen, fstype) end
 
@@ -9115,7 +9152,7 @@ function window.setFullscreen(fullscreen, fstype) end
 ---
 ---@param imagedata ImageData The window icon image.
 --- returns:
----     boolean success - Whether the icon has been set successfully.
+---   boolean success - Whether the icon has been set successfully.
 ---@return boolean
 function window.setIcon(imagedata) end
 
@@ -9130,7 +9167,7 @@ function window.setIcon(imagedata) end
 ---@param height number Display height.
 ---@param flags table The flags table with the options:
 --- returns:
----     boolean success - True if successful, false otherwise.
+---   boolean success - True if successful, false otherwise.
 ---@return boolean
 function window.setMode(width, height, flags) end
 
@@ -9158,7 +9195,7 @@ function window.setTitle(title) end
 ---@param type MessageBoxType The type of the message box.
 ---@param attachtowindow boolean Whether the message box should be attached to the love window or free-floating.
 --- returns:
----     boolean success - Whether the message box was successfully displayed.
+---   boolean success - Whether the message box was successfully displayed.
 ---@return boolean
 function window.showMessageBox(title, message, type, attachtowindow) end
 
@@ -9168,7 +9205,7 @@ function window.showMessageBox(title, message, type, attachtowindow) end
 ---@param type MessageBoxType The type of the message box.
 ---@param attachtowindow boolean Whether the message box should be attached to the love window or free-floating.
 --- returns:
----     number pressedbutton - The index of the button pressed by the user. May be 0 if the message box dialog was closed without pressing a button.
+---   number pressedbutton - The index of the button pressed by the user. May be 0 if the message box dialog was closed without pressing a button.
 ---@return number
 function window.showMessageBox(title, message, buttonlist, type, attachtowindow) end
 
@@ -9183,15 +9220,15 @@ function window.showMessageBox(title, message, buttonlist, type, attachtowindow)
 ---
 ---@param value number A number in density-independent units to convert to pixels.
 --- returns:
----     number pixelvalue - The converted number, in pixels.
+---   number pixelvalue - The converted number, in pixels.
 ---@return number
 function window.toPixels(value) end
 
 ---@param x number The x-axis value of a coordinate in density-independent units to convert to pixels.
 ---@param y number The y-axis value of a coordinate in density-independent units to convert to pixels.
 --- returns:
----     number px - The converted x-axis value of the coordinate, in pixels.
----     number py - The converted y-axis value of the coordinate, in pixels.
+---   number px - The converted x-axis value of the coordinate, in pixels.
+---   number py - The converted y-axis value of the coordinate, in pixels.
 ---@return number, number
 function window.toPixels(x, y) end
 
@@ -9206,7 +9243,7 @@ function window.toPixels(x, y) end
 ---@param height number Window height.
 ---@param settings table The settings table with the following optional fields. Any field not filled in will use the current value that would be returned by love.window.getMode.
 --- returns:
----     boolean success - True if successful, false otherwise.
+---   boolean success - True if successful, false otherwise.
 ---@return boolean
 function window.updateMode(width, height, settings) end
 
@@ -9219,7 +9256,7 @@ Data = {}
 --- Gets a pointer to the Data.
 ---
 --- returns:
----     light userdata pointer - A raw pointer to the Data.
+---   light userdata pointer - A raw pointer to the Data.
 ---@return light userdata
 function Data.getPointer() end
 
@@ -9227,7 +9264,7 @@ function Data.getPointer() end
 --- Gets the size of the Data.
 ---
 --- returns:
----     number size - The size of the Data in bytes.
+---   number size - The size of the Data in bytes.
 ---@return number
 function Data.getSize() end
 
@@ -9235,7 +9272,7 @@ function Data.getSize() end
 --- Gets the full Data as a string.
 ---
 --- returns:
----     string data - The raw data.
+---   string data - The raw data.
 ---@return string
 function Data.getString() end
 
@@ -9253,7 +9290,7 @@ Object = {}
 --- Gets the type of the object as a string.
 ---
 --- returns:
----     string type - The type as a string.
+---   string type - The type as a string.
 ---@return string
 function Object.type() end
 
@@ -9262,7 +9299,7 @@ function Object.type() end
 ---
 ---@param name string The name of the type to check for.
 --- returns:
----     boolean b - True if the object is of the specified type, false otherwise.
+---   boolean b - True if the object is of the specified type, false otherwise.
 ---@return boolean
 function Object.typeOf(name) end
 
@@ -9451,7 +9488,7 @@ function love.mousereleased(x, y, button, isTouch, presses) end
 --- Callback function triggered when the game is closed.
 ---
 --- returns:
----     boolean r - Abort quitting. If true, do not close the game.
+---   boolean r - Abort quitting. If true, do not close the game.
 ---@return boolean
 function love.quit() end
 

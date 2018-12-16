@@ -23,8 +23,8 @@ function math.sum_geometry(x, y)
 end
 
 ---@param x number
----@param a number
----@param b number
+---@param a number Начало диапазона
+---@param b number Конец диапазона
 ---@return number [0.0;1.0]
 function normalize(x, a, b)
     assert(a < b, string.format('assert error: %.2f < %.f2', a, b))
@@ -44,7 +44,7 @@ function rotate_point(x, y, r)
     return x * cos - y * sin, x * sin + y * cos
 end
 
---todo проверить. А не *2? (потому что сейчас вверх не летит)
+--todo проверить. Сейчас нельзя крутить мёртвые петли :(
 function normalize_angle(angle)
     return math.pi / 2 - (angle % math.pi)
 end

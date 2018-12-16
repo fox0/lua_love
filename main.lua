@@ -33,9 +33,12 @@ end
 
 ---@param k string
 function love.keypressed(k)
-    if k == 'h' then
+    if k == 'f12' then
         is_debug_gui = not is_debug_gui
         return
+    end
+    if k == 'escape' then
+        love.event.quit()
     end
     if game_keypressed then
         game_keypressed(k)
@@ -59,6 +62,7 @@ function love.run()
         love.event.pump()
         for name, a, b, c, d, e, f in love.event.poll() do
             if name == 'quit' then
+                log.debug('event quit')
                 if game_exit then
                     game_exit()
                 end

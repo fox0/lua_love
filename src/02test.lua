@@ -7,28 +7,51 @@ local m = {}
 
 local vars = {}
 
-local function beginContact(a, b, c)
-    local aa = a:getUserData()
+local function beginContact(a, b)
+    ---@type Player
+    local player1 = a:getUserData()
     local bb = b:getUserData()
-    log.debug('Collided: ' .. aa .. ' and ' .. bb)
-    --vars.player:boom() --todo!!! Различать объекты
-    --vars.player:set_is_ground(true)
+    log.debug('Collided:', player1, 'and', bb)
+    if type(player1) ~= 'table' then
+        log.warn(player1)
+        return
+    end
+
+    if type(bb) == 'string' then
+        -- and bb == 'ground'
+        player1:boom_to_ground()
+        player1:set_is_ground(true)
+    else
+        -- if type(bb) == 'table' then
+        ---@type Player
+        local player2 = bb
+        player1:boom_to_player(player2)
+    end
 end
 
-local function endContact(a, b, c)
-    local aa = a:getUserData()
+local function endContact(a, b)
+    ---@type Player
+    local player1 = a:getUserData()
     local bb = b:getUserData()
-    log.debug('Collision ended: ' .. aa .. ' and ' .. bb)
-    --vars.player:set_is_ground(false)--todo!!! Различать объекты
+    log.debug('Collision ended:', player1, 'and', bb)
+    if type(player1) ~= 'table' then
+        log.warn(player1)
+        return
+    end
+
+    if type(bb) == 'string' then
+        -- and bb == 'ground'
+        player1:set_is_ground(false)
+    end
 end
 
-local function preSolve(a, b, c)
-
-end
-
-local function postSolve(a, b, c)
-
-end
+--local function preSolve(a, b, c)
+--
+--end
+--
+--local function postSolve(a, b, c)
+--
+--end
 
 ---@param args table В args.img лежит текстура выбранного персонажа
 function m.init(args)
@@ -47,12 +70,12 @@ function m.init(args)
     love.physics.setMeter(CONST)
     vars.world = love.physics.newWorld(0, 9.81 * CONST, true)
     ---@type Player
-    vars.player = Player:init(args.img, vars.world, -90*3, 912)
+    vars.player = Player:init(args.img, vars.world, -90 * 3, 912)
 
     ---@type Player[]
     vars.bots = {}
     for i, img in ipairs(args.imgs) do
-        vars.bots[i] = Player:init(img, vars.world, 90 * (i-2), 912)
+        vars.bots[i] = Player:init(img, vars.world, 90 * (i - 2), 912)
     end
 
     -- Create the ground body at (0, 0) static
@@ -61,7 +84,7 @@ function m.init(args)
     local ground_fixture = love.physics.newFixture(ground, vars.ground_shape)
     ground_fixture:setUserData('ground')
 
-    vars.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
+    vars.world:setCallbacks(beginContact, endContact)--, preSolve, postSolve)
 end
 
 function m.exit()
@@ -102,6 +125,7 @@ function m.update(dt)
 end
 
 function m.draw()
+    --love.graphics.scale(0.7, 0.7)
     vars.camera:attach()
 
     local k = normalize(vars.player.prev_y, const.WORLD_LIMITY, 400)

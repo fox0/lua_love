@@ -27,7 +27,12 @@ local function print_func(func, ns)
             local rets = {}
             print('--- returns:')
             for _, r in ipairs(variant.returns) do
-                print(string.format('---     %s %s - %s', r.type, r.name, str_replace(r.description)))
+                print(string.format('---   %s %s - %s', r.type, r.name, str_replace(r.description)))
+                if r.table then
+                    for _, t in ipairs(r.table) do
+                        print(string.format('---     %s %s - %s', t.type, t.name, str_replace(t.description)))
+                    end
+                end
                 rets[#rets + 1] = r.type
             end
             print(string.format('---@return %s', table.concat(rets, ', ')))

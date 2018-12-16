@@ -9,6 +9,8 @@ Sprite.__index = Sprite
 ---@return Sprite
 function Sprite:init(frames, k_speed)
     assert(frames)
+    assert(type(frames) == 'table')
+    assert(#frames > 0)
     ---@class Sprite Спрайт
     local obj = {}
     obj._frames = frames
@@ -18,6 +20,7 @@ function Sprite:init(frames, k_speed)
     obj.timer = 0
     ---@type Frame
     obj.current_frame = obj._frames[obj.index]
+    assert(obj.current_frame)
     obj.W = obj.current_frame.W
     obj.H = obj.current_frame.H
     obj.x = 0
@@ -77,19 +80,8 @@ function Sprite.parse_texture(image)
         return r
     end
 
-    ---@class SpriteList
-    local result = {}
-    result.sprite1 = Sprite:init(get_frames(5))
-
-    local frames = get_frames(5)
-    for i = 0, 2 do
-        frames[#frames + 1] = Frame:init(image, frames[4 - i]._quad, true)
-    end
-    assert(#frames == 8)
-    result.sprite2 = Sprite:init(frames)
-
-    result.sleep = Sprite:init(get_frames(3))
-
+    ---@param f Frame[]
+    ---@return Frame[]
     local function mirror(f)
         local r = {}
         for _, v in ipairs(f) do
@@ -97,6 +89,24 @@ function Sprite.parse_texture(image)
         end
         return r
     end
+
+    ---@class SpriteList
+    local result = {}
+
+    local frames = get_frames(5)
+    local f = { frames[3] }
+    result.left_wait = Sprite:init(mirror(f))
+    result.right_wait = Sprite:init(f)
+    f = nil
+
+    frames = get_frames(5)
+    for i = 0, 2 do
+        frames[#frames + 1] = Frame:init(image, frames[4 - i]._quad, true)
+    end
+    assert(#frames == 8)
+    result.sprite2 = Sprite:init(frames)
+
+    result.sleep = Sprite:init(get_frames(3))
 
     x = 0
     y = 1

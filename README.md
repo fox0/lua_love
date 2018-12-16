@@ -14,17 +14,12 @@ Download [love2d 11.2](https://bitbucket.org/rude/love/downloads/) and [the game
 ### Известные баги
 * Клавиши клавиатуры работают только на английской раскладке
 
-### Использованные источники
-#### Библиотеки
-* [log.lua](https://github.com/rxi/log.lua) — логирование
-* [STALKER-X](https://github.com/adnzzzzZ/STALKER-X) — камера
-
-#### Графика
-* [urimas](https://www.deviantart.com/urimas) — спрайты
-* [mlpblueray](https://www.deviantart.com/mlpblueray) — фоны
-
-#### Музыка
-* [1](https://www.youtube.com/watch?v=AALfBRm5G6Y)
-
 ### LICENSE
 [WTFPL](/LICENSE)
+
+### Reference
+* [log.lua](https://github.com/rxi/log.lua) — lib logging
+* [STALKER-X](https://github.com/adnzzzzZ/STALKER-X) — lib camera
+* [urimas](https://www.deviantart.com/urimas) — sprites of ponies
+* [mlpblueray](https://www.deviantart.com/mlpblueray) — backgrounds
+* [1](https://www.youtube.com/watch?v=AALfBRm5G6Y) — soundtrack

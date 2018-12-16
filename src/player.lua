@@ -13,23 +13,22 @@ function Player:init(image, world, x, y)
     ---@class Player
     local obj = {}
     ---@type SpriteList
-    obj.sprites = Sprite.parse_texture(image)
-    obj.SPRITES_GROUND = { obj.sprites.left_run, obj.sprites.left_walk,
-                           obj.sprites.left_walk, --todo
-                           obj.sprites.right_walk, obj.sprites.right_run }
+    local sprites = Sprite.parse_texture(image)
+    obj.SPRITES_GROUND = { sprites.left_run, sprites.left_walk,
+                           sprites.left_wait, --todo
+                           sprites.right_walk, sprites.right_run }
     assert(#obj.SPRITES_GROUND == 5)
-    obj.SPRITES_FLY = { obj.sprites.left_fly_run, obj.sprites.left_fly,
-                        obj.sprites.right_fly_wait, --todo отдельный флаг для выбора стороны?
-                        obj.sprites.right_fly, obj.sprites.right_fly_run }
+    obj.SPRITES_FLY = { sprites.left_fly_run, sprites.left_fly,
+                        sprites.right_fly_wait, --todo отдельный флаг для выбора стороны?
+                        sprites.right_fly, sprites.right_fly_run }
     assert(#obj.SPRITES_FLY == 5)
 
     ---@type Sprite
-    obj.sprite = obj.sprites.right_fly
+    obj.sprite = sprites.right_fly
     assert(obj.sprite)
 
     ---@type Body
     obj.body = love.physics.newBody(world, x, y, 'dynamic')
-    --obj.body:setMassData(.2)  -- kg
 
     --todo другая форма love.physics.newPolygonShape
     local W, H = obj.sprite.W, obj.sprite.H
@@ -37,9 +36,12 @@ function Player:init(image, world, x, y)
     ---@type Shape
     obj.shape = love.physics.newRectangleShape(W / 2, (H + dy) / 2, 70 - dx, 70 - dy)
     local fixture = love.physics.newFixture(obj.body, obj.shape)
-    fixture:setUserData('player') --todo!!! Различать объекты
+    fixture:setUserData(obj)
 
-    obj.body:setMassData(obj.shape:computeMass(1))
+    local x0, y0, mass, inertia = obj.shape:computeMass(1)
+    log.debug('create new pony:', x0, y0, mass, inertia)
+    obj.body:setMassData(x0, y0, mass, inertia)
+    --obj.body:setMassData(20,25,1,-0.5)
     --obj.body:setWorldCenter(20, 25)
 
     --todo как-то различать по расам (как минимум is_fly)
@@ -67,27 +69,42 @@ function Player:init(image, world, x, y)
     return setmetatable(obj, Player)
 end
 
+-- for debugging
+function Player:__tostring()
+    return 'player'
+end
+
 ---@param is_ground boolean
 function Player:set_is_ground(is_ground)
     self.is_ground = is_ground
-    if is_ground then
-        --todo
-        --self.sprite = self.sprites.walk_right
-    else
-        --self.sprite = self.sprites._sprite6_3
+    --reset loop animation
+    if not is_ground then
         self.sprite.index = 1
     end
-    assert(self.sprite)
 end
 
 --- Врезались в стену. Нужно расчитать и применить урон
-function Player:boom()
+function Player:boom_to_ground()
     local speed = math.sum_geometry(self.speedx, self.speedy)
     if speed < const.DAMAGE_SAFE_SPEED then
         return
     end
     local damage = math.pow(speed, 2) * const.K_DAMAGE
     self:set_damage(damage)
+end
+
+--- Врезались в другого игрока. Нужно расчитать и применить урон
+---@param player2 Player
+function Player:boom_to_player(player2)
+    --todo считать относительную скорость удара. так как скорость нулевая, то и урон сейчас нулевой :(
+    local speed = math.sum_geometry(self.speedx, self.speedy)
+    if speed < const.DAMAGE_SAFE_SPEED then
+        return
+    end
+    local damage = math.pow(speed, 2) * const.K_DAMAGE
+    --применить урон к обоим игрокам
+    self:set_damage(damage)
+    player2:set_damage(damage)
 end
 
 ---@param damage number
@@ -179,6 +196,7 @@ function Player:update(dt)
     self.sprite:update(dt)
 end
 
+--todo const.SPRITE_KEY_POINTS_GROUND
 --DELTA = 4
 --FAST_SPEED = 20
 --LS_GROUND = {
@@ -217,6 +235,7 @@ function Player:_update_sprite()
         self.sprite = sprites[2]
         return
     end
+    --[-0;+0]
     if -DELTA <= s and s <= DELTA then
         self.sprite = sprites[3]
         return

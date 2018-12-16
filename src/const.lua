@@ -22,6 +22,9 @@ const.K_PONY_ROTATE = 1000
 const.K_PONY_P = 1.5
 const.K_PONY_I = 100
 
+--const.SPRITE_KEY_POINTS_GROUND = { 0.0, 0.25, 0.8, 1.0 }
+--const.SPRITE_KEY_POINTS_FLY = { 0.0, 0.25, 0.8, 1.0 }
+
 --высота половины полоски хитпойнтов
 const.HP_H_HALF = 4
 const.HP_KEY_POINTS = { 0.0, 0.25, 0.8, 1.0 }
