@@ -1,3 +1,6 @@
 .idea/
 love/
+
+#lib/
 tools/love-api/
+#tools/love-api/love2d_stubs.lua

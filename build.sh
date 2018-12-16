@@ -6,5 +6,5 @@ NAME="dist/NamelessHero${VERSION}.love"
 echo "Building ${NAME}"
 zip -u ${NAME} *.lua
 zip -u ${NAME} src/*.lua
-zip -u ${NAME} lib/*.lua
+zip -u ${NAME} lib/*/*.lua
 zip -u -r ${NAME} resources

@@ -1,5 +1,5 @@
 ---@type Camera
-local Camera = require('lib/camera')
+local Camera = require('lib/love2d_camera/Camera')
 ---@type Player
 local Player = require('src/player')
 
@@ -57,6 +57,9 @@ end
 function m.init(args)
     vars.camera = Camera()
     vars.camera:setFollowStyle('LOCKON')
+    if is_debug_gui then
+        vars.camera.draw_deadzone = true
+    end
 
     vars.sound = love.audio.newSource('resources/soundtracks/EuroBeat_Brony_Discord_Instrumental_edit1.ogg', 'stream')
     vars.sound:setVolume(0.7)
@@ -117,6 +120,7 @@ function m.update(dt)
     vars.player:update(dt)
 
     for _, b in ipairs(vars.bots) do
+        b:update_bots_ai(vars.player)
         b:update(dt)
     end
 
@@ -125,7 +129,7 @@ function m.update(dt)
 end
 
 function m.draw()
-    --love.graphics.scale(0.7, 0.7)
+    --love.graphics.scale(0.5, 0.5)
     vars.camera:attach()
 
     local k = normalize(vars.player.prev_y, const.WORLD_LIMITY, 400)

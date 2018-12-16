@@ -8,4 +8,5 @@
 
 * soundtrack (the movie)
 
-* +makefile (init git-clone api и форки либ)
+* добавить флаг "лево-право"
+** зеркалить по нему наклон

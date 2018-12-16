@@ -121,6 +121,21 @@ function Player:jump()
     end
 end
 
+--- Здесь ИИ ботов
+---@param player Player
+function Player:update_bots_ai(player)
+    --блин, получилось слишком сложное управление поняшей.
+    if self.is_ground then
+        self:jump()
+    end
+    if self.prev_x + 100 > player.prev_x then
+        self.is_left = true
+    end
+    if self.prev_x + 100 < player.prev_x then
+        self.is_right = true
+    end
+end
+
 ---@param dt number
 function Player:update(dt)
     local dt100 = dt * 100
