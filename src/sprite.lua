@@ -77,7 +77,7 @@ local function get_slicer(image, sx, sy, bx, by)
         local frames = {}
         for i = x, x2 do
             local q = love.graphics.newQuad(sx * i + bx, sy * y + by, sx - 2 * bx, sy - 2 * by, h, w)
-            frames[#frames + 1] = Frame:init(image, q)
+            table.insert(frames, Frame:init(image, q))
         end
         return Sprite:init(frames)
     end

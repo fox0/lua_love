@@ -64,6 +64,9 @@ function Player:init(image, world, x, y)
     obj.speedr = 0
     obj.ix = 0
     obj.iy = 0
+
+    obj.filterx = math.get_median_smooth(21)
+    obj.filtery = math.get_median_smooth(21)
     return setmetatable(obj, Player)
 end
 
@@ -153,10 +156,10 @@ function Player:update(dt)
 
     local want_r = 0
     if not (self.ix == 0 and self.iy == 0) then
-        self.ix, self.iy = rotate_point(self.ix, self.iy, self.body:getAngle())
+        self.ix, self.iy = math.rotate_point(self.ix, self.iy, self.body:getAngle())
         self.body:applyForce(self.ix * dt100, self.iy * dt100)
         want_r = math.atan2(self.iy, self.ix)
-        want_r = normalize_angle(want_r)
+        want_r = math.normalize_angle(want_r)
     end
     if (self.is_rotate_left and not self.is_mirror) or (self.is_rotate_right and self.is_mirror) then
         want_r = want_r - const.K_PONY_R
@@ -263,13 +266,13 @@ function Player:_draw_hp()
         -- |           4----------3
         -- 6----------5
         love.graphics.setColor(const.HP_COLOR_GREEN)
-        local K = normalize(hp, const.HP_KEY_POINTS[3], const.HP_KEY_POINTS[4])
+        local K = math.normalize(hp, const.HP_KEY_POINTS[3], const.HP_KEY_POINTS[4])
         local len_bottom = W_HALF + W_HALF * K
-        local x2, y2 = rotate_point(len_bottom + const.HP_H_HALF, 0, self.sprite.r)
-        local x3, y3 = rotate_point(len_bottom, const.HP_H_HALF, self.sprite.r)
-        local x4, y4 = rotate_point(W_HALF, const.HP_H_HALF, self.sprite.r)
-        local x5, y5 = rotate_point(W_HALF - const.HP_H_HALF, 2 * const.HP_H_HALF, self.sprite.r)
-        local x6, y6 = rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
+        local x2, y2 = math.rotate_point(len_bottom + const.HP_H_HALF, 0, self.sprite.r)
+        local x3, y3 = math.rotate_point(len_bottom, const.HP_H_HALF, self.sprite.r)
+        local x4, y4 = math.rotate_point(W_HALF, const.HP_H_HALF, self.sprite.r)
+        local x5, y5 = math.rotate_point(W_HALF - const.HP_H_HALF, 2 * const.HP_H_HALF, self.sprite.r)
+        local x6, y6 = math.rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
         love.graphics.polygon('fill', x, y, x2 + x, y2 + y, x3 + x, y3 + y, x4 + x, y4 + y, x5 + x, y5 + y, x6 + x, y6 + y)
     else
         --              80%
@@ -277,11 +280,11 @@ function Player:_draw_hp()
         -- |          /
         -- 6---------3
         love.graphics.setColor((hp > const.HP_KEY_POINTS[2] and const.HP_COLOR2) or const.HP_COLOR_RED)
-        local K = normalize(hp, const.HP_KEY_POINTS[1], const.HP_KEY_POINTS[3])
+        local K = math.normalize(hp, const.HP_KEY_POINTS[1], const.HP_KEY_POINTS[3])
         local len_bottom = W_HALF * K
-        local x2, y2 = rotate_point(len_bottom + 2 * const.HP_H_HALF, 0, self.sprite.r)
-        local x3, y3 = rotate_point(len_bottom, 2 * const.HP_H_HALF, self.sprite.r)
-        local x6, y6 = rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
+        local x2, y2 = math.rotate_point(len_bottom + 2 * const.HP_H_HALF, 0, self.sprite.r)
+        local x3, y3 = math.rotate_point(len_bottom, 2 * const.HP_H_HALF, self.sprite.r)
+        local x6, y6 = math.rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
         love.graphics.polygon('fill', x, y, x2 + x, y2 + y, x3 + x, y3 + y, x6 + x, y6 + y)
     end
 
@@ -289,11 +292,11 @@ function Player:_draw_hp()
     --border
     local K = 1
     local len_bottom = W_HALF + W_HALF * K
-    local x2, y2 = rotate_point(len_bottom + const.HP_H_HALF, 0, self.sprite.r)
-    local x3, y3 = rotate_point(len_bottom, const.HP_H_HALF, self.sprite.r)
-    local x4, y4 = rotate_point(W_HALF, const.HP_H_HALF, self.sprite.r)
-    local x5, y5 = rotate_point(W_HALF - const.HP_H_HALF, 2 * const.HP_H_HALF, self.sprite.r)
-    local x6, y6 = rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
+    local x2, y2 = math.rotate_point(len_bottom + const.HP_H_HALF, 0, self.sprite.r)
+    local x3, y3 = math.rotate_point(len_bottom, const.HP_H_HALF, self.sprite.r)
+    local x4, y4 = math.rotate_point(W_HALF, const.HP_H_HALF, self.sprite.r)
+    local x5, y5 = math.rotate_point(W_HALF - const.HP_H_HALF, 2 * const.HP_H_HALF, self.sprite.r)
+    local x6, y6 = math.rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
     love.graphics.polygon('line', x, y, x2 + x, y2 + y, x3 + x, y3 + y, x4 + x, y4 + y, x5 + x, y5 + y, x6 + x, y6 + y)
 
     love.graphics.setColor(r, g, b, a)
@@ -308,13 +311,16 @@ function Player:debug_draw()
     love.graphics.circle('line', x0, y0, 3)
 
     --vector force
+    --todo gui
     local k = 0.05
     love.graphics.line(x0, y0, x0 + self.ix * k, y0 + self.iy * k)
 
     --vector speed
     love.graphics.setColor(1.0, 0.0, 0.0, 1.0)
-    k = 3.0
-    love.graphics.line(x0, y0, x0 + self.speedx * k, y0 + self.speedy * k)
+    --todo gui
+    --todo геометрическую сумму и угол
+    local k = 3.0
+    love.graphics.line(x0, y0, x0 + self.filterx(self.speedx) * k, y0 + self.filtery(self.speedy) * k)
 
     love.graphics.setColor(r, g, b, a)
 end

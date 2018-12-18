@@ -49,7 +49,7 @@ function m.init()
                             'derpy', 'pinkamina', 'trixie', 'trixie2', 'twilight_sparkle' }) do
         log.debug(string.format('loading %s...', pony))
         local img = love.graphics.newImage(string.format('resources/textures/%s.png', pony))  -- 12.6 MB
-        vars.ponies_img[#vars.ponies_img + 1] = img
+        table.insert(vars.ponies_img, img)
     end
     assert(#vars.ponies_img == 10)
 
@@ -58,7 +58,7 @@ function m.init()
     for _, img in ipairs(vars.ponies_img) do
         ---@type SpriteList
         local sprites = Sprite.parse_texture(img)
-        vars.ponies[#vars.ponies + 1] = sprites.sprite2
+        table.insert(vars.ponies, sprites.sprite2)
     end
 
     local window_width, window_height = love.graphics.getDimensions()

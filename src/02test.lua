@@ -132,7 +132,7 @@ function m.draw()
     --love.graphics.scale(0.5, 0.5)
     vars.camera:attach()
 
-    local k = normalize(vars.player.prev_y, const.WORLD_LIMITY, 400)
+    local k = math.normalize(vars.player.prev_y, const.WORLD_LIMITY, 400)
     love.graphics.setBackgroundColor(const.BG_COLOR[1] * k, const.BG_COLOR[2] * k, const.BG_COLOR[3] * k, const.BG_COLOR[4])
 
     love.graphics.draw(vars.bg, 0, 600)

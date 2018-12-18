@@ -16,7 +16,7 @@ local function print_func(func, ns)
             for _, r in ipairs(variant.arguments) do
                 if not r.name:find('"') then
                     print(string.format('---@param %s %s %s', r.name, r.type, str_replace(r.description)))
-                    args[#args + 1] = r.name
+                    table.insert(args, r.name)
                 else
                     -- и фиг с ней
                     print(string.format('-- %s %s %s', r.name, r.type, str_replace(r.description)))
@@ -33,7 +33,7 @@ local function print_func(func, ns)
                         print(string.format('---     %s %s - %s', t.type, t.name, str_replace(t.description)))
                     end
                 end
-                rets[#rets + 1] = r.type
+                table.insert(rets, r.type)
             end
             print(string.format('---@return %s', table.concat(rets, ', ')))
         end

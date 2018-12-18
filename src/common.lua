@@ -6,6 +6,7 @@ function math.sign(v)
 end
 
 --(Luc Bloom) http://lua-users.org/wiki/SimpleRound
+---@overload fun(v:number):number
 ---@param v number
 ---@param bracket number
 ---@return number
@@ -26,8 +27,8 @@ end
 ---@param x number
 ---@param a number Начало диапазона
 ---@param b number Конец диапазона
----@return number [0.0;1.0]
-function normalize(x, a, b)
+---@return number A normalized sample (range -1.0 to 1.0).
+function math.normalize(x, a, b)
     assert(a < b, string.format('assert error: %.2f < %.f2', a, b))
     local result = (x - a) / (b - a)
     result = math.max(0.0, result)
@@ -40,12 +41,44 @@ end
 ---@param y number
 ---@param r number
 ---@return number, number
-function rotate_point(x, y, r)
+function math.rotate_point(x, y, r)
     local sin, cos = math.sin(r), math.cos(r)
     return x * cos - y * sin, x * sin + y * cos
 end
 
 --todo проверить. Сейчас нельзя крутить мёртвые петли :(
-function normalize_angle(angle)
+function math.normalize_angle(angle)
     return math.pi / 2 - (angle % math.pi)
+end
+
+--- Медианный фильтр
+---@overload fun():fun(x:number):number
+---@param window number|nil
+---@return fun(x:number):number
+function math.get_median_smooth(window)
+    window = window or 5
+    assert(window % 2 == 1)
+    local buf = {}
+    for _ = 1, window do
+        table.insert(buf, 0)
+    end
+    assert(#buf == window)
+    local index = math.round(window / 2) + 1
+    return function(x)
+        table.remove(buf, 1)
+        table.insert(buf, x)
+        local buf2 = table.copy_array(buf)
+        table.sort(buf2)
+        return buf2[index]
+    end
+end
+
+---@param t table
+---@return table
+function table.copy_array(t)
+    local r = {}
+    for i = 1, #t do
+        r[i] = t[i]
+    end
+    return r
 end
