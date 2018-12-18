@@ -14,18 +14,13 @@ function Player:init(image, world, x, y)
     local obj = {}
     ---@type SpriteList
     local sprites = Sprite.parse_texture(image)
-    obj.SPRITES_GROUND = { sprites.left_run, sprites.left_walk,
-                           sprites.left_wait, --todo
-                           sprites.right_walk, sprites.right_run }
-    assert(#obj.SPRITES_GROUND == 5)
-    obj.SPRITES_FLY = { sprites.left_fly_run, sprites.left_fly,
-                        sprites.right_fly_wait, --todo отдельный флаг для выбора стороны?
-                        sprites.right_fly, sprites.right_fly_run }
-    assert(#obj.SPRITES_FLY == 5)
+    obj.SPRITES_GROUND = { sprites.wait, sprites.walk, sprites.run }
+    obj.SPRITES_FLY = { sprites.fly_wait, sprites.fly, sprites.fly_run }
+    assert(#obj.SPRITES_GROUND == 3)
+    assert(#obj.SPRITES_FLY == 3)
 
     ---@type Sprite
-    obj.sprite = sprites.right_fly
-    assert(obj.sprite)
+    obj.sprite = obj.SPRITES_FLY[1]
 
     ---@type Body
     obj.body = love.physics.newBody(world, x, y, 'dynamic')
@@ -50,6 +45,9 @@ function Player:init(image, world, x, y)
 
     --status
     obj.is_ground = false
+    obj.is_mirror = false
+
+    --public field
     obj.is_up = false
     obj.is_down = false
     obj.is_left = false
@@ -78,12 +76,12 @@ end
 function Player:set_is_ground(is_ground)
     self.is_ground = is_ground
     --reset loop animation
-    if not is_ground then
-        self.sprite.index = 1
-    end
+    --if not is_ground then
+    --    self.sprite.index = 1
+    --end
 end
 
---- Врезались в стену. Нужно расчитать и применить урон
+--- Врезались в неподвижную стену. Нужно расчитать и применить урон
 function Player:boom_to_ground()
     local speed = math.sum_geometry(self.speedx, self.speedy)
     if speed < const.DAMAGE_SAFE_SPEED then
@@ -109,9 +107,8 @@ end
 
 ---@param damage number
 function Player:set_damage(damage)
-    --todo +красную анимацию (сколько кадров?) (и label с числом причинённого урона)
     self.hp = self.hp - damage
-    log.debug(string.format('HP -%.2f. Total: %.2f', damage, self.hp))
+    --log.debug(string.format('HP -%.2f. Total: %.2f', damage, self.hp))
 end
 
 ---Прыжок от поверхности
@@ -161,27 +158,15 @@ function Player:update(dt)
         want_r = math.atan2(self.iy, self.ix)
         want_r = normalize_angle(want_r)
     end
-    if self.is_rotate_left then
+    if (self.is_rotate_left and not self.is_mirror) or (self.is_rotate_right and self.is_mirror) then
         want_r = want_r - const.K_PONY_R
     end
-    if self.is_rotate_right then
+    if (self.is_rotate_right and not self.is_mirror) or (self.is_rotate_left and self.is_mirror) then
         want_r = want_r + const.K_PONY_R
     end
 
     ---@type number
     local x, y, r = self.body:getX(), self.body:getY(), self.body:getAngle()
-
-    if y < const.WORLD_LIMITY then
-        self:set_damage(const.DAMAGE_OVERFLY * dt)
-    end
-    --восстанавливаем красную и жёлтые зоны
-    local hp = self.hp / self.MAX_HP
-    if (hp < const.HP_KEY_POINTS[2] - 0.05) or
-            (const.HP_KEY_POINTS[2] + 0.1 < hp and hp < const.HP_KEY_POINTS[3] - 0.1) then
-        local add = const.DAMAGE_NONE * dt
-        self.hp = self.hp + add
-        --log.debug(string.format('HP +%.3f. Total: %.2f', add, self.hp))
-    end
 
     self.speedx = (x - self.prev_x) * dt100
     self.speedy = (y - self.prev_y) * dt100
@@ -189,6 +174,7 @@ function Player:update(dt)
     self.prev_x = x
     self.prev_y = y
     self.prev_r = r
+    self.is_mirror = self.speedx < 0
 
     --- Сила трения
     local k = (self.is_ground and const.K_FORCE_GROUNG) or const.K_FORCE_SKY
@@ -203,31 +189,31 @@ function Player:update(dt)
     local res = error * const.K_PONY_P + self.speedr * const.K_PONY_I --PID
     self.body:applyTorque(-res * dt100 * const.K_PONY_ROTATE)
 
-    self:_update_sprite()
-    assert(self.sprite)
+    self:_update_hp(dt)
+    self.sprite = self:_update_sprite() or self.sprite
     self.sprite.x = x
     self.sprite.y = y
     self.sprite.r = r
+    self.sprite.is_mirror = self.is_mirror
     self.sprite:update(dt)
 end
 
---todo const.SPRITE_KEY_POINTS_GROUND
---DELTA = 4
---FAST_SPEED = 20
---LS_GROUND = {
---    -FAST_SPEED - DELTA,
---    -FAST_SPEED + DELTA,
---    -3 * DELTA,
---    -DELTA,
---    DELTA,
---    3 * DELTA,
---    FAST_SPEED - DELTA,
---    FAST_SPEED + DELTA,
---}
---for _, v in ipairs(LS_GROUND) do
---   print(v)
---end
+---@param dt number
+function Player:_update_hp(dt)
+    if self.body:getY() < const.WORLD_LIMITY then
+        self:set_damage(const.DAMAGE_OVERFLY * dt)
+    end
+    --восстанавливаем красную и жёлтые зоны
+    local hp = self.hp / self.MAX_HP
+    if (hp < const.HP_KEY_POINTS[2] - 0.05) or
+            (const.HP_KEY_POINTS[2] + 0.1 < hp and hp < const.HP_KEY_POINTS[3] - 0.1) then
+        local add = const.DAMAGE_NONE * dt
+        self:set_damage(-add)
+        --log.debug(string.format('HP +%.3f. Total: %.2f', add, self.hp))
+    end
+end
 
+---@return Sprite|nil
 function Player:_update_sprite()
     local DELTA, FAST_SPEED
     ---@type Sprite[]
@@ -236,32 +222,22 @@ function Player:_update_sprite()
         DELTA = 1.5
         FAST_SPEED = 6
         sprites = self.SPRITES_GROUND
+        --todo const.SPRITE_KEY_POINTS_GROUND
     else
         DELTA = 4
         FAST_SPEED = 20
         sprites = self.SPRITES_FLY
     end
-    local s = math.sum_geometry(self.speedx, self.speedy) * math.sign(self.speedx)
-    if s <= -FAST_SPEED - DELTA then
-        self.sprite = sprites[1]
-        return
-    end
-    if -FAST_SPEED + DELTA <= s and s <= -3 * DELTA then
-        self.sprite = sprites[2]
-        return
-    end
+    local s = math.sum_geometry(self.speedx, self.speedy)
     --[-0;+0]
-    if -DELTA <= s and s <= DELTA then
-        self.sprite = sprites[3]
-        return
+    if s <= DELTA then
+        return sprites[1]
     end
     if 3 * DELTA <= s and s <= FAST_SPEED - DELTA then
-        self.sprite = sprites[4]
-        return
+        return sprites[2]
     end
     if FAST_SPEED + DELTA < s then
-        self.sprite = sprites[5]
-        return
+        return sprites[3]
     end
 end
 

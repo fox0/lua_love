@@ -5,9 +5,9 @@ local Sprite = {}
 Sprite.__index = Sprite
 
 ---@param frames Frame[]
----@param k_speed number множитель скорости анимации
 ---@return Sprite
-function Sprite:init(frames, k_speed)
+function Sprite:init(frames)
+    --, k_speed)
     assert(frames)
     assert(type(frames) == 'table')
     assert(#frames > 0)
@@ -15,23 +15,26 @@ function Sprite:init(frames, k_speed)
     local obj = {}
     obj._frames = frames
     obj.index = 1  -- нумерация с единицы
-    obj._delay = 0.15 / (k_speed or 1.0)
-    obj.is_animated = true
+    obj._delay = 0.15-- / (k_speed or 1.0)
     obj.timer = 0
     ---@type Frame
     obj.current_frame = obj._frames[obj.index]
     assert(obj.current_frame)
     obj.W = obj.current_frame.W
     obj.H = obj.current_frame.H
+
+    --public field
+    obj.is_animated = true
     obj.x = 0
     obj.y = 0
     obj.r = 0
+    obj.is_mirror = false
+
     return setmetatable(obj, Sprite)
 end
 
 ---@param index number
 function Sprite:set_frame(index)
-    assert(index)
     self.index = index
     self.current_frame = self._frames[self.index]
     assert(self.current_frame)
@@ -54,153 +57,88 @@ function Sprite:update(dt)
 end
 
 function Sprite:draw()
-    self.current_frame:draw(self.x, self.y, self.r)
+    self.current_frame:draw(self.x, self.y, self.r, self.is_mirror)
+end
+
+---@param image Image
+---@param sx number
+---@param sy number
+---@param bx number
+---@param by number
+---@return fun(y:number, x:number, x2:number):Sprite
+local function get_slicer(image, sx, sy, bx, by)
+    assert(image)
+    assert(sx)
+    assert(sy)
+    assert(bx)
+    assert(by)
+    local h, w = image:getDimensions()
+    return function(y, x, x2)
+        local frames = {}
+        for i = x, x2 do
+            local q = love.graphics.newQuad(sx * i + bx, sy * y + by, sx - 2 * bx, sy - 2 * by, h, w)
+            frames[#frames + 1] = Frame:init(image, q)
+        end
+        return Sprite:init(frames)
+    end
 end
 
 --- Статическая функция
 ---@param image Image
 ---@return table словарь со спрайтами
 function Sprite.parse_texture(image)
-    local S = 96
-    local B = 2
-    local H, W = image:getDimensions()
-
-    local x = 0
-    local y = 0
-    ---@param count number
-    ---@return Frame[]
-    local function get_frames(count)
-        local r = {}
-        local e = x + count
-        while x < e do
-            local q = love.graphics.newQuad(B + x * S, B + y * S, S - 2 * B, S - 2 * B, H, W)
-            r[#r + 1] = Frame:init(image, q)
-            x = x + 1
-        end
-        return r
-    end
-
-    ---@param f Frame[]
-    ---@return Frame[]
-    local function mirror(f)
-        local r = {}
-        for _, v in ipairs(f) do
-            r[#r + 1] = Frame:init(image, v._quad, true)
-        end
-        return r
-    end
+    local parser = get_slicer(image, 96, 96, 2, 2)
 
     ---@class SpriteList
     local result = {}
+    result.wait = parser(0, 2, 2)
+    result.sprite2 = parser(0, 0, 8) --todo split
+    result.sleep = parser(0, 10, 12)
 
-    local frames = get_frames(5)
-    local f = { frames[3] }
-    result.left_wait = Sprite:init(mirror(f))
-    result.right_wait = Sprite:init(f)
-    f = nil
+    result.walk = parser(1, 12, 16)
+    --result._ = parser(2, 12, 16)  --подпрыгивает
+    result.run = parser(3, 12, 16)
+    result.fly_wait = parser(4, 12, 16)
+    result.fly = parser(5, 12, 16)
+    result.fly_run = parser(6, 12, 16)
 
-    frames = get_frames(5)
-    for i = 0, 2 do
-        frames[#frames + 1] = Frame:init(image, frames[4 - i]._quad, true)
-    end
-    assert(#frames == 8)
-    result.sprite2 = Sprite:init(frames)
-
-    result.sleep = Sprite:init(get_frames(3))
-
-    x = 0
-    y = 1
-    result.walk1 = Sprite:init(get_frames(6))
-    result.walk2 = Sprite:init(get_frames(6))
-    frames = get_frames(6)
-    result.left_walk = Sprite:init(mirror(frames))
-    result.right_walk = Sprite:init(frames)
-    result.walk4 = Sprite:init(get_frames(6))
-    result.walk5 = Sprite:init(get_frames(6))
-
-    x = 0
-    y = 2
-    result._sprite3_1 = Sprite:init(get_frames(6))
-    result._sprite3_2 = Sprite:init(get_frames(6))
-    result._sprite3_3 = Sprite:init(get_frames(6))  --подпрыгивает
-    result._sprite3_4 = Sprite:init(get_frames(6))
-    result._sprite3_5 = Sprite:init(get_frames(6))
-
-    x = 0
-    y = 3
-    result.run1 = Sprite:init(get_frames(6))
-    result.run2 = Sprite:init(get_frames(6))
-    frames = get_frames(6)
-    result.left_run = Sprite:init(mirror(frames))
-    result.right_run = Sprite:init(frames)
-    result.run4 = Sprite:init(get_frames(6))
-    result.run5 = Sprite:init(get_frames(6))
-
-    x = 0
-    y = 4
-    result.fly_wait1 = Sprite:init(get_frames(6))
-    result.fly_wait2 = Sprite:init(get_frames(6))
-    frames = get_frames(6)
-    result.left_fly_wait = Sprite:init(mirror(frames))
-    result.right_fly_wait = Sprite:init(frames)
-    result.fly_wait4 = Sprite:init(get_frames(6))
-    result.fly_wait5 = Sprite:init(get_frames(6))
-
-    x = 0
-    y = 5
-    result.fly1 = Sprite:init(get_frames(6))
-    result.fly2 = Sprite:init(get_frames(6))
-    frames = get_frames(6)
-    result.left_fly = Sprite:init(mirror(frames))
-    result.right_fly = Sprite:init(frames)
-    result.fly4 = Sprite:init(get_frames(6))
-    result.fly5 = Sprite:init(get_frames(6))
-
-    x = 0
-    y = 6
-    result.fly_run1 = Sprite:init(get_frames(6))
-    result.fly_run2 = Sprite:init(get_frames(6))
-    frames = get_frames(6)
-    result.left_fly_run = Sprite:init(mirror(frames), 1.3)
-    result.right_fly_run = Sprite:init(frames, 1.3)
-    result.fly_run4 = Sprite:init(get_frames(6))
-    result.fly_run5 = Sprite:init(get_frames(6))
-
-    x = 0
-    y = 7
-    result._sprite8_1 = Sprite:init(get_frames(2))
-    result._sprite8_2 = Sprite:init(get_frames(2))
-    result._sprite8_3 = Sprite:init(get_frames(2))  --jump up
-    result._sprite8_4 = Sprite:init(get_frames(2))
-    result._sprite8_5 = Sprite:init(get_frames(2))
-
-    x = 0
-    y = 8
-    result._sprite9_1 = Sprite:init(get_frames(2))
-    result._sprite9_2 = Sprite:init(get_frames(2))
-    result._sprite9_3 = Sprite:init(get_frames(2))  --jump down
-    result._sprite9_4 = Sprite:init(get_frames(2))
-    result._sprite9_5 = Sprite:init(get_frames(2))
-
-    x = 0
-    y = 9
-    result._sprite10_1 = Sprite:init(get_frames(9))  --kink down
-    result._sprite10_2 = Sprite:init(get_frames(5))  --kick up
-
-    x = 0
-    y = 10
-    result._sprite11_1 = Sprite:init(get_frames(2))  --?
-    result._sprite11_2 = Sprite:init(get_frames(3))
-    result._sprite11_3 = Sprite:init(get_frames(1))
-    result._sprite11_4 = Sprite:init(get_frames(8)) --покачивается злая (idle?)
-
-    x = 0
-    y = 11
-    result._sprite12_1 = Sprite:init(get_frames(4)) --нокаиутирована
-
-    x = 0
-    y = 12
-    --todo у Пинки есть ещё ряд
+    --
+    --x = 0
+    --y = 7
+    --result._sprite8_1 = Sprite:init(get_frames(2))
+    --result._sprite8_2 = Sprite:init(get_frames(2))
+    --result._sprite8_3 = Sprite:init(get_frames(2))  --jump up
+    --result._sprite8_4 = Sprite:init(get_frames(2))
+    --result._sprite8_5 = Sprite:init(get_frames(2))
+    --
+    --x = 0
+    --y = 8
+    --result._sprite9_1 = Sprite:init(get_frames(2))
+    --result._sprite9_2 = Sprite:init(get_frames(2))
+    --result._sprite9_3 = Sprite:init(get_frames(2))  --jump down
+    --result._sprite9_4 = Sprite:init(get_frames(2))
+    --result._sprite9_5 = Sprite:init(get_frames(2))
+    --
+    --x = 0
+    --y = 9
+    --result._sprite10_1 = Sprite:init(get_frames(9))  --kink down
+    --result._sprite10_2 = Sprite:init(get_frames(5))  --kick up
+    --
+    --x = 0
+    --y = 10
+    --result._sprite11_1 = Sprite:init(get_frames(2))  --?
+    --result._sprite11_2 = Sprite:init(get_frames(3))
+    --result._sprite11_3 = Sprite:init(get_frames(1))
+    --result._sprite11_4 = Sprite:init(get_frames(8)) --покачивается злая (idle?)
+    --
+    --x = 0
+    --y = 11
+    --result._sprite12_1 = Sprite:init(get_frames(4))
+    ----нокаиутирована
+    --
+    --x = 0
+    --y = 12
+    ----todo у Пинки есть ещё ряд
 
     return result
 end

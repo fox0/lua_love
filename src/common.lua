@@ -22,6 +22,7 @@ function math.sum_geometry(x, y)
     return math.sqrt(math.pow(x, 2) + math.pow(y, 2))
 end
 
+--- Нормализовать точку из диапазона
 ---@param x number
 ---@param a number Начало диапазона
 ---@param b number Конец диапазона

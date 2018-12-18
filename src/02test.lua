@@ -57,9 +57,9 @@ end
 function m.init(args)
     vars.camera = Camera()
     vars.camera:setFollowStyle('LOCKON')
-    if is_debug_gui then
-        vars.camera.draw_deadzone = true
-    end
+    --if is_debug_gui then
+    --    vars.camera.draw_deadzone = true
+    --end
 
     vars.sound = love.audio.newSource('resources/soundtracks/EuroBeat_Brony_Discord_Instrumental_edit1.ogg', 'stream')
     vars.sound:setVolume(0.7)
