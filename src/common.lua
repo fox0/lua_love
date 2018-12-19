@@ -29,21 +29,31 @@ end
 ---@param b number Конец диапазона
 ---@return number A normalized sample (range -1.0 to 1.0).
 function math.normalize(x, a, b)
-    assert(a < b, string.format('assert error: %.2f < %.f2', a, b))
+    --assert(a < b, string.format('assert error: %.2f < %.f2', a, b))
     local result = (x - a) / (b - a)
     result = math.max(0.0, result)
     result = math.min(1.0, result)
     return result
 end
 
---- Повернуть точку на заданный угол
----@param x number
----@param y number
+--- Повернуть точки на заданный угол
+---@param x0 number
+---@param y0 number
 ---@param r number
----@return number, number
-function math.rotate_point(x, y, r)
+---@param list table Массив точек
+---@return table
+function math.rotate_point(x0, y0, r, list)
+    local result = {}
     local sin, cos = math.sin(r), math.cos(r)
-    return x * cos - y * sin, x * sin + y * cos
+    local i = 1
+    while i < #list do
+        local x, y = list[i], list[i + 1]
+        table.insert(result, x * cos - y * sin + x0)
+        table.insert(result, x * sin + y * cos + y0)
+        i = i + 2
+    end
+    --assert(#list == #result)
+    return result
 end
 
 --todo проверить. Сейчас нельзя крутить мёртвые петли :(

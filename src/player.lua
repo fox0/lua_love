@@ -65,8 +65,8 @@ function Player:init(image, world, x, y)
     obj.ix = 0
     obj.iy = 0
 
-    obj.filterx = math.get_median_smooth(21)
-    obj.filtery = math.get_median_smooth(21)
+    obj.filter_r = math.get_median_smooth(21)
+    obj.filter_s = math.get_median_smooth(21)
     return setmetatable(obj, Player)
 end
 
@@ -156,7 +156,8 @@ function Player:update(dt)
 
     local want_r = 0
     if not (self.ix == 0 and self.iy == 0) then
-        self.ix, self.iy = math.rotate_point(self.ix, self.iy, self.body:getAngle())
+        local t = math.rotate_point(0, 0, self.body:getAngle(), { self.ix, self.iy })
+        self.ix, self.iy = t[1], t[2]
         self.body:applyForce(self.ix * dt100, self.iy * dt100)
         want_r = math.atan2(self.iy, self.ix)
         want_r = math.normalize_angle(want_r)
@@ -208,8 +209,8 @@ function Player:_update_hp(dt)
     end
     --восстанавливаем красную и жёлтые зоны
     local hp = self.hp / self.MAX_HP
-    if (hp < const.HP_KEY_POINTS[2] - 0.05) or
-            (const.HP_KEY_POINTS[2] + 0.1 < hp and hp < const.HP_KEY_POINTS[3] - 0.1) then
+    if (hp < const.UI_HP_KEY_POINTS[2] - 0.05) or
+            (const.UI_HP_KEY_POINTS[2] + 0.1 < hp and hp < const.UI_HP_KEY_POINTS[3] - 0.1) then
         local add = const.DAMAGE_NONE * dt
         self:set_damage(-add)
         --log.debug(string.format('HP +%.3f. Total: %.2f', add, self.hp))
@@ -246,7 +247,11 @@ end
 
 function Player:draw()
     self.sprite:draw()
+    local r, g, b, a = love.graphics.getColor()
     self:_draw_hp()
+    self:_draw_force()
+    self:_draw_speed()
+    love.graphics.setColor(r, g, b, a)
     if is_debug_gui then
         self:debug_draw()
     end
@@ -257,71 +262,91 @@ function Player:_draw_hp()
     if self.hp <= 0 then
         return
     end
-    local r, g, b, a = love.graphics.getColor()
     local x, y, W_HALF = self.sprite.x, self.sprite.y, self.sprite.W / 2
     local hp = self.hp / self.MAX_HP
-    if hp > const.HP_KEY_POINTS[3] then
+    if hp > const.UI_HP_KEY_POINTS[3] then
         --              80%         100%
         -- |-----------------------2
         -- |           4----------3
         -- 6----------5
-        love.graphics.setColor(const.HP_COLOR_GREEN)
-        local K = math.normalize(hp, const.HP_KEY_POINTS[3], const.HP_KEY_POINTS[4])
+        love.graphics.setColor(const.UI_HP_COLOR_GREEN)
+        local K = math.normalize(hp, const.UI_HP_KEY_POINTS[3], const.UI_HP_KEY_POINTS[4])
         local len_bottom = W_HALF + W_HALF * K
-        local x2, y2 = math.rotate_point(len_bottom + const.HP_H_HALF, 0, self.sprite.r)
-        local x3, y3 = math.rotate_point(len_bottom, const.HP_H_HALF, self.sprite.r)
-        local x4, y4 = math.rotate_point(W_HALF, const.HP_H_HALF, self.sprite.r)
-        local x5, y5 = math.rotate_point(W_HALF - const.HP_H_HALF, 2 * const.HP_H_HALF, self.sprite.r)
-        local x6, y6 = math.rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
-        love.graphics.polygon('fill', x, y, x2 + x, y2 + y, x3 + x, y3 + y, x4 + x, y4 + y, x5 + x, y5 + y, x6 + x, y6 + y)
+        love.graphics.polygon('fill', math.rotate_point(x, y, self.sprite.r, {
+            0, 0,
+            len_bottom + const.UI_HP_H_HALF, 0,
+            len_bottom, const.UI_HP_H_HALF,
+            W_HALF, const.UI_HP_H_HALF,
+            W_HALF - const.UI_HP_H_HALF, 2 * const.UI_HP_H_HALF,
+            0, 2 * const.UI_HP_H_HALF
+        }))
     else
         --              80%
         -- |-----------2
         -- |          /
         -- 6---------3
-        love.graphics.setColor((hp > const.HP_KEY_POINTS[2] and const.HP_COLOR2) or const.HP_COLOR_RED)
-        local K = math.normalize(hp, const.HP_KEY_POINTS[1], const.HP_KEY_POINTS[3])
+        love.graphics.setColor((hp > const.UI_HP_KEY_POINTS[2] and const.UI_HP_COLOR2) or const.UI_HP_COLOR_RED)
+        local K = math.normalize(hp, const.UI_HP_KEY_POINTS[1], const.UI_HP_KEY_POINTS[3])
         local len_bottom = W_HALF * K
-        local x2, y2 = math.rotate_point(len_bottom + 2 * const.HP_H_HALF, 0, self.sprite.r)
-        local x3, y3 = math.rotate_point(len_bottom, 2 * const.HP_H_HALF, self.sprite.r)
-        local x6, y6 = math.rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
-        love.graphics.polygon('fill', x, y, x2 + x, y2 + y, x3 + x, y3 + y, x6 + x, y6 + y)
+        love.graphics.polygon('fill', math.rotate_point(x, y, self.sprite.r, {
+            0, 0,
+            len_bottom + 2 * const.UI_HP_H_HALF, 0,
+            len_bottom, 2 * const.UI_HP_H_HALF,
+            0, 2 * const.UI_HP_H_HALF
+        }))
     end
 
-    --todo copypaste
     --border
-    local K = 1
-    local len_bottom = W_HALF + W_HALF * K
-    local x2, y2 = math.rotate_point(len_bottom + const.HP_H_HALF, 0, self.sprite.r)
-    local x3, y3 = math.rotate_point(len_bottom, const.HP_H_HALF, self.sprite.r)
-    local x4, y4 = math.rotate_point(W_HALF, const.HP_H_HALF, self.sprite.r)
-    local x5, y5 = math.rotate_point(W_HALF - const.HP_H_HALF, 2 * const.HP_H_HALF, self.sprite.r)
-    local x6, y6 = math.rotate_point(0, 2 * const.HP_H_HALF, self.sprite.r)
-    love.graphics.polygon('line', x, y, x2 + x, y2 + y, x3 + x, y3 + y, x4 + x, y4 + y, x5 + x, y5 + y, x6 + x, y6 + y)
+    local len_bottom = W_HALF * 2
+    love.graphics.polygon('line', math.rotate_point(x, y, self.sprite.r, {
+        0, 0,
+        len_bottom + const.UI_HP_H_HALF, 0,
+        len_bottom, const.UI_HP_H_HALF,
+        W_HALF, const.UI_HP_H_HALF,
+        W_HALF - const.UI_HP_H_HALF, 2 * const.UI_HP_H_HALF,
+        0, 2 * const.UI_HP_H_HALF
+    }))
+end
 
-    love.graphics.setColor(r, g, b, a)
+--- vector force
+function Player:_draw_force()
+    if self.ix == 0 and self.iy == 0 then
+        return
+    end
+    local x0, y0 = self.body:getWorldCenter()
+    local r0 = math.atan2(self.iy, self.ix)
+    love.graphics.setColor(const.UI_FORCE_COLOR)
+    love.graphics.polygon('line', math.rotate_point(x0, y0, r0, {
+        const.UI_FORCE_X0 + 0, -const.UI_FORCE_SIZE,
+        const.UI_FORCE_X0 + 2 * const.UI_FORCE_SIZE, 0,
+        const.UI_FORCE_X0 + 0, const.UI_FORCE_SIZE,
+        const.UI_FORCE_X0 + const.UI_FORCE_SIZE, 0
+    }))
+end
+
+--- vector speed
+function Player:_draw_speed()
+    local x0, y0 = self.body:getWorldCenter()
+    local r0 = self.filter_r(math.atan2(self.speedy, self.speedx))
+    local s = self.filter_s(math.sum_geometry(self.speedy, self.speedx))
+    local x_shift = const.UI_SPEED_X0
+    love.graphics.setColor(const.UI_SPEED_COLOR)
+    for _ = 1, math.round(s * const.UI_SPEED_K) do
+        love.graphics.polygon('line', math.rotate_point(x0, y0, r0, {
+            x_shift + 0, -const.UI_SPEED_SIZE,
+            x_shift + 2 * const.UI_SPEED_SIZE, 0,
+            x_shift + 0, const.UI_SPEED_SIZE,
+            x_shift + const.UI_SPEED_SIZE, 0
+        }))
+        x_shift = x_shift + const.UI_SPEED_STEP
+    end
 end
 
 function Player:debug_draw()
     local r, g, b, a = love.graphics.getColor()
     love.graphics.setColor(0.0, 0.0, 1.0, 1.0)
-
-    local x0, y0 = self.body:getWorldCenter()
-    --центр масс
+    local x0, y0 = self.body:getWorldCenter() --центр масс
     love.graphics.circle('line', x0, y0, 3)
-
-    --vector force
-    --todo gui
-    local k = 0.05
-    love.graphics.line(x0, y0, x0 + self.ix * k, y0 + self.iy * k)
-
-    --vector speed
-    love.graphics.setColor(1.0, 0.0, 0.0, 1.0)
-    --todo gui
-    --todo геометрическую сумму и угол
-    local k = 3.0
-    love.graphics.line(x0, y0, x0 + self.filterx(self.speedx) * k, y0 + self.filtery(self.speedy) * k)
-
     love.graphics.setColor(r, g, b, a)
 end
 

@@ -1,6 +1,6 @@
 love.conf = function(t)
     t.version = '11.2'
-    t.window.title = 'Nameless Hero 0.0.11'
+    t.window.title = 'Nameless Hero 0.0.12'
     t.window.icon = nil
     t.window.width = 960
     t.window.height = 540

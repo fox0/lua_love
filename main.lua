@@ -54,7 +54,7 @@ function love.run()
     love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
 
     --messages_bus = {}
-    load_module('01menu')
+    load_module('00loading')
 
     local dt = 0
     -- Main loop
