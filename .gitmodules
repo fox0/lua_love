@@ -1,0 +1,9 @@
+[submodule "love-api"]
+	path = love-api
+	url = https://github.com/love2d-community/love-api
+[submodule "lua_logging"]
+	path = lua_logging
+	url = https://github.com/fox0/lua_logging.git
+[submodule "love2d_camera"]
+	path = love2d_camera
+	url = https://github.com/fox0/love2d_camera.git

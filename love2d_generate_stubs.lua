@@ -1,5 +1,3 @@
--- cd tools
--- git clone https://github.com/love2d-community/love-api
 -- lua love2d_generate_stubs.lua > love2d_stubs.lua
 
 local function str_replace(s)
