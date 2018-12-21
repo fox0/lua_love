@@ -1,4 +1,4 @@
 .idea/
 love/
-
-tools/love-api/love2d_stubs.lua
+love2d_stubs.lua
+lua_love.iml

@@ -1,5 +1,5 @@
 ---@type Camera
-local Camera = require('lib/love2d_camera/Camera')
+local Camera = require('love2d_camera/Camera')
 ---@type Player
 local Player = require('src/player')
 

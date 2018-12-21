@@ -1,6 +1,6 @@
 -- cd tools
 -- git clone https://github.com/love2d-community/love-api
--- lua love2d.lua > love2d_stubs.lua
+-- lua love2d_generate_stubs.lua > love2d_stubs.lua
 
 local function str_replace(s)
     return select(1, string.gsub(s, '\n', '\n--- '))
@@ -67,7 +67,7 @@ end
 
 local function main()
     local love = require('love-api/love_api')
-    print('-- DO NOT EDIT! Generate by tools/love2d.lua\n')
+    print('-- DO NOT EDIT! Generate by love2d_generate_stubs.lua\n')
     print(string.format('-- love2d version %s', love.version))
     print('love = {}\n')
 

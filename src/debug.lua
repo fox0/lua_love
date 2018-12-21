@@ -1,4 +1,4 @@
-log = require('lib/lua_logging/log')
+log = require('lua_logging/log')
 log.usecolor = false
 --log.level = 'info'
 log.level = 'debug'
