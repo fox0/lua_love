@@ -47,7 +47,7 @@ const.UI_FORCE_COLOR = { 0.0, 0.0, 1.0, 0.7 }
 const.UI_SPEED_X0 = 40
 const.UI_SPEED_STEP = 15
 const.UI_SPEED_SIZE = 8
-const.UI_SPEED_COLOR = { 0.0, 0.0, 0.0, 0.8 }
+const.UI_SPEED_COLOR = { 0.0, 0.0, 0.0, 0.7 }
 const.UI_SPEED_K = 0.05
 
 --безопасная скорость, удары об другие объекты при которой не причиняют урон
