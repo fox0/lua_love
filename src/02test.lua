@@ -7,7 +7,7 @@ local m = {}
 
 local vars = {}
 
-local function beginContact(a, b)
+local function callback_begin_contact(a, b)
     ---@type Player
     local player1 = a:getUserData()
     local bb = b:getUserData()
@@ -29,7 +29,7 @@ local function beginContact(a, b)
     end
 end
 
-local function endContact(a, b)
+local function callback_end_contact(a, b)
     ---@type Player
     local player1 = a:getUserData()
     local bb = b:getUserData()
@@ -87,7 +87,7 @@ function m.init(args)
     local ground_fixture = love.physics.newFixture(ground, vars.ground_shape)
     ground_fixture:setUserData('ground')
 
-    vars.world:setCallbacks(beginContact, endContact)--, preSolve, postSolve)
+    vars.world:setCallbacks(callback_begin_contact, callback_end_contact)--, preSolve, postSolve)
 end
 
 function m.exit()
@@ -111,6 +111,7 @@ end
 function m.update(dt)
     vars.world:update(dt)
 
+    ---@type Player
     vars.player.is_up = love.keyboard.isDown('w')
     vars.player.is_down = love.keyboard.isDown('s')
     vars.player.is_left = love.keyboard.isDown('a')
@@ -129,8 +130,14 @@ function m.update(dt)
 end
 
 function m.draw()
-    --love.graphics.scale(0.5, 0.5)
     vars.camera:attach()
+
+    local s = math.abs(vars.player.speed - 1.0)
+    if s > 1.0 then
+        vars.camera.scale = 2.0 - s / 60
+    else
+        vars.camera.scale = 2.0
+    end
 
     local k = math.normalize(vars.player.prev_y, const.WORLD_LIMITY, 400)
     love.graphics.setBackgroundColor(const.BG_COLOR[1] * k, const.BG_COLOR[2] * k, const.BG_COLOR[3] * k, const.BG_COLOR[4])
@@ -155,6 +162,40 @@ function m.draw()
 
     vars.camera:detach()
     vars.camera:draw()
+
+    m._graw_ui()
+end
+
+function m._graw_ui()
+    local r, g, b, a = love.graphics.getColor()
+
+    local i0 = 15
+    local x0 = 5 + i0 * 5
+    local i;
+
+    love.graphics.setColor(1.0, 1.0, 1.0, 0.5)
+    i = i0 / 2
+    while i < x0 do
+        love.graphics.circle('line', x0, x0, i)
+        i = i + i0
+    end
+
+    love.graphics.setColor(0.0, 0.0, 0.0, 0.5)
+    i = i0 / 2
+    while i < x0 do
+        love.graphics.circle('line', x0, x0, i + 1)
+        i = i + i0
+    end
+
+    local x1 = x0 - i0 * 5 + 5
+    local y1 = x0
+    local x2 = i0 * 10
+    local y2 = i0 * 5 + 5
+    love.graphics.line(x1, y1, x2, y2)
+    --todo
+    --love.graphics.line(math.rotate_point(x0, x0, 0.2, { x1, y1, x2, y2 }))
+
+    love.graphics.setColor(r, g, b, a)
 end
 
 function m._debug_draw()
@@ -166,7 +207,7 @@ function m._debug_draw()
     while z < Z do
         love.graphics.line(z, -Z, z, Z)
         love.graphics.line(-Z, z, Z, z)
-        z = z + 100
+        z = z + 200
     end
     love.graphics.setColor(r, g, b, a)
 end

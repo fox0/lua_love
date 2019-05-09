@@ -66,7 +66,10 @@ function Player:init(image, world, x, y)
     obj.iy = 0
 
     obj.filter_r = math.get_median_smooth(21)
-    obj.filter_s = math.get_median_smooth(21)
+    obj.filter_s = math.get_median_smooth(41)
+    obj.r0 = 0
+    obj.speed = 0
+
     return setmetatable(obj, Player)
 end
 
@@ -200,6 +203,9 @@ function Player:update(dt)
     self.sprite.r = r
     self.sprite.is_mirror = self.is_mirror
     self.sprite:update(dt)
+
+    self.r0 = self.filter_r(math.atan2(self.speedy, self.speedx))
+    self.speed = self.filter_s(math.sum_geometry(self.speedy, self.speedx))
 end
 
 ---@param dt number
@@ -327,12 +333,10 @@ end
 --- vector speed
 function Player:_draw_speed()
     local x0, y0 = self.body:getWorldCenter()
-    local r0 = self.filter_r(math.atan2(self.speedy, self.speedx))
-    local s = self.filter_s(math.sum_geometry(self.speedy, self.speedx))
     local x_shift = const.UI_SPEED_X0
     love.graphics.setColor(const.UI_SPEED_COLOR)
-    for _ = 1, math.round(s * const.UI_SPEED_K) do
-        love.graphics.polygon('line', math.rotate_point(x0, y0, r0, {
+    for _ = 1, math.round(self.speed * const.UI_SPEED_K) do
+        love.graphics.polygon('line', math.rotate_point(x0, y0, self.r0, {
             x_shift + 0, -const.UI_SPEED_SIZE,
             x_shift + 2 * const.UI_SPEED_SIZE, 0,
             x_shift + 0, const.UI_SPEED_SIZE,

@@ -42,7 +42,7 @@ const.UI_HP_COLOR_RED = { 1.0, 0.0, 0.0, 1.0 }
 
 const.UI_FORCE_X0 = 40
 const.UI_FORCE_SIZE = 8
-const.UI_FORCE_COLOR = { 0.0, 0.0, 1.0, 0.7 }
+const.UI_FORCE_COLOR = { 0.8, 0.0, 0.0, 0.7 }
 
 const.UI_SPEED_X0 = 40
 const.UI_SPEED_STEP = 15

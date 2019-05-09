@@ -17,6 +17,10 @@ Download [love2d 11.2](https://bitbucket.org/rude/love/downloads/) and [the game
 ### LICENSE
 [WTFPL](/LICENSE)
 
+```bash
+git clone --recursive https://github.com/fox0/lua_love.git
+```
+
 ### Reference
 * [log.lua](https://github.com/rxi/log.lua) — lib logging
 * [STALKER-X](https://github.com/adnzzzzZ/STALKER-X) — lib camera
