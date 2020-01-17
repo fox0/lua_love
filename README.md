@@ -1,3 +1,4 @@
+![](https://api.travis-ci.com/fox0/lua_love.svg?branch=master)
 ## Nameless Hero
 Just a game with ponies.
 
