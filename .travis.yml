@@ -1,0 +1,4 @@
+language: minimal
+git:
+  depth: 1
+script: "bash build.sh"
