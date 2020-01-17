@@ -2,7 +2,10 @@
 Just a game with ponies.
 
 ### Download and run
-Download [love2d 11.2](https://bitbucket.org/rude/love/downloads/) and [the game](/dist).
+Download [love2d 11.2](https://bitbucket.org/rude/love/downloads/) and
+```bash
+./build.sh
+```
 
 ### Screenshots
 ![1.png](/docs/009_1.png)
